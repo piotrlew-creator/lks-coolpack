@@ -4,14 +4,20 @@ interface Props {
   kicker?: string;
   title: string;
   lead?: string;
+  /** Ozdobny piorun w tle nagłówka (domyślnie tak). */
+  piorun?: boolean;
 }
-const { kicker, title, lead } = Astro.props;
+const { kicker, title, lead, piorun = true } = Astro.props;
 ---
 
 <section class="phero">
-  <svg class="phero__bolt" viewBox="0 0 200 600" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M128 0 L58 250 L104 250 L40 600 L168 196 L118 196 L176 0 Z"></path>
-  </svg>
+  {
+    piorun && (
+      <svg class="phero__bolt" viewBox="0 0 200 600" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M128 0 L58 250 L104 250 L40 600 L168 196 L118 196 L176 0 Z" />
+      </svg>
+    )
+  }
   <div class="wrap phero__in">
     {kicker && <p class="kicker">{kicker}</p>}
     <h1 class="h-xl">{title}</h1>

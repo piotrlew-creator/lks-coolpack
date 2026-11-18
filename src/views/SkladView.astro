@@ -17,7 +17,7 @@ const used = POZYCJE.filter((p) => players.some((pl) => pl.data.pozycje.includes
 ---
 
 <Base lang={lang} title={t(lang, "team.title")} description={t(lang, "team.lead")} alt={{ pl: u(ROUTES.sklad.pl), en: u(ROUTES.sklad.en) }} active="sklad">
-  <PageHero kicker={t(lang, "team.kicker")} title={t(lang, "team.title")} lead={t(lang, "team.lead")} />
+  <PageHero kicker={t(lang, "team.kicker")} title={t(lang, "team.title")} lead={t(lang, "team.lead")} piorun={false} />
 
   <section class="section roster">
     <div class="wrap">
