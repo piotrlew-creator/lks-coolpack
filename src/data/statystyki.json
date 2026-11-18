@@ -38,7 +38,8 @@
       "straty": 10,
       "stratyNaMecz": 1.3,
       "przechwyty": 4,
-      "przechwytyNaMecz": 0.5
+      "przechwytyNaMecz": 0.5,
+      "plusMinusNaMecz": 8.4
     },
     "igor-urban": {
       "mecze": 5,
@@ -75,7 +76,8 @@
       "straty": 4,
       "stratyNaMecz": 0.8,
       "przechwyty": 1,
-      "przechwytyNaMecz": 0.2
+      "przechwytyNaMecz": 0.2,
+      "plusMinusNaMecz": -4.2
     },
     "marcin-tomaszewski": {
       "mecze": 9,
@@ -112,7 +114,8 @@
       "straty": 5,
       "stratyNaMecz": 0.6,
       "przechwyty": 4,
-      "przechwytyNaMecz": 0.4
+      "przechwytyNaMecz": 0.4,
+      "plusMinusNaMecz": 6.9
     },
     "jalen-sullinger": {
       "mecze": 9,
@@ -149,7 +152,8 @@
       "straty": 23,
       "stratyNaMecz": 2.6,
       "przechwyty": 9,
-      "przechwytyNaMecz": 1.0
+      "przechwytyNaMecz": 1.0,
+      "plusMinusNaMecz": 9.6
     },
     "marcel-ponitka": {
       "mecze": 9,
@@ -186,7 +190,8 @@
       "straty": 18,
       "stratyNaMecz": 2.0,
       "przechwyty": 9,
-      "przechwytyNaMecz": 1.0
+      "przechwytyNaMecz": 1.0,
+      "plusMinusNaMecz": 6.7
     },
     "jakub-motylewski": {
       "mecze": 6,
@@ -223,7 +228,8 @@
       "straty": 3,
       "stratyNaMecz": 0.5,
       "przechwyty": 1,
-      "przechwytyNaMecz": 0.2
+      "przechwytyNaMecz": 0.2,
+      "plusMinusNaMecz": -1.3
     },
     "iwo-mackowiak": {
       "mecze": 8,
@@ -260,7 +266,8 @@
       "straty": 3,
       "stratyNaMecz": 0.4,
       "przechwyty": 1,
-      "przechwytyNaMecz": 0.1
+      "przechwytyNaMecz": 0.1,
+      "plusMinusNaMecz": 1.4
     },
     "adam-lapeta": {
       "mecze": 9,
@@ -297,7 +304,8 @@
       "straty": 9,
       "stratyNaMecz": 1.0,
       "przechwyty": 5,
-      "przechwytyNaMecz": 0.6
+      "przechwytyNaMecz": 0.6,
+      "plusMinusNaMecz": 3.0
     },
     "artur-labinowicz": {
       "mecze": 9,
@@ -334,7 +342,8 @@
       "straty": 12,
       "stratyNaMecz": 1.3,
       "przechwyty": 14,
-      "przechwytyNaMecz": 1.6
+      "przechwytyNaMecz": 1.6,
+      "plusMinusNaMecz": 0.6
     },
     "aleksander-lewandowski": {
       "mecze": 7,
@@ -371,7 +380,8 @@
       "straty": 4,
       "stratyNaMecz": 0.6,
       "przechwyty": 2,
-      "przechwytyNaMecz": 0.3
+      "przechwytyNaMecz": 0.3,
+      "plusMinusNaMecz": 3.7
     },
     "norbert-kulon": {
       "mecze": 7,
@@ -408,7 +418,8 @@
       "straty": 4,
       "stratyNaMecz": 0.6,
       "przechwyty": 2,
-      "przechwytyNaMecz": 0.3
+      "przechwytyNaMecz": 0.3,
+      "plusMinusNaMecz": 0.1
     },
     "michal-kolodziej": {
       "mecze": 9,
@@ -445,7 +456,8 @@
       "straty": 15,
       "stratyNaMecz": 1.7,
       "przechwyty": 6,
-      "przechwytyNaMecz": 0.7
+      "przechwytyNaMecz": 0.7,
+      "plusMinusNaMecz": 5.4
     }
   }
 }
