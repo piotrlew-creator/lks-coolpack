@@ -1,0 +1,374 @@
+---
+/*
+  Terminarz i wyniki — wszystkie mecze sezonu, pogrupowane według miesięcy.
+  Dane: src/data/terminarz.json. Wynik prowadzi do strony meczu na 1lm.pzkosz.pl.
+*/
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { type Lang, ROUTES, t } from "../i18n/ui";
+import { aktualizacjaTerminarza, bilans, nastepny, sezon, terminarz, zrodloTerminarza, type MeczLks } from "../lib/terminarz";
+import { u } from "../lib/url";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const loc = lang === "pl" ? "pl-PL" : "en-GB";
+const b = bilans();
+
+// Data meczu jest w czasie polskim — formatujemy ją „na sztywno”, bez stref
+const dzien = (m: MeczLks) => {
+  const [y, mo, d] = m.data.slice(0, 10).split("-").map(Number);
+  return new Date(Date.UTC(y, mo - 1, d, 12));
+};
+const fmt = (o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(loc, { ...o, timeZone: "UTC" });
+const fMiesiac = fmt({ month: "long", year: "numeric" });
+const fDzienTyg = fmt({ weekday: "short" });
+
+const grupy: { klucz: string; nazwa: string; mecze: MeczLks[] }[] = [];
+for (const m of terminarz) {
+  const klucz = m.data.slice(0, 7);
+  let g = grupy.at(-1);
+  if (!g || g.klucz !== klucz) {
+    const n = fMiesiac.format(dzien(m));
+    g = { klucz, nazwa: n.charAt(0).toUpperCase() + n.slice(1), mecze: [] };
+    grupy.push(g);
+  }
+  g.mecze.push(m);
+}
+const aktualizacja = new Intl.DateTimeFormat(loc, { day: "numeric", month: "long", year: "numeric" }).format(new Date(aktualizacjaTerminarza));
+---
+
+<Base
+  lang={lang}
+  title={t(lang, "sched.title")}
+  description={t(lang, "sched.lead")}
+  alt={{ pl: u(ROUTES.terminarz.pl), en: u(ROUTES.terminarz.en) }}
+  active="terminarz"
+>
+  <PageHero kicker={`${t(lang, "sched.kicker")} ${sezon}`} title={t(lang, "sched.title")} lead={t(lang, "sched.lead")} />
+
+  <section class="section sched">
+    <div class="wrap">
+      <dl class="rec">
+        <div class="rec__main">
+          <dt>{t(lang, "sched.record")}</dt>
+          <dd>{b.razem.w}<span>–</span>{b.razem.p}</dd>
+        </div>
+        <div>
+          <dt>{t(lang, "sched.home")}</dt>
+          <dd>{b.dom.w}–{b.dom.p}</dd>
+        </div>
+        <div>
+          <dt>{t(lang, "sched.away")}</dt>
+          <dd>{b.wyjazd.w}–{b.wyjazd.p}</dd>
+        </div>
+        <div>
+          <dt>{t(lang, "sched.played")}</dt>
+          <dd>{b.rozegrane}<small> {t(lang, "sched.of")} {b.wszystkie}</small></dd>
+        </div>
+      </dl>
+
+      {nastepny && <a class="jump" href="#najblizszy">{t(lang, "sched.jump")} ↓</a>}
+
+      {
+        grupy.map((g) => (
+          <section class="month" aria-labelledby={`m-${g.klucz}`}>
+            <h2 class="month__h" id={`m-${g.klucz}`}>{g.nazwa}</h2>
+            <ol class="games" role="list">
+              {g.mecze.map((m) => {
+                const next = m === nastepny;
+                return (
+                  <li class:list={["game", { "game--next": next, "game--w": m.wygrana === true, "game--l": m.wygrana === false }]} id={next ? "najblizszy" : undefined}>
+                    <time class="game__date" datetime={m.data}>
+                      <span class="game__day">{Number(m.data.slice(8, 10))}</span>
+                      <span class="game__wd">{fDzienTyg.format(dzien(m)).replace(".", "")}</span>
+                    </time>
+                    <div class="game__info">
+                      {next && <p class="game__flag">{t(lang, "sched.next")}</p>}
+                      <p class="game__opp">{m.rywal}</p>
+                      <p class="game__meta">
+                        <span class:list={["game__tag", { "game__tag--home": m.dom }]}>{t(lang, m.dom ? "sched.vsHome" : "sched.vsAway")}</span>
+                        {m.miasto && <span>{m.miasto}</span>}
+                        <span>{m.godzina ? m.data.slice(11, 16) : t(lang, "sched.tbd")}</span>
+                      </p>
+                    </div>
+                    <div class="game__res">
+                      {m.wygrana === null ? (
+                        <span class="game__pending" aria-hidden="true">– : –</span>
+                      ) : (
+                        <a class="game__score" href={m.link} target="_blank" rel="noopener" title={t(lang, "sched.stats")}>
+                          <span class="game__wl" aria-label={t(lang, m.wygrana ? "sched.winLong" : "sched.lossLong")}>
+                            {t(lang, m.wygrana ? "sched.win" : "sched.loss")}
+                          </span>
+                          <span class="game__pts">
+                            {m.lks}:{m.rywalPkt}
+                          </span>
+                          <span class="game__ext" aria-hidden="true">↗</span>
+                        </a>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </section>
+        ))
+      }
+
+      <p class="source">
+        {t(lang, "sched.source")} {aktualizacja}. <a href={zrodloTerminarza} target="_blank" rel="noopener">1lm.pzkosz.pl ↗</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .sched {
+    padding-top: clamp(28px, 4vw, 48px);
+  }
+  /* -- Bilans --------------------------------------------------- */
+  .rec {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 clamp(20px, 3vw, 32px);
+  }
+  .rec > div {
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+  }
+  .rec dt {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .rec dd {
+    margin: 4px 0 0;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(26px, 4vw, 40px);
+    line-height: 1;
+  }
+  .rec dd small {
+    font-size: 0.5em;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .rec__main {
+    background: var(--red) !important;
+    border-color: var(--red) !important;
+    color: #fff;
+  }
+  .rec__main dt {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  .rec__main dd span {
+    opacity: 0.7;
+    margin-inline: 2px;
+  }
+  @media (max-width: 560px) {
+    .rec {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .jump {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .jump:hover {
+    text-decoration: underline;
+  }
+
+  /* -- Miesiące i mecze ---------------------------------------- */
+  .month {
+    margin-top: clamp(20px, 3vw, 32px);
+  }
+  .month__h {
+    font-size: clamp(20px, 2.4vw, 26px);
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--text);
+  }
+  .games {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .game {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 4px;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: calc(var(--header-h) + 16px);
+  }
+  .game__date {
+    display: grid;
+    justify-items: center;
+    line-height: 1;
+    font-family: var(--font-cond);
+  }
+  .game__day {
+    font-weight: 800;
+    font-size: 30px;
+  }
+  .game__wd {
+    margin-top: 3px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .game__info p {
+    margin: 0;
+  }
+  .game__flag {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .game__opp {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+  .game__vs {
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: none;
+  }
+  .game__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    margin-top: 4px !important;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .game__tag {
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .game__tag--home {
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
+  }
+  .game__res {
+    text-align: right;
+  }
+  .game__score {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 6px 10px 6px 6px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    font-family: var(--font-cond);
+    transition: border-color 160ms, background 160ms;
+  }
+  .game__score:hover {
+    border-color: var(--accent);
+  }
+  .game__wl {
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 17px;
+  }
+  .game--w .game__wl {
+    background: var(--red);
+    color: #fff;
+  }
+  .game--l .game__wl {
+    background: transparent;
+    border: 2px solid var(--muted);
+    color: var(--muted);
+  }
+  .game__pts {
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .game__ext {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .game__pending {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--muted);
+  }
+  .game--next {
+    margin-inline: -12px;
+    padding-inline: 16px 12px;
+    border-radius: var(--radius-sm);
+    border-bottom-color: transparent;
+    background: var(--bg-2);
+    box-shadow: inset 4px 0 0 var(--red);
+  }
+
+  @media (max-width: 480px) {
+    .game {
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: 10px;
+    }
+    .game__day {
+      font-size: 26px;
+    }
+    .game__pts {
+      font-size: 20px;
+    }
+    .game__ext {
+      display: none;
+    }
+    .game__score {
+      padding-right: 8px;
+    }
+  }
+
+  .source {
+    margin: 28px 0 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .source a {
+    color: inherit;
+  }
+</style>

@@ -6,7 +6,6 @@ import Base from "../layouts/Base.astro";
 import MatchCard from "../components/MatchCard.astro";
 import NewsCard from "../components/NewsCard.astro";
 import Social from "../components/Social.astro";
-import { klub } from "../data/klub";
 import { type Lang, newsUrl, route, t } from "../i18n/ui";
 import { aktualnosci, dataWpisu, paragraphs, pick } from "../lib/data";
 
@@ -41,7 +40,7 @@ const inne = (await aktualnosci()).filter((x) => x.id !== w.id).slice(0, 3);
       </div>
       <div class="post__social">
         <Social lang={lang} size="lg" />
-        <a class="btn btn--ghost" href={klub.stronaLigi} target="_blank" rel="noopener">{t(lang, "match.none.cta")} ↗</a>
+        <a class="btn btn--ghost" href={route("terminarz", lang)}>{t(lang, "match.none.cta")} →</a>
       </div>
     </div>
   </article>

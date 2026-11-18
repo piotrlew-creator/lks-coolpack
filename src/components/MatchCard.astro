@@ -17,8 +17,9 @@ interface Props {
   transmisja?: string;
   kicker?: string;
   zapowiedz?: string; // link do wpisu o tym meczu (na stronie startowej)
+  terminarz?: string; // link do strony Terminarz i wyniki (na stronie startowej)
 }
-const { lang, data, rywal, dom, miejsce, bilety, transmisja, kicker, zapowiedz } = Astro.props;
+const { lang, data, rywal, dom, miejsce, bilety, transmisja, kicker, zapowiedz, terminarz } = Astro.props;
 
 // Czas polski → UTC (zimą +1, latem +2) liczony w czasie budowania
 function polishToDate(local: string): Date {
@@ -31,6 +32,8 @@ const start = polishToDate(data);
 const koniec = start.getTime() + 3 * 3600 * 1000;
 const loc = lang === "pl" ? "pl-PL" : "en-GB";
 const dzien = new Intl.DateTimeFormat(loc, { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Warsaw" }).format(start);
+// „T00:00” = godzina jeszcze nieznana (tak zapisuje ją terminarz)
+const bezGodziny = data.endsWith("T00:00");
 const godz = new Intl.DateTimeFormat("pl-PL", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Warsaw" }).format(start);
 const gospodarz = dom ? klub.nazwaKrotka : rywal;
 const gosc = dom ? rywal : klub.nazwaKrotka;
@@ -41,7 +44,7 @@ const gosc = dom ? rywal : klub.nazwaKrotka;
   <div class="mcard__row">
     <div class="mcard__when">
       <span class="mcard__day">{dzien}</span>
-      <span class="mcard__time">{godz}</span>
+      {!bezGodziny && <span class="mcard__time">{godz}</span>}
       <span class="mcard__count" data-odliczanie hidden></span>
     </div>
     <div class="mcard__teams">
@@ -55,9 +58,10 @@ const gosc = dom ? rywal : klub.nazwaKrotka;
     </div>
   </div>
   {
-    (bilety || transmisja || zapowiedz) && (
-      <div class="btn-row mcard__btns">
+    (bilety || transmisja || zapowiedz || terminarz) && (
+      <div class="btn-row btn-row--equal mcard__btns">
         {zapowiedz && <a class="btn mcard__more" href={zapowiedz}>{t(lang, "match.preview")} →</a>}
+        {terminarz && <a class="btn btn--ghost mcard__sched" href={terminarz}>{t(lang, "match.none.cta")}</a>}
         {bilety && <a class="btn" href={bilety} target="_blank" rel="noopener">{t(lang, "match.tickets")}</a>}
         {transmisja && <a class="btn btn--ghost" href={transmisja} target="_blank" rel="noopener">{t(lang, "match.stream")}</a>}
       </div>
@@ -66,6 +70,9 @@ const gosc = dom ? rywal : klub.nazwaKrotka;
 </div>
 
 <style>
+  .mcard__sched {
+    color: #fff;
+  }
   .mcard__btns {
     position: relative;
     z-index: 1;

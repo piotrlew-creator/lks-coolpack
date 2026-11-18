@@ -65,6 +65,14 @@ opcjonalnie `zdjecie` i `mecz` (karta meczu). Trzy najnowsze wpisy pokazują si�
 Najbliższy mecz na stronie startowej: `najblizszyMecz` w `src/data/klub.ts`.
 Trzy godziny po rozpoczęciu karta meczu sama się chowa.
 
+## Terminarz i wyniki
+
+Wszystkie mecze sezonu są w `src/data/terminarz.json` (źródło: zakładka „Terminarz i wyniki”
+drużyny na 1lm.pzkosz.pl). Każdy mecz: `data` (czas polski, bez godziny = „do ustalenia”),
+`gospodarz`, `gosc`, `wynik` (`[gospodarz, gość]` albo `null` przed meczem) i `link` do strony meczu.
+Karta „Najbliższy mecz” na stronie startowej liczy się sama — to pierwszy mecz bez wyniku.
+Po meczu Claude pobiera aktualny terminarz i podmienia ten plik.
+
 ## Statystyki zawodników
 
 Dane sezonu są w `src/data/statystyki.json` (źródło: 1lm.pzkosz.pl).

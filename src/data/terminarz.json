@@ -1,0 +1,262 @@
+{
+  "sezon": "2026/2027",
+  "rozgrywki": "1. Liga Mężczyzn",
+  "zrodlo": "https://1lm.pzkosz.pl/druzyny/d/14303/lks-coolpack-lodz/1.html",
+  "aktualizacja": "2026-11-18",
+  "miasta": {
+    "SKS Fulimpex Starogard Gdański": "Starogard Gdański",
+    "GKS Tychy": "Tychy",
+    "BS Polonia Bytom": "Bytom",
+    "Enea Basket Poznań": "Poznań",
+    "Weegree AZS Politechnika Opolska": "Opole",
+    "Miasto Szkła Krosno": "Krosno",
+    "PGE Spójnia Stargard": "Stargard",
+    "Decka Pelplin": "Pelplin",
+    "Solvera Sokół Łańcut": "Łańcut",
+    "Datzzy Kotwica Port Kołobrzeg": "Kołobrzeg",
+    "KSK Qemetica Noteć Inowrocław": "Inowrocław",
+    "Zdrovo Polonia 1912 Leszno": "Leszno",
+    "WKK Active Hotel Wrocław": "Wrocław",
+    "OPTeam Resovia Rzeszów": "Rzeszów",
+    "KKS Polonia Warszawa": "Warszawa"
+  },
+  "mecze": [
+    {
+      "data": "2026-09-27T15:00",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "GKS Tychy",
+      "wynik": [
+        87,
+        52
+      ],
+      "link": "https://1lm.pzkosz.pl/mecz/223895/lks-coolpack-lodz---gks-tychy.html"
+    },
+    {
+      "data": "2026-09-30T19:00",
+      "gospodarz": "SKS Fulimpex Starogard Gdański",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": [
+        83,
+        101
+      ],
+      "link": "https://1lm.pzkosz.pl/mecz/223888/sks-fulimpex-starogard-gdanski---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2026-10-03T13:00",
+      "gospodarz": "BS Polonia Bytom",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": [
+        72,
+        86
+      ],
+      "link": "https://1lm.pzkosz.pl/mecz/223905/bs-polonia-bytom---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2026-10-11T18:00",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "Enea Basket Poznań",
+      "wynik": [
+        86,
+        79
+      ],
+      "link": "https://1lm.pzkosz.pl/mecz/223910/lks-coolpack-lodz---enea-basket-poznan.html"
+    },
+    {
+      "data": "2026-10-17T20:00",
+      "gospodarz": "Weegree AZS Politechnika Opolska",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": [
+        84,
+        78
+      ],
+      "link": "https://1lm.pzkosz.pl/mecz/223922/weegree-azs-politechnika-opolska---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2026-10-24T15:00",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "Miasto Szkła Krosno",
+      "wynik": [
+        82,
+        73
+      ],
+      "link": "https://1lm.pzkosz.pl/mecz/223925/lks-coolpack-lodz---miasto-szkla-krosno.html"
+    },
+    {
+      "data": "2026-10-31T18:00",
+      "gospodarz": "PGE Spójnia Stargard",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": [
+        105,
+        96
+      ],
+      "link": "https://1lm.pzkosz.pl/mecz/223939/pge-spojnia-stargard---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2026-11-07T20:00",
+      "gospodarz": "Decka Pelplin",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": [
+        91,
+        98
+      ],
+      "link": "https://1lm.pzkosz.pl/mecz/223940/decka-pelplin---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2026-11-15T15:00",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "Solvera Sokół Łańcut",
+      "wynik": [
+        90,
+        92
+      ],
+      "link": "https://1lm.pzkosz.pl/mecz/223955/lks-coolpack-lodz---solvera-sokol-lancut.html"
+    },
+    {
+      "data": "2026-11-19T18:00",
+      "gospodarz": "Datzzy Kotwica Port Kołobrzeg",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/223957/datzzy-kotwica-port-kolobrzeg---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2026-11-28T20:00",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "KSK Qemetica Noteć Inowrocław",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/223970/lks-coolpack-lodz---ksk-qemetica-notec-inowroclaw.html"
+    },
+    {
+      "data": "2026-12-05T20:00",
+      "gospodarz": "Zdrovo Polonia 1912 Leszno",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/223974/zdrovo-polonia-1912-leszno---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2026-12-13T15:00",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "WKK Active Hotel Wrocław",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/223985/lks-coolpack-lodz---wkk-active-hotel-wroclaw.html"
+    },
+    {
+      "data": "2026-12-19T18:00",
+      "gospodarz": "OPTeam Resovia Rzeszów",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/223991/opteam-resovia-rzeszow---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2026-12-23T19:00",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "KKS Polonia Warszawa",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224000/lks-coolpack-lodz---kks-polonia-warszawa.html"
+    },
+    {
+      "data": "2027-01-02",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "SKS Fulimpex Starogard Gdański",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224008/lks-coolpack-lodz---sks-fulimpex-starogard-gdanski.html"
+    },
+    {
+      "data": "2027-01-09",
+      "gospodarz": "GKS Tychy",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224015/gks-tychy---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2027-01-16",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "BS Polonia Bytom",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224025/lks-coolpack-lodz---bs-polonia-bytom.html"
+    },
+    {
+      "data": "2027-01-23",
+      "gospodarz": "Enea Basket Poznań",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224030/enea-basket-poznan---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2027-01-30",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "Weegree AZS Politechnika Opolska",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224042/lks-coolpack-lodz---weegree-azs-politechnika-opolska.html"
+    },
+    {
+      "data": "2027-02-06",
+      "gospodarz": "Miasto Szkła Krosno",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224045/miasto-szkla-krosno---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2027-02-13",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "PGE Spójnia Stargard",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224059/lks-coolpack-lodz---pge-spojnia-stargard.html"
+    },
+    {
+      "data": "2027-02-20",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "Decka Pelplin",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224060/lks-coolpack-lodz---decka-pelplin.html"
+    },
+    {
+      "data": "2027-02-27",
+      "gospodarz": "Solvera Sokół Łańcut",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224075/solvera-sokol-lancut---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2027-03-06",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "Datzzy Kotwica Port Kołobrzeg",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224077/lks-coolpack-lodz---datzzy-kotwica-port-kolobrzeg.html"
+    },
+    {
+      "data": "2027-03-13",
+      "gospodarz": "KSK Qemetica Noteć Inowrocław",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224090/ksk-qemetica-notec-inowroclaw---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2027-03-20",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "Zdrovo Polonia 1912 Leszno",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224094/lks-coolpack-lodz---zdrovo-polonia-1912-leszno.html"
+    },
+    {
+      "data": "2027-03-24",
+      "gospodarz": "WKK Active Hotel Wrocław",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224105/wkk-active-hotel-wroclaw---lks-coolpack-lodz.html"
+    },
+    {
+      "data": "2027-04-03",
+      "gospodarz": "ŁKS Coolpack Łódź",
+      "gosc": "OPTeam Resovia Rzeszów",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224111/lks-coolpack-lodz---opteam-resovia-rzeszow.html"
+    },
+    {
+      "data": "2027-04-10",
+      "gospodarz": "KKS Polonia Warszawa",
+      "gosc": "ŁKS Coolpack Łódź",
+      "wynik": null,
+      "link": "https://1lm.pzkosz.pl/mecz/224120/kks-polonia-warszawa---lks-coolpack-lodz.html"
+    }
+  ]
+}

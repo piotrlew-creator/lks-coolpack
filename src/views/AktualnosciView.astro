@@ -6,7 +6,7 @@ import Social from "../components/Social.astro";
 import NewsCard from "../components/NewsCard.astro";
 import { klub } from "../data/klub";
 import { aktualnosci } from "../lib/data";
-import { type Lang, ROUTES, t } from "../i18n/ui";
+import { type Lang, ROUTES, route, t } from "../i18n/ui";
 import { u } from "../lib/url";
 
 interface Props {
@@ -73,7 +73,7 @@ const wpisy = await aktualnosci();
         <div class="card">
           <p class="kicker">{t(lang, "match.none.title")}</p>
           <p>{t(lang, "match.none.text")}</p>
-          <a class="btn" href={klub.stronaLigi} target="_blank" rel="noopener">{t(lang, "match.none.cta")} ↗</a>
+          <a class="btn" href={route("terminarz", lang)}>{t(lang, "match.none.cta")} →</a>
         </div>
       </aside>
     </div>

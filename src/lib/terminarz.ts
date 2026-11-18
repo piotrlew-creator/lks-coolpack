@@ -1,0 +1,77 @@
+/*
+  Terminarz i wyniki ŁKS CoolPack — dane w src/data/terminarz.json
+  (pobierane ze strony 1lm.pzkosz.pl po każdym meczu).
+*/
+import dane from "../data/terminarz.json";
+import { klub, type Mecz } from "../data/klub";
+
+export type MeczT = {
+  data: string; // "2026-11-19T18:00" lub sama data, gdy godzina nieznana
+  gospodarz: string;
+  gosc: string;
+  wynik: [number, number] | null; // [gospodarz, gość]
+  link: string; // strona meczu na 1lm.pzkosz.pl
+};
+
+export type MeczLks = MeczT & {
+  dom: boolean; // ŁKS gospodarzem
+  rywal: string;
+  miasto: string; // gdzie gramy
+  lks: number | null; // punkty ŁKS
+  rywalPkt: number | null;
+  wygrana: boolean | null; // null = mecz nierozegrany
+  godzina: boolean; // czy znamy godzinę
+};
+
+const jestLks = (n: string) => /ŁKS\s+Coolpack/i.test(n);
+
+export const terminarz: MeczLks[] = (dane.mecze as MeczT[])
+  .map((m) => {
+    const dom = jestLks(m.gospodarz);
+    const rywal = dom ? m.gosc : m.gospodarz;
+    const [g, h] = m.wynik ?? [null, null];
+    const lks = m.wynik ? (dom ? g : h) : null;
+    const rywalPkt = m.wynik ? (dom ? h : g) : null;
+    return {
+      ...m,
+      dom,
+      rywal,
+      miasto: dom ? "Łódź" : (dane.miasta as Record<string, string>)[rywal] ?? "",
+      lks,
+      rywalPkt,
+      wygrana: lks === null || rywalPkt === null ? null : lks > rywalPkt,
+      godzina: m.data.includes("T"),
+    };
+  })
+  .sort((a, b) => a.data.localeCompare(b.data));
+
+export const sezon = dane.sezon;
+export const zrodloTerminarza = dane.zrodlo;
+export const aktualizacjaTerminarza = dane.aktualizacja;
+
+/** Bilans: zwycięstwa i porażki (wszystkie, u siebie, na wyjeździe). */
+export function bilans() {
+  const gr = terminarz.filter((m) => m.wygrana !== null);
+  const licz = (l: MeczLks[]) => ({ w: l.filter((m) => m.wygrana).length, p: l.filter((m) => m.wygrana === false).length });
+  return {
+    rozegrane: gr.length,
+    wszystkie: terminarz.length,
+    razem: licz(gr),
+    dom: licz(gr.filter((m) => m.dom)),
+    wyjazd: licz(gr.filter((m) => !m.dom)),
+  };
+}
+
+/** Pierwszy nierozegrany mecz — do karty „Najbliższy mecz”. */
+export const nastepny: MeczLks | undefined = terminarz.find((m) => m.wygrana === null);
+
+/** Najbliższy mecz na stronę startową (bilety i transmisja z src/data/klub.ts). */
+export const najblizszyMecz: Mecz | null = nastepny
+  ? {
+      data: nastepny.godzina ? nastepny.data : `${nastepny.data}T00:00`,
+      rywal: nastepny.rywal,
+      dom: nastepny.dom,
+      hala: nastepny.dom ? klub.kontakt.hala.nazwa || nastepny.miasto : nastepny.miasto,
+      bilety: nastepny.dom ? klub.kontakt.bilety.link || undefined : undefined,
+    }
+  : null;

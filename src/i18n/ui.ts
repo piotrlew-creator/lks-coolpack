@@ -12,6 +12,7 @@ export type Lang = (typeof LANGS)[number];
 export const ROUTES = {
   start: { pl: "", en: "en/" },
   sklad: { pl: "sklad/", en: "en/roster/" },
+  terminarz: { pl: "terminarz/", en: "en/fixtures/" },
   sztab: { pl: "sztab/", en: "en/staff/" },
   sponsorzy: { pl: "sponsorzy/", en: "en/sponsors/" },
   aktualnosci: { pl: "aktualnosci/", en: "en/news/" },
@@ -34,7 +35,7 @@ export function playerUrl(slug: string, lang: Lang): string {
   return lang === "pl" ? u(`sklad/${slug}/`) : u(`en/roster/${slug}/`);
 }
 
-export const NAV: RouteKey[] = ["start", "sklad", "sztab", "aktualnosci", "sponsorzy", "kontakt"];
+export const NAV: RouteKey[] = ["start", "sklad", "terminarz", "sztab", "aktualnosci", "sponsorzy", "kontakt"];
 
 export const ui = {
   pl: {
@@ -43,6 +44,7 @@ export const ui = {
     "skip": "Przejdź do treści",
     "nav.start": "Start",
     "nav.sklad": "Skład",
+    "nav.terminarz": "Terminarz",
     "nav.sztab": "Sztab",
     "nav.sponsorzy": "Sponsorzy",
     "nav.aktualnosci": "Aktualności",
@@ -66,9 +68,29 @@ export const ui = {
     "match.preview": "Czytaj zapowiedź",
     "match.stream": "Transmisja",
     "match.none.title": "Terminarz i wyniki",
-    "match.none.text":
-      "Terminarz, wyniki, tabelę i statystyki znajdziesz na stronie 1. Ligi Mężczyzn.",
-    "match.none.cta": "Strona ligi",
+    "match.none.text": "Wszystkie mecze sezonu: daty, godziny i wyniki ze statystykami.",
+    "match.none.cta": "Terminarz i wyniki",
+
+    "sched.kicker": "Sezon",
+    "sched.title": "Terminarz i wyniki",
+    "sched.lead": "Wszystkie mecze ŁKS CoolPack Łódź w 1. lidze. Kliknij wynik, żeby zobaczyć statystyki meczu na stronie PZKosz.",
+    "sched.record": "Bilans",
+    "sched.home": "U siebie",
+    "sched.away": "Na wyjeździe",
+    "sched.played": "Rozegrane",
+    "sched.of": "z",
+    "sched.next": "Najbliższy mecz",
+    "sched.jump": "Przejdź do najbliższego meczu",
+    "sched.win": "W",
+    "sched.loss": "P",
+    "sched.winLong": "Zwycięstwo",
+    "sched.lossLong": "Porażka",
+    "sched.tbd": "godz. do ustalenia",
+    "sched.vsHome": "u siebie",
+    "sched.vsAway": "na wyjeździe",
+    "sched.stats": "Statystyki meczu na stronie PZKosz",
+    "sched.source": "Źródło: Polski Związek Koszykówki (1lm.pzkosz.pl). Stan na",
+    "sched.all": "Pełny terminarz",
 
     "team.kicker": "Sezon 2026/2027",
     "team.title": "Skład",
@@ -177,6 +199,7 @@ export const ui = {
     "skip": "Skip to content",
     "nav.start": "Home",
     "nav.sklad": "Roster",
+    "nav.terminarz": "Fixtures",
     "nav.sztab": "Staff",
     "nav.sponsorzy": "Sponsors",
     "nav.aktualnosci": "News",
@@ -200,9 +223,29 @@ export const ui = {
     "match.preview": "Read the preview",
     "match.stream": "Live stream",
     "match.none.title": "Fixtures and results",
-    "match.none.text":
-      "Fixtures, results, standings and stats are on the 1st League website.",
-    "match.none.cta": "League website",
+    "match.none.text": "Every game of the season: dates, tip-off times, results and box scores.",
+    "match.none.cta": "Fixtures and results",
+
+    "sched.kicker": "Season",
+    "sched.title": "Fixtures and results",
+    "sched.lead": "All ŁKS CoolPack Łódź games in the Polish 1st League. Tap a score to see the box score on the PZKosz website.",
+    "sched.record": "Record",
+    "sched.home": "Home",
+    "sched.away": "Away",
+    "sched.played": "Played",
+    "sched.of": "of",
+    "sched.next": "Next game",
+    "sched.jump": "Jump to the next game",
+    "sched.win": "W",
+    "sched.loss": "L",
+    "sched.winLong": "Win",
+    "sched.lossLong": "Loss",
+    "sched.tbd": "time TBC",
+    "sched.vsHome": "home",
+    "sched.vsAway": "away",
+    "sched.stats": "Box score on the PZKosz website",
+    "sched.source": "Source: Polish Basketball Federation (1lm.pzkosz.pl). Updated",
+    "sched.all": "Full schedule",
 
     "team.kicker": "Season 2026/2027",
     "team.title": "Roster",

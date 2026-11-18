@@ -52,9 +52,9 @@ export const klub = {
 };
 
 /*
-  Najbliższy mecz na stronie startowej.
-  Ustaw null, gdy nie chcesz pokazywać sekcji z konkretnym meczem —
-  wtedy w tym miejscu jest odnośnik do terminarza na stronie ligi.
+  Karta „Najbliższy mecz” na stronie startowej — pierwszy nierozegrany
+  mecz z terminarza. Po meczu karta sama się chowa, a w jej miejscu
+  jest odnośnik do strony Terminarz i wyniki.
 */
 export type Mecz = {
   data: string; // "2026-11-22T18:00" (czas polski). Po meczu karta sama się chowa.
@@ -65,9 +65,4 @@ export type Mecz = {
   transmisja?: string; // link do transmisji
 };
 
-export const najblizszyMecz: Mecz | null = {
-  data: "2026-11-19T18:00",
-  rywal: "Kotwica Kołobrzeg",
-  dom: false,
-  hala: "Kołobrzeg",
-};
+// Najbliższy mecz liczy się sam z terminarza: src/data/terminarz.json (src/lib/terminarz.ts)
