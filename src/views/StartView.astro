@@ -345,7 +345,13 @@ const mecz = najblizszyMecz;
     .hero__year {
       display: none;
     }
-    .hero__team :global(.hero__img) {
+    /* zdjęcie zaraz pod paskiem nawigacji: tło w tym samym ciemnym kolorze,
+       bez jasnego pasa (także w jasnym motywie) */
+    .hero__team {
+      background: var(--black);
+    }
+    .hero__team :global(.hero__img),
+    :global([data-theme]) .hero__team :global(.hero__img) {
       -webkit-mask-image: none;
       mask-image: none;
     }
