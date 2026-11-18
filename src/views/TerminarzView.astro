@@ -202,10 +202,10 @@ const filtry = [
             </tbody>
           </table>
         </div>
-        <p class="tbl__legend">
-          <span class="lg lg--po"></span>{t(lang, "table.playoff")}
-          <span class="lg lg--sp"></span>{t(lang, "table.releg")}
-        </p>
+        <ul class="tbl__legend" role="list">
+          <li><span class="lg lg--po" aria-hidden="true"></span>{t(lang, "table.playoff")}</li>
+          <li><span class="lg lg--sp" aria-hidden="true"></span>{t(lang, "table.releg")}</li>
+        </ul>
         <p class="source">
           {t(lang, "table.source")} {aktualizacjaT}. <a href={zrodloTabeli} target="_blank" rel="noopener">1lm.pzkosz.pl ↗</a>
         </p>
@@ -215,6 +215,13 @@ const filtry = [
 </Base>
 
 <style>
+  .league,
+  .tbl__legend {
+    --zone-po: #1e8e3e;
+    --zone-po-bg: #e8f5ec;
+    --zone-sp: #e8590c;
+    --zone-sp-bg: #fdeee5;
+  }
   .sched {
     padding-top: clamp(28px, 4vw, 48px);
   }
@@ -625,11 +632,17 @@ const filtry = [
     font-size: 19px;
   }
   /* strefy: pasek z lewej */
+  .league tbody tr.z-po > * {
+    background: var(--zone-po-bg);
+  }
+  .league tbody tr.z-sp > * {
+    background: var(--zone-sp-bg);
+  }
   .league tbody tr.z-po .c-pos {
-    box-shadow: inset 4px 0 0 #2e7d4f;
+    box-shadow: inset 6px 0 0 var(--zone-po);
   }
   .league tbody tr.z-sp .c-pos {
-    box-shadow: inset 4px 0 0 #8f857b;
+    box-shadow: inset 6px 0 0 var(--zone-sp);
   }
   /* ŁKS: wyraźne podświetlenie */
   .league tbody tr.is-lks > * {
@@ -660,29 +673,30 @@ const filtry = [
     }
   }
   .tbl__legend {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+    margin: 14px 0 0;
+    padding: 0;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .tbl__legend li {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 6px 10px;
-    margin: 12px 0 0;
-    font-size: 14px;
-    color: var(--muted);
+    gap: 10px;
   }
   .lg {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border-radius: 3px;
-    margin-left: 6px;
-  }
-  .lg:first-child {
-    margin-left: 0;
+    flex: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
   }
   .lg--po {
-    background: #2e7d4f;
+    background: var(--zone-po);
   }
   .lg--sp {
-    background: #8f857b;
+    background: var(--zone-sp);
   }
 
   .source {
