@@ -22,7 +22,8 @@ const zawodnicy = defineCollection({
       dataUrodzenia: z.coerce.date().optional(), // RRRR-MM-DD
       narodowosc: z.string().optional(), // kod kraju: PL, US, LT… (nazwa pokaże się w obu językach)
       kapitan: z.boolean().default(false),
-      zdjecie: image().optional(), // portret na przezroczystym lub jednolitym tle
+      zdjecie: image().optional(), // zdjęcie na stronę zawodnika, pion 4:5 (np. 1600×2000)
+      kafel: image().optional(), // zdjęcie na kafel w składzie, pion 3:4 (np. 900×1200)
       // Opis zawodnika w obu językach (akapity rozdzielone pustą linią)
       opis: z.string().default(""),
       opisEn: z.string().default(""),

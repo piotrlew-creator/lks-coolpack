@@ -7,7 +7,8 @@ wzrost: 178
 dataUrodzenia: 2003-07-14
 narodowosc: "US"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/jalen-sullinger.png"
+zdjecie: "../../assets/zawodnicy/jalen-sullinger.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/jalen-sullinger-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   Amerykański rozgrywający. Do ŁKS CoolPack przyszedł przed sezonem 2026/2027 z KKS Polonii Warszawa, w której w sezonie 2025/2026 grał w 1. lidze.
 opisEn: |

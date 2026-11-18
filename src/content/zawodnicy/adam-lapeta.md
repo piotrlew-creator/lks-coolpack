@@ -7,7 +7,8 @@ wzrost: 217
 dataUrodzenia: 1987-11-09
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/adam-lapeta.png"
+zdjecie: "../../assets/zawodnicy/adam-lapeta.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/adam-lapeta-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   Najwyższy zawodnik w składzie. Do ŁKS CoolPack dołączył przed sezonem 2026/2027 z Górnika Zamek Książ Wałbrzych.
 

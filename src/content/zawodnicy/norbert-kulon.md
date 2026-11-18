@@ -7,7 +7,8 @@ wzrost: 184
 dataUrodzenia: 1992-03-20
 narodowosc: "PL"
 kapitan: true
-# zdjecie: "../../assets/zawodnicy/norbert-kulon.png"
+zdjecie: "../../assets/zawodnicy/norbert-kulon.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/norbert-kulon-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   Kapitan drużyny. W ŁKS od sezonu 2021/2022 — razem z zespołem przeszedł drogę z 2. ligi do 1. ligi.
 

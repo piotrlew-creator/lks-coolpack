@@ -7,7 +7,8 @@ wzrost: 194
 dataUrodzenia: 1998-07-18
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/marcin-tomaszewski.png"
+zdjecie: "../../assets/zawodnicy/marcin-tomaszewski.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/marcin-tomaszewski-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   W ŁKS od sezonu 2024/2025. Wcześniej grał w 1. lidze m.in. w MKKS Żak Koszalin i Enea Basket Poznań.
 

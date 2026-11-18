@@ -9,6 +9,8 @@ import { klub, najblizszyMecz } from "../data/klub";
 import { type Lang, ROUTES, route, t } from "../i18n/ui";
 import { sponsorzy as getSponsorzy, zawodnicy as getZawodnicy } from "../lib/data";
 import { u } from "../lib/url";
+import heroLight from "../assets/start/hero-light.jpg";
+import heroDark from "../assets/start/hero-dark.jpg";
 
 interface Props {
   lang: Lang;
@@ -18,9 +20,6 @@ const { lang } = Astro.props;
 const players = (await getZawodnicy()).slice(0, 8);
 const sponsors = (await getSponsorzy()).filter((s) => s.data.logo);
 
-// Zdjęcie w tle (opcjonalne): src/assets/start/hero.jpg|png|webp
-const heroes = import.meta.glob<{ default: ImageMetadata }>("../assets/start/hero.{jpg,jpeg,png,webp}", { eager: true });
-const hero = Object.values(heroes)[0]?.default;
 
 const mecz = najblizszyMecz;
 const meczData = mecz ? new Date(mecz.data) : null;
@@ -35,32 +34,45 @@ const fmtTime = meczData
 <Base lang={lang} alt={{ pl: u(ROUTES.start.pl), en: u(ROUTES.start.en) }} active="start">
   <!-- ══════════════ HERO ══════════════ -->
   <section class="hero" aria-labelledby="hero-title">
-    {
-      hero && (
-        <Image class="hero__img" src={hero} alt="" widths={[800, 1200, 1800, 2400]} sizes="100vw" loading="eager" fetchpriority="high" />
-      )
-    }
-    <div class="hero__veil" aria-hidden="true"></div>
     <div class="hero__year" aria-hidden="true">{klub.rokZalozenia}</div>
-    <svg class="hero__bolt" viewBox="0 0 200 600" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M128 0 L58 250 L104 250 L40 600 L168 196 L118 196 L176 0 Z"></path>
-    </svg>
-    <div class="hero__crest" aria-hidden="true">
-      <Image src={herbBialy} alt="" width={320} height={321} loading="eager" />
-    </div>
 
     <div class="hero__in wrap">
-      <p class="kicker hero__kicker">{t(lang, "hero.kicker")}</p>
-      <h1 id="hero-title" class="hero__title">
-        <span class="hero__t1">ŁKS</span>
-        <span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
-      </h1>
-      <p class="hero__sub">{t(lang, "hero.sub")}</p>
-      <div class="btn-row btn-row--equal">
-        <a class="btn" href={route("sklad", lang)}>{t(lang, "hero.cta.team")}</a>
-        <a class="btn btn--ghost" href={route("aktualnosci", lang)}>{t(lang, "hero.cta.news")}</a>
+      <div class="hero__text">
+        <p class="kicker hero__kicker">{t(lang, "hero.kicker")}</p>
+        <h1 id="hero-title" class="hero__title">
+          <span class="hero__t1">ŁKS</span>
+          <span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
+        </h1>
+        <p class="hero__sub">{t(lang, "hero.sub")}</p>
+        <div class="btn-row btn-row--equal">
+          <a class="btn" href={route("sklad", lang)}>{t(lang, "hero.cta.team")}</a>
+          <a class="btn btn--ghost" href={route("aktualnosci", lang)}>{t(lang, "hero.cta.news")}</a>
+        </div>
+      </div>
+      <div class="hero__crest" aria-hidden="true">
+        <Image src={herbBialy} alt="" width={320} height={321} loading="eager" />
       </div>
     </div>
+
+    <!-- Zdjęcie drużyny (jasny / ciemny motyw) -->
+    <figure class="hero__team">
+      <Image
+        class="hero__img hero__img--light"
+        src={heroLight}
+        alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź w białych strojach" : "ŁKS CoolPack Łódź players and staff in white kits"}
+        widths={[800, 1200, 1600, 2400]}
+        sizes="100vw"
+        loading="lazy"
+      />
+      <Image
+        class="hero__img hero__img--dark"
+        src={heroDark}
+        alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź w czarnych strojach" : "ŁKS CoolPack Łódź players and staff in black kits"}
+        widths={[800, 1200, 1600, 2400]}
+        sizes="100vw"
+        loading="lazy"
+      />
+    </figure>
   </section>
 
   <!-- ══════════════ NAJBLIŻSZY MECZ ══════════════ -->
@@ -126,7 +138,6 @@ const fmtTime = meczData
         <h2 class="h-lg">{t(lang, "staff.title")}</h2>
         <p>{t(lang, "staff.lead")}</p>
         <span class="panel__cta">{t(lang, "staff.cta")} →</span>
-        <svg class="panel__bolt" viewBox="0 0 200 600" aria-hidden="true"><path d="M128 0 L58 250 L104 250 L40 600 L168 196 L118 196 L176 0 Z"></path></svg>
       </a>
       <a class="panel panel--dark reveal" style="--d:120ms" href={klub.akademia.adres} target="_blank" rel="noopener">
         <p class="kicker">{t(lang, "academy.kicker")}</p>
@@ -181,14 +192,13 @@ const fmtTime = meczData
 </Base>
 
 <style>
-  /* -- Hero ------------------------------------------------------ */
+  /* -- Hero ------------------------------------------------------
+     Tekst na ciemnym tle, pod nim pełna szerokość zdjęcia drużyny
+     (cała drużyna zawsze widoczna — także na telefonie).            */
   .hero {
     position: relative;
-    min-height: min(92svh, 920px);
-    display: flex;
-    align-items: flex-end;
     background:
-      radial-gradient(90% 70% at 75% 30%, #3b0a0e 0%, transparent 60%),
+      radial-gradient(70% 60% at 80% 10%, #3b0a0e 0%, transparent 60%),
       linear-gradient(180deg, #120f0c 0%, #0b0907 100%);
     color: #fff;
     overflow: hidden;
@@ -196,62 +206,35 @@ const fmtTime = meczData
     margin-top: calc(-1 * var(--header-h));
     padding-top: var(--header-h);
   }
-  .hero__img {
-    position: absolute;
-    inset: 0;
-    z-index: -3;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 30%;
-  }
-  .hero__veil {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    background:
-      linear-gradient(0deg, rgba(10, 8, 6, 0.95) 0%, rgba(10, 8, 6, 0.55) 45%, rgba(10, 8, 6, 0.25) 100%),
-      linear-gradient(90deg, rgba(10, 8, 6, 0.7) 0%, transparent 70%);
-  }
   .hero__year {
     position: absolute;
     z-index: -1;
     right: -2vw;
-    bottom: -6vw;
+    top: calc(var(--header-h) - 2vw);
     font-family: var(--font-cond);
     font-weight: 800;
-    font-size: clamp(160px, 34vw, 520px);
+    font-size: clamp(140px, 28vw, 420px);
     line-height: 0.8;
     letter-spacing: -0.04em;
     color: transparent;
-    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.08);
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.07);
     user-select: none;
   }
-  .hero__bolt {
-    position: absolute;
-    z-index: -1;
-    right: 18%;
-    top: 0;
-    height: 100%;
-    width: clamp(120px, 16vw, 240px);
-    fill: var(--red);
-    opacity: 0.85;
-    filter: drop-shadow(0 0 30px rgba(212, 4, 20, 0.7));
+  .hero__in {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: clamp(36px, 7vh, 80px) 0;
   }
   .hero__crest {
-    position: absolute;
-    z-index: -1;
-    right: clamp(16px, 6vw, 96px);
-    top: calc(var(--header-h) + clamp(24px, 6vh, 80px));
-    width: clamp(110px, 18vw, 260px);
-    opacity: 0.95;
+    flex: none;
+    width: clamp(96px, 16vw, 220px);
   }
   .hero__crest :global(img) {
     width: 100%;
     height: auto;
-  }
-  .hero__in {
-    padding-block: clamp(80px, 14vh, 140px) clamp(64px, 10vh, 110px);
   }
   .hero__kicker {
     color: #fff;
@@ -260,40 +243,74 @@ const fmtTime = meczData
     background: var(--red);
   }
   .hero__title {
-    margin: 0 0 22px;
+    margin: 0 0 18px;
     display: flex;
-    flex-direction: column;
-    line-height: 0.82;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.22em;
+    line-height: 0.86;
   }
   .hero__t1 {
-    font-size: clamp(96px, 22vw, 260px);
-    letter-spacing: -0.01em;
+    font-size: clamp(64px, 11vw, 150px);
   }
   .hero__t2 {
-    font-size: clamp(40px, 8.5vw, 104px);
+    font-size: clamp(40px, 7vw, 96px);
     color: var(--red-on-dark);
   }
   .hero__sub {
-    max-width: 56ch;
-    font-size: clamp(17px, 1.6vw, 20px);
+    max-width: 60ch;
+    font-size: clamp(16px, 1.5vw, 19px);
     color: #ddd4ca;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
+  }
+  .hero__team {
+    position: relative;
+    margin: clamp(-60px, -4vw, -20px) 0 0;
+    z-index: -1;
+  }
+  .hero__team::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
+    bottom: 0;
+    height: 18%;
+    background: linear-gradient(transparent, var(--bg));
+  }
+  .hero__team :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 86svh;
+    object-fit: cover;
+    object-position: 50% 60%;
+    /* górna krawędź zdjęcia płynnie przechodzi w tło */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 26%);
+  }
+  :global([data-theme="dark"]) .hero__team :global(.hero__img--light),
+  :global([data-theme="light"]) .hero__team :global(.hero__img--dark) {
+    display: none;
   }
   @media (max-width: 700px) {
-    .hero__bolt {
-      right: 4%;
-      opacity: 0.55;
+    .hero__in {
+      align-items: flex-start;
     }
     .hero__crest {
-      opacity: 0.9;
+      display: none; /* herb jest już w pasku u góry */
+    }
+    .hero__text {
+      padding-right: 0;
+    }
+    .hero__team {
+      margin-top: 8px;
     }
   }
 
   /* Wejście hero: piorun uderza, tytuł wjeżdża */
   @media (prefers-reduced-motion: no-preference) {
-    .hero__bolt {
-      animation: hero-bolt 900ms 150ms var(--ease) both;
-    }
     .hero__t1,
     .hero__t2,
     .hero__sub,
@@ -309,16 +326,9 @@ const fmtTime = meczData
     .hero__crest {
       animation: hero-crest 1000ms 300ms var(--ease) both;
     }
-    .hero__year {
-      animation: hero-year 1600ms 100ms var(--ease) both;
+    .hero__team :global(img) {
+      animation: hero-team 1400ms 200ms var(--ease) both;
     }
-  }
-  @keyframes hero-bolt {
-    0% { clip-path: inset(0 0 100% 0); opacity: 1; filter: brightness(3) drop-shadow(0 0 40px #fff); }
-    25% { clip-path: inset(0 0 0 0); }
-    35% { opacity: 0.2; }
-    45% { opacity: 1; filter: brightness(2) drop-shadow(0 0 40px #fff); }
-    100% { opacity: 0.85; filter: drop-shadow(0 0 30px rgba(212, 4, 20, 0.7)); }
   }
   @keyframes hero-in {
     from { opacity: 0; transform: translateY(40px) skewY(3deg); }
@@ -326,8 +336,8 @@ const fmtTime = meczData
   @keyframes hero-crest {
     from { opacity: 0; transform: scale(0.6) rotate(-25deg); }
   }
-  @keyframes hero-year {
-    from { opacity: 0; transform: translateX(10%); }
+  @keyframes hero-team {
+    from { opacity: 0; transform: scale(1.04); filter: brightness(1.8); }
   }
 
   /* -- Najbliższy mecz ---------------------------------------- */
@@ -504,19 +514,6 @@ const fmtTime = meczData
     text-transform: uppercase;
     border-bottom: 3px solid currentColor;
     padding-bottom: 2px;
-  }
-  .panel__bolt {
-    position: absolute;
-    z-index: -1;
-    right: -20px;
-    top: -10%;
-    height: 120%;
-    width: 160px;
-    fill: rgba(0, 0, 0, 0.18);
-    transition: transform 500ms var(--ease);
-  }
-  .panel:hover .panel__bolt {
-    transform: translateX(-20px) skewX(-6deg);
   }
 
   /* -- Pas social media ------------------------------------------ */

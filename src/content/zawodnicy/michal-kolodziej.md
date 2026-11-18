@@ -7,7 +7,8 @@ wzrost: 203
 dataUrodzenia: 1997-07-02
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/michal-kolodziej.png"
+zdjecie: "../../assets/zawodnicy/michal-kolodziej.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/michal-kolodziej-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   Do ŁKS CoolPack dołączył przed sezonem 2026/2027 z Anwilu Włocławek.
 

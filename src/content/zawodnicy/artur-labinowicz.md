@@ -7,7 +7,8 @@ wzrost: 193
 dataUrodzenia: 1997-01-23
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/artur-labinowicz.png"
+zdjecie: "../../assets/zawodnicy/artur-labinowicz.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/artur-labinowicz-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   Do ŁKS CoolPack dołączył przed sezonem 2026/2027 z Solvery Sokoła Łańcut, z którym grał w 1. lidze.
 

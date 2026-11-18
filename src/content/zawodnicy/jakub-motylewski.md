@@ -7,7 +7,8 @@ wzrost: 210
 dataUrodzenia: 1995-03-31
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/jakub-motylewski.png"
+zdjecie: "../../assets/zawodnicy/jakub-motylewski.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/jakub-motylewski-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   W ŁKS od sezonu 2025/2026, wcześniej przez dwa sezony grał w Kotwicy Kołobrzeg.
 

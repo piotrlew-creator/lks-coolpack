@@ -7,7 +7,8 @@ wzrost: 192
 dataUrodzenia: 2005-07-29
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/igor-urban.png"
+zdjecie: "../../assets/zawodnicy/igor-urban.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/igor-urban-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   Najmłodszy zawodnik w składzie. W ŁKS gra od sezonu 2023/2024 — występuje w 1. lidze, a równolegle w drużynie ŁKS II Politechnika Łódzka w 2. lidze.
 

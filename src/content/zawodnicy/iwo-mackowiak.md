@@ -7,7 +7,8 @@ wzrost: 198
 dataUrodzenia: 2003-09-13
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/iwo-mackowiak.png"
+zdjecie: "../../assets/zawodnicy/iwo-mackowiak.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/iwo-mackowiak-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   W ŁKS od sezonu 2023/2024. W poprzednich sezonach grał równolegle w 1. lidze i w drużynie ŁKS Politechnika Łódzka w 2. lidze.
 

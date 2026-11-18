@@ -7,7 +7,8 @@ wzrost: 199
 dataUrodzenia: 2000-09-30
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/aleksander-lewandowski.png"
+zdjecie: "../../assets/zawodnicy/aleksander-lewandowski.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/aleksander-lewandowski-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   W ŁKS od sezonu 2025/2026, wcześniej grał w MKKS Żak Koszalin.
 

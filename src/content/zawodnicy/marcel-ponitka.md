@@ -7,7 +7,8 @@ wzrost: 192
 dataUrodzenia: 1997-08-28
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/marcel-ponitka.png"
+zdjecie: "../../assets/zawodnicy/marcel-ponitka.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/marcel-ponitka-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   W ŁKS od sezonu 2025/2026.
 

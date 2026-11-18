@@ -7,7 +7,8 @@ wzrost: 210
 dataUrodzenia: 1997-01-28
 narodowosc: "PL"
 kapitan: false
-# zdjecie: "../../assets/zawodnicy/maciej-bender.png"
+zdjecie: "../../assets/zawodnicy/maciej-bender.jpg" # strona zawodnika (4:5)
+kafel: "../../assets/zawodnicy/maciej-bender-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
   Do ŁKS CoolPack przyszedł przed sezonem 2026/2027 z Tauron GTK Gliwice.
 

@@ -16,6 +16,7 @@ interface Props {
 }
 const { p, lang, index = 0 } = Astro.props;
 const d = p.data;
+const foto = d.kafel ?? d.zdjecie;
 ---
 
 <a
@@ -30,11 +31,11 @@ const d = p.data;
   <span class="pcard__stripe" aria-hidden="true"></span>
   <span class="pcard__photo" data-vt="photo">
     {
-      d.zdjecie ? (
+      foto ? (
         <Image
-          src={d.zdjecie}
+          src={foto}
           alt=""
-          widths={[280, 420, 560]}
+          widths={[300, 450, 600, 900]}
           sizes="(min-width: 1100px) 280px, (min-width: 700px) 30vw, 46vw"
           loading="lazy"
         />
@@ -86,7 +87,7 @@ const d = p.data;
 
   .pcard__num {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     right: -4%;
     top: -2%;
     font-family: var(--font-cond);
@@ -95,7 +96,7 @@ const d = p.data;
     line-height: 0.8;
     letter-spacing: -0.04em;
     color: transparent;
-    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.14);
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.18);
     transition:
       color 300ms,
       -webkit-text-stroke-color 300ms,
@@ -109,7 +110,7 @@ const d = p.data;
 
   .pcard__stripe {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     left: -30%;
     bottom: 18%;
     width: 160%;
@@ -127,7 +128,7 @@ const d = p.data;
 
   .pcard__photo {
     position: absolute;
-    inset: 8% 4% 0;
+    inset: 0;
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -135,11 +136,18 @@ const d = p.data;
     transition: transform 400ms var(--ease);
     transform-origin: 50% 100%;
   }
+  /* Zdjęcia mają ciemne tło — tryb „lighten” wtapia je w kafel,
+     a numer z tyłu prześwituje tam, gdzie tło jest ciemniejsze. */
   .pcard__photo :global(img) {
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    object-position: 50% 100%;
+    object-fit: cover;
+    object-position: 50% 0;
+    mix-blend-mode: lighten;
+  }
+  .pcard__photo :global(.silhouette) {
+    width: 90%;
+    height: 90%;
   }
   .pcard:hover .pcard__photo {
     transform: scale(1.05);
