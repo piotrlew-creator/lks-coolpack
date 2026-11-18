@@ -75,15 +75,7 @@ const shots = s
             <dl class="stats__small">
               <div>
                 <dt>{t(lang, "stats.games")}</dt>
-                <dd>
-                  {s.mecze}
-                  {s.wPiatce > 0 && (
-                    <small>
-                      {" "}
-                      ({s.wPiatce} {t(lang, "stats.starts")})
-                    </small>
-                  )}
-                </dd>
+                <dd>{s.mecze}</dd>
               </div>
               <div>
                 <dt>{t(lang, "stats.min")}</dt>
@@ -99,8 +91,7 @@ const shots = s
                   <dd>
                     {x.n}
                     <small>
-                      {" "}
-                      ({nf.format(x.a)} {t(lang, "stats.perGame")})
+                      {nf.format(x.a)} {t(lang, "stats.perGame")}
                     </small>
                   </dd>
                 </div>
@@ -236,10 +227,14 @@ const shots = s
     font-weight: 800;
     font-size: 26px;
   }
+  /* średnia na mecz w osobnej linii pod liczbą — bez łamania w środku */
   .stats__small small {
+    display: block;
     font-size: 15px;
     font-weight: 600;
+    line-height: 1.2;
     color: var(--muted);
+    white-space: nowrap;
   }
   .stats__shots {
     list-style: none;
