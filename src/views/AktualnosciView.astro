@@ -1,13 +1,13 @@
 ---
-/* Aktualności — własne wpisy Klubu + Facebook i Instagram. */
+/* Aktualności — Facebook i Instagram, ogłoszenia Klubu (gdy są), terminarz i tabela 1. ligi. */
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
-import Social from "../components/Social.astro";
 import NewsCard from "../components/NewsCard.astro";
 import { klub } from "../data/klub";
 import { aktualnosci } from "../lib/data";
 import { type Lang, ROUTES, route, t } from "../i18n/ui";
 import { u } from "../lib/url";
+import { miejsceLks } from "../lib/terminarz";
 
 interface Props {
   lang: Lang;
@@ -17,19 +17,21 @@ const wpisy = await aktualnosci();
 ---
 
 <Base lang={lang} title={t(lang, "news.title")} description={t(lang, "news.lead")} alt={{ pl: u(ROUTES.aktualnosci.pl), en: u(ROUTES.aktualnosci.en) }} active="aktualnosci">
-  <PageHero kicker={t(lang, "news.kicker")} title={t(lang, "news.title")} lead={t(lang, "news.lead")}>
-    <div class="news-social">
-      <Social lang={lang} size="lg" />
-    </div>
-  </PageHero>
+  <PageHero kicker={t(lang, "news.kicker")} title={t(lang, "news.title")} lead={t(lang, "news.lead")} />
 
-  <section class="section news-list-sec">
-    <div class="wrap">
-      <ul class="news-list" role="list">
-        {wpisy.map((w, i) => <li><NewsCard w={w} lang={lang} index={i} /></li>)}
-      </ul>
-    </div>
-  </section>
+  {
+    /* Ogłoszenia Klubu — pokazują się tylko, gdy w src/content/aktualnosci/ jest jakiś wpis */
+    wpisy.length > 0 && (
+      <section class="section news-list-sec" aria-labelledby="ogl-h">
+        <div class="wrap">
+          <h2 id="ogl-h" class="h-md social-h">{t(lang, "news.notices")}</h2>
+          <ul class="news-list" role="list">
+            {wpisy.map((w, i) => <li><NewsCard w={w} lang={lang} index={i} /></li>)}
+          </ul>
+        </div>
+      </section>
+    )
+  }
 
   <section class="section">
     <div class="wrap">
@@ -75,6 +77,20 @@ const wpisy = await aktualnosci();
           <p class="kicker">{t(lang, "match.none.title")}</p>
           <p>{t(lang, "match.none.text")}</p>
           <a class="btn" href={route("terminarz", lang)}>{t(lang, "match.none.cta")} →</a>
+        </div>
+        <div class="card card--accent">
+          <p class="kicker">{t(lang, "news.table")}</p>
+          {
+            miejsceLks && (
+              <p class="side-place">
+                <strong>{miejsceLks.miejsce}.</strong>
+                <span>
+                  {t(lang, "last.place")} · {miejsceLks.bilans[0]}–{miejsceLks.bilans[1]} · {miejsceLks.pkt} {t(lang, "table.pts").toLowerCase()}
+                </span>
+              </p>
+            )
+          }
+          <a class="btn btn--ghost" href={`${route("terminarz", lang)}#tabela`}>{t(lang, "last.table")} →</a>
         </div>
       </aside>
     </div>
@@ -172,5 +188,27 @@ const wpisy = await aktualnosci();
       position: sticky;
       top: calc(var(--header-h) + 24px);
     }
+  }
+  .news-side {
+    display: grid;
+    gap: 16px;
+  }
+  .news-side p:not(.kicker) {
+    margin: 0 0 16px;
+  }
+  .side-place {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  .side-place strong {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--red);
+  }
+  .side-place span {
+    color: var(--muted);
   }
 </style>
