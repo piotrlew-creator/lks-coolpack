@@ -54,9 +54,6 @@ const { lang, alt, active } = Astro.props;
 
 <!-- Menu na telefonie i tablecie: pełny ekran, duże pola dotyku -->
 <div class="menu" id="menu" data-menu hidden>
-  <div class="menu__bg" aria-hidden="true">
-    <svg viewBox="0 0 100 200" preserveAspectRatio="none"><path d="M62 0 L38 88 L56 88 L30 200 L80 70 L60 70 L78 0 Z" /></svg>
-  </div>
   <div class="menu__top wrap">
     <span class="menu__label">{t(lang, "nav.menu")}</span>
     <button class="icon-btn menu__close" type="button" data-menu-close aria-label={t(lang, "nav.close")}>
@@ -324,21 +321,6 @@ const { lang, alt, active } = Astro.props;
   .menu[hidden] {
     display: none;
   }
-  .menu__bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-  }
-  .menu__bg svg {
-    position: absolute;
-    right: -10%;
-    top: 0;
-    height: 100%;
-    width: 70%;
-    fill: var(--red);
-    opacity: 0.12;
-  }
   .menu__top {
     position: relative;
     display: flex;
@@ -438,26 +420,11 @@ const { lang, alt, active } = Astro.props;
       animation: menu-in 480ms var(--ease) both;
       animation-delay: calc(60ms * var(--i));
     }
-    .menu.is-open .menu__bg svg {
-      animation: menu-bolt 600ms var(--ease) both;
-    }
   }
   @keyframes menu-in {
     from {
       opacity: 0;
       transform: translateX(-40px) skewX(-8deg);
-    }
-  }
-  @keyframes menu-bolt {
-    0% {
-      opacity: 0;
-      transform: translateY(-30%);
-    }
-    40% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 0.12;
     }
   }
 </style>

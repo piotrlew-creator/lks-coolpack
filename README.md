@@ -70,11 +70,6 @@ Trzy godziny po rozpoczęciu karta meczu sama się chowa.
 Dane sezonu są w `src/data/statystyki.json` (źródło: 1lm.pzkosz.pl).
 Po meczu Claude pobiera nowe liczby skryptem `narzedzia/statystyki-pzkosz.js` i podmienia ten plik.
 
-## Interaktywne zdjęcie drużyny
-
-Położenie zawodników na zdjęciu: `src/data/zdjecie-druzyny.ts` (numer koszulki → x, y w %).
-Przy nowym zdjęciu drużyny trzeba te punkty przeliczyć.
-
 ## Obrazki podglądu linku (Facebook, WhatsApp)
 
 `public/og/zawodnicy/<zawodnik>.jpg` i `public/og-image.jpg` generuje

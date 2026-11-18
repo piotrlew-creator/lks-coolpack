@@ -22,6 +22,11 @@ const s = (staty.zawodnicy as Record<string, any>)[slug] as
       asystyNaMecz: number;
       evalNaMecz: number;
       bloki: number;
+      blokiNaMecz: number;
+      przechwyty: number;
+      przechwytyNaMecz: number;
+      straty: number;
+      stratyNaMecz: number;
       za2: Rzut;
       za3: Rzut;
       za1: Rzut;
@@ -84,10 +89,22 @@ const shots = s
                 <dt>{t(lang, "stats.min")}</dt>
                 <dd>{s.minutyNaMecz.replace(/^0/, "")}</dd>
               </div>
-              <div>
-                <dt>{t(lang, "stats.blk")}</dt>
-                <dd>{s.bloki}</dd>
-              </div>
+              {[
+                { k: "stats.stl", n: s.przechwyty, a: s.przechwytyNaMecz },
+                { k: "stats.tov", n: s.straty, a: s.stratyNaMecz },
+                { k: "stats.blk", n: s.bloki, a: s.blokiNaMecz },
+              ].map((x) => (
+                <div>
+                  <dt>{t(lang, x.k as any)}</dt>
+                  <dd>
+                    {x.n}
+                    <small>
+                      {" "}
+                      ({nf.format(x.a)} {t(lang, "stats.perGame")})
+                    </small>
+                  </dd>
+                </div>
+              ))}
               <div>
                 <dt>{t(lang, "stats.pm")}</dt>
                 <dd>{s.plusMinus > 0 ? `+${s.plusMinus}` : s.plusMinus}</dd>

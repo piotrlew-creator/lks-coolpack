@@ -343,25 +343,6 @@ function initMatch() {
   });
 }
 
-/* ── Interaktywne zdjęcie drużyny ─────────────────────────────
-   Mysz: najechanie pokazuje podpis, kliknięcie otwiera profil.
-   Dotyk: pierwsze dotknięcie pokazuje podpis, drugie otwiera profil. */
-function initTeamPhoto() {
-  const spots = document.querySelectorAll<HTMLAnchorElement>(".tp__spot");
-  if (!spots.length) return;
-  const touch = () => window.matchMedia("(hover: none)").matches;
-  spots.forEach((a) =>
-    a.addEventListener("click", (e) => {
-      if (!touch() || a.classList.contains("is-active")) return;
-      e.preventDefault();
-      spots.forEach((x) => x.classList.toggle("is-active", x === a));
-    }),
-  );
-  document.addEventListener("click", (e) => {
-    if (!(e.target as Element).closest(".tp__spot")) spots.forEach((x) => x.classList.remove("is-active"));
-  });
-}
-
 /* ── Przesuwanie palcem między zawodnikami (strona zawodnika) ── */
 function initSwipe() {
   const pp = document.querySelector<HTMLElement>("[data-swipe]");
@@ -419,7 +400,6 @@ function initSwipe() {
 initTheme();
 initMatch();
 initSwipe();
-initTeamPhoto();
 initMenu();
 initReveal();
 initTilt();

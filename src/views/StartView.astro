@@ -6,7 +6,8 @@ import PlayerCard from "../components/PlayerCard.astro";
 import Social from "../components/Social.astro";
 import MatchCard from "../components/MatchCard.astro";
 import NewsCard from "../components/NewsCard.astro";
-import TeamPhoto from "../components/TeamPhoto.astro";
+import heroLight from "../assets/start/hero-light.jpg";
+import heroDark from "../assets/start/hero-dark.jpg";
 import herbBialy from "../assets/logo/herb-bialy.png";
 import herbCzerwony from "../assets/logo/herb-czerwony.png";
 import { klub, najblizszyMecz } from "../data/klub";
@@ -44,9 +45,24 @@ const mecz = najblizszyMecz;
       </div>
     </div>
 
-    <!-- Interaktywne zdjęcie drużyny (jasny / ciemny motyw) -->
+    <!-- Zdjęcie drużyny: białe stroje w jasnym motywie, czarne w ciemnym -->
     <div class="hero__team">
-      <TeamPhoto lang={lang} />
+      <Image
+        class="hero__img hero__img--light"
+        src={heroLight}
+        alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź w białych strojach" : "ŁKS CoolPack Łódź players and staff in white kits"}
+        widths={[800, 1200, 1600, 2400]}
+        sizes="100vw"
+        loading="lazy"
+      />
+      <Image
+        class="hero__img hero__img--dark"
+        src={heroDark}
+        alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź w czarnych strojach" : "ŁKS CoolPack Łódź players and staff in black kits"}
+        widths={[800, 1200, 1600, 2400]}
+        sizes="100vw"
+        loading="lazy"
+      />
     </div>
 
     <div class="hero__foot wrap">
@@ -262,6 +278,10 @@ const mecz = najblizszyMecz;
     z-index: 1;
     margin-top: calc(-1 * min(7vw, 130px));
   }
+  :global(html[data-theme="dark"] .hero__team .hero__img--light),
+  :global(html[data-theme="light"] .hero__team .hero__img--dark) {
+    display: none;
+  }
   .hero__team::after {
     content: "";
     position: absolute;
@@ -273,7 +293,7 @@ const mecz = najblizszyMecz;
     height: 8%;
     background: linear-gradient(transparent, var(--bg));
   }
-  .hero__team :global(.tp__img) {
+  .hero__team :global(.hero__img) {
     display: block;
     width: 100%;
     height: auto;
@@ -287,7 +307,7 @@ const mecz = najblizszyMecz;
     background: #ffffff;
     color: var(--black);
   }
-  :global([data-theme="light"]) .hero__team :global(.tp__img) {
+  :global([data-theme="light"]) .hero__team :global(.hero__img) {
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 12%, #000 18%);
     mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 12%, #000 18%);
   }
@@ -325,7 +345,7 @@ const mecz = najblizszyMecz;
     .hero__year {
       display: none;
     }
-    .hero__team :global(.tp__img) {
+    .hero__team :global(.hero__img) {
       -webkit-mask-image: none;
       mask-image: none;
     }
@@ -379,7 +399,7 @@ const mecz = najblizszyMecz;
     .hero__crest {
       animation: hero-crest 1000ms 300ms var(--ease) both;
     }
-    .hero__team :global(.tp__img) {
+    .hero__team :global(.hero__img) {
       animation: hero-team 1400ms 200ms var(--ease) both;
     }
   }
