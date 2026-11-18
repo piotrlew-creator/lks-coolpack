@@ -1,23 +1,14 @@
 ---
-/* Nagłówek podstrony: ciemny pas z tytułem i błyskawicą. */
+/* Nagłówek podstrony: ciemny pas z tytułem. */
 interface Props {
   kicker?: string;
   title: string;
   lead?: string;
-  /** Ozdobny piorun w tle nagłówka (domyślnie tak). */
-  piorun?: boolean;
 }
-const { kicker, title, lead, piorun = true } = Astro.props;
+const { kicker, title, lead } = Astro.props;
 ---
 
 <section class="phero">
-  {
-    piorun && (
-      <svg class="phero__bolt" viewBox="0 0 200 600" preserveAspectRatio="none" aria-hidden="true">
-        <path d="M128 0 L58 250 L104 250 L40 600 L168 196 L118 196 L176 0 Z" />
-      </svg>
-    )
-  }
   <div class="wrap phero__in">
     {kicker && <p class="kicker">{kicker}</p>}
     <h1 class="h-xl">{title}</h1>
@@ -48,42 +39,8 @@ const { kicker, title, lead, piorun = true } = Astro.props;
     color: #cfc6bc;
     margin: 0;
   }
-  .phero__bolt {
-    position: absolute;
-    z-index: -1;
-    right: 8%;
-    top: 0;
-    height: 100%;
-    width: clamp(90px, 12vw, 180px);
-    fill: var(--red);
-    opacity: 0.75;
-    filter: drop-shadow(0 0 26px rgba(212, 4, 20, 0.6));
-  }
   @media (prefers-reduced-motion: no-preference) {
-    .phero__bolt {
-      animation: phero-bolt 800ms 100ms var(--ease) both;
-    }
-    .phero__in > :global(*) {
-      animation: phero-in 700ms var(--ease) both;
-    }
-    .phero__in > :global(*:nth-child(2)) {
-      animation-delay: 90ms;
-    }
-    .phero__in > :global(*:nth-child(3)) {
-      animation-delay: 180ms;
-    }
-    .phero__in > :global(*:nth-child(4)) {
-      animation-delay: 260ms;
-    }
-  }
-  @keyframes phero-bolt {
-    0% { clip-path: inset(0 0 100% 0); filter: brightness(3) drop-shadow(0 0 30px #fff); }
-    30% { clip-path: inset(0 0 0 0); }
-    40% { opacity: 0.2; }
-    50% { opacity: 0.9; }
-    100% { opacity: 0.75; }
-  }
-  @keyframes phero-in {
+    @keyframes phero-in {
     from { opacity: 0; transform: translateY(26px); }
   }
 </style>
