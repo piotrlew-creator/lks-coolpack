@@ -613,7 +613,12 @@ const filtry = [
     line-height: 1.15;
     text-transform: uppercase;
   }
+  /* Cała komórka z nazwą klikalna (min. 44 px wysokości — wygodnie palcem) */
   .league tbody .c-team a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    margin-block: -10px;
     color: inherit;
     text-decoration: none;
   }

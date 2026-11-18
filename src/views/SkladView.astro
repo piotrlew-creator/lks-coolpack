@@ -16,7 +16,7 @@ const players = await zawodnicy();
 const used = POZYCJE.filter((p) => players.some((pl) => pl.data.pozycje.includes(p)));
 ---
 
-<Base lang={lang} title={t(lang, "team.title")} description={t(lang, "team.lead")} alt={{ pl: u(ROUTES.sklad.pl), en: u(ROUTES.sklad.en) }} active="sklad">
+<Base lang={lang} title={t(lang, "team.title")} description={t(lang, "team.meta")} alt={{ pl: u(ROUTES.sklad.pl), en: u(ROUTES.sklad.en) }} active="sklad">
   <PageHero kicker={t(lang, "team.kicker")} title={t(lang, "team.title")} lead={t(lang, "team.lead")} />
 
   <section class="section roster">

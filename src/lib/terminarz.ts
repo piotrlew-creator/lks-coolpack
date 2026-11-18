@@ -66,16 +66,23 @@ export function bilans() {
 /** Pierwszy nierozegrany mecz — do karty „Najbliższy mecz”. */
 export const nastepny: MeczLks | undefined = terminarz.find((m) => m.wygrana === null);
 
+function doKarty(m: MeczLks | undefined): Mecz | null {
+  return m
+    ? {
+        data: m.godzina ? m.data : `${m.data}T00:00`,
+        rywal: m.rywal,
+        dom: m.dom,
+        hala: m.dom ? klub.kontakt.hala.nazwa || m.miasto : m.miasto,
+        bilety: m.dom ? klub.kontakt.bilety.link || undefined : undefined,
+      }
+    : null;
+}
+
 /** Najbliższy mecz na stronę startową (bilety i transmisja z src/data/klub.ts). */
-export const najblizszyMecz: Mecz | null = nastepny
-  ? {
-      data: nastepny.godzina ? nastepny.data : `${nastepny.data}T00:00`,
-      rywal: nastepny.rywal,
-      dom: nastepny.dom,
-      hala: nastepny.dom ? klub.kontakt.hala.nazwa || nastepny.miasto : nastepny.miasto,
-      bilety: nastepny.dom ? klub.kontakt.bilety.link || undefined : undefined,
-    }
-  : null;
+export const najblizszyMecz: Mecz | null = doKarty(nastepny);
+
+/** Mecz po najbliższym — karta zapasowa, gdy wynik nie został jeszcze wpisany. */
+export const kolejnyMecz: Mecz | null = doKarty(terminarz.filter((m) => m.wygrana === null)[1]);
 
 /** Oficjalna nazwa rywala z terminarza dla meczu o danej dacie (np. we wpisach). */
 export function rywalZTerminarza(data: string, zapas: string): string {

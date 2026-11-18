@@ -20,16 +20,16 @@ const k = klub.kontakt;
 const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: "", telefon: k.biuro.telefon, email: k.biuro.email };
 ---
 
-<Base lang={lang} title={t(lang, "sponsors.title")} description={t(lang, "sponsors.lead")} alt={{ pl: u(ROUTES.sponsorzy.pl), en: u(ROUTES.sponsorzy.en) }} active="sponsorzy">
+<Base lang={lang} title={t(lang, "sponsors.title")} description={t(lang, "sponsors.meta")} alt={{ pl: u(ROUTES.sponsorzy.pl), en: u(ROUTES.sponsorzy.en) }} active="sponsorzy">
   <PageHero kicker={t(lang, "sponsors.kicker")} title={t(lang, "sponsors.title")} lead={t(lang, "sponsors.lead")} />
 
   <section class="section">
     <div class="wrap">
       {
-        groups.map((g, gi) => (
+        groups.map((g) => (
           <div class="tier">
             <h2 class="tier__h">{poziomGrupa(g.lvl, g.items.length, lang)}</h2>
-            <ul class:list={["tier__list", { "tier__list--top": gi === 0 }]} role="list">
+            <ul class:list={["tier__list", { "tier__list--top": g.lvl === "Sponsor tytularny", "tier__list--mid": g.lvl === "Sponsor strategiczny" }]} role="list">
               {g.items.map((s) => {
                 // sponsor bez strony www: kafel bez linku
                 const Tag = s.data.link ? "a" : "div";
@@ -39,7 +39,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
                     <Tag class:list={["sp", { "sp--nolink": !s.data.link }]} {...linkProps}>
                       {s.data.logo ? (
                         <>
-                          <Image src={s.data.logo} alt={s.data.nazwa} height={gi === 0 ? 96 : 64} />
+                          <Image src={s.data.logo} alt={s.data.nazwa} height={g.lvl === "Sponsor tytularny" ? 96 : g.lvl === "Sponsor strategiczny" ? 80 : 64} />
                         </>
                       ) : (
                         <span class="sp__name">{s.data.nazwa}</span>
@@ -115,6 +115,21 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
     text-decoration: none;
     color: var(--text);
     transition: border-color 200ms, transform 200ms, box-shadow 200ms;
+  }
+  /* Sponsor strategiczny: kafel średni — między tytularnym a partnerami */
+  .tier__list--mid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  }
+  @media (min-width: 900px) {
+    .tier__list--mid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .tier__list--mid .sp {
+    min-height: clamp(120px, 24vw, 180px);
+  }
+  .tier__list--mid .sp :global(img) {
+    max-height: 80px;
   }
   .tier__list--top .sp {
     min-height: clamp(130px, 30vw, 240px);

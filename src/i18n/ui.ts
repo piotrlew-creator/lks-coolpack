@@ -40,7 +40,6 @@ export const NAV: RouteKey[] = ["start", "aktualnosci", "sklad", "terminarz", "s
 
 export const ui = {
   pl: {
-    "lang.name": "Polski",
     "lang.switch": "Wersja językowa",
     "skip": "Przejdź do treści",
     "nav.start": "Start",
@@ -123,6 +122,10 @@ export const ui = {
 
     "team.kicker": "Sezon 2026/2027",
     "team.title": "Skład",
+    "team.meta": "Skład ŁKS CoolPack Łódź na sezon 2026/2027: zawodnicy, pozycje, numery i statystyki z 1. ligi koszykówki mężczyzn.",
+    "sponsors.meta": "Sponsorzy i partnerzy ŁKS CoolPack Łódź: CoolPack, Urząd Miasta Łodzi i firmy wspierające drużynę. Zobacz, jak zostać sponsorem.",
+    "contact.meta": "Kontakt z ŁKS CoolPack Łódź: biuro klubu przy Al. Unii Lubelskiej 2 w Łodzi, telefon 733 34 1908, e-mail biuro@lkskm.pl.",
+    "youth.meta": "Grupy młodzieżowe ŁKS Koszykówka Męska: drużyny chłopców od grup naborowych po 2. ligę. Zapisy u koordynatorów i na lkskmjunior.pl.",
     "team.lead": "Poznaj zawodników ŁKS CoolPack Łódź.",
     "team.all": "Cały skład",
     "team.filter": "Pozycja",
@@ -220,7 +223,6 @@ export const ui = {
     "contact.mail": "e-mail:",
 
     "footer.rights": "Wszelkie prawa zastrzeżone.",
-    "footer.league": "Terminarz i wyniki",
 
     "privacy.title": "Prywatność",
     "404.title": "Nie ma takiej strony",
@@ -229,7 +231,6 @@ export const ui = {
   },
 
   en: {
-    "lang.name": "English",
     "lang.switch": "Language",
     "skip": "Skip to content",
     "nav.start": "Home",
@@ -312,6 +313,10 @@ export const ui = {
 
     "team.kicker": "Season 2026/2027",
     "team.title": "Roster",
+    "team.meta": "ŁKS CoolPack Łódź roster for the 2026/27 season: players, positions, shirt numbers and stats from the Polish 1st League.",
+    "sponsors.meta": "ŁKS CoolPack Łódź sponsors and partners: CoolPack, Łódź City Hall and the companies backing the team. Find out how to join them.",
+    "contact.meta": "Contact ŁKS CoolPack Łódź: club office at Al. Unii Lubelskiej 2, Łódź, phone +48 733 34 1908, email biuro@lkskm.pl.",
+    "youth.meta": "ŁKS Koszykówka Męska youth teams: boys’ teams from beginner groups up to the 2nd League. Sign up via our coordinators or lkskmjunior.pl.",
     "team.lead": "Meet the ŁKS CoolPack Łódź players.",
     "team.all": "Full roster",
     "team.filter": "Position",
@@ -409,7 +414,6 @@ export const ui = {
     "contact.mail": "email:",
 
     "footer.rights": "All rights reserved.",
-    "footer.league": "Fixtures and results",
 
     "privacy.title": "Privacy",
     "404.title": "Page not found",

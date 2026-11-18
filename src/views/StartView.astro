@@ -9,7 +9,7 @@ import NewsCard from "../components/NewsCard.astro";
 import LastResult from "../components/LastResult.astro";
 import herbCzerwony from "../assets/logo/herb-czerwony.png";
 import { klub } from "../data/klub";
-import { najblizszyMecz } from "../lib/terminarz";
+import { kolejnyMecz, najblizszyMecz } from "../lib/terminarz";
 import { type Lang, ROUTES, newsUrl, route, t } from "../i18n/ui";
 import { aktualnosci, sponsorzy as getSponsorzy, zawodnicy as getZawodnicy } from "../lib/data";
 import { u } from "../lib/url";
@@ -85,6 +85,14 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
         mecz && (
           <div class="news-home__match reveal">
             <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} zapowiedz={zapowiedz && newsUrl(zapowiedz.id, lang)} terminarz={route("terminarz", lang)} />
+          </div>
+        )
+      }
+      {
+        /* Zapas: gdy najbliższy mecz już się skończył, a terminarz nie jest jeszcze zaktualizowany */
+        mecz && kolejnyMecz && (
+          <div class="news-home__match" data-zapas hidden>
+            <MatchCard lang={lang} data={kolejnyMecz.data} rywal={kolejnyMecz.rywal} dom={kolejnyMecz.dom} miejsce={kolejnyMecz.hala} bilety={kolejnyMecz.bilety} transmisja={kolejnyMecz.transmisja} terminarz={route("terminarz", lang)} />
           </div>
         )
       }
@@ -316,23 +324,6 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
   .match {
     position: relative;
     padding-bottom: clamp(56px, 8vw, 96px);
-  }
-  .match__card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 6px solid var(--red);
-    border-radius: var(--radius);
-    padding: clamp(20px, 3vw, 32px);
-  }
-  .match__card--none {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px 32px;
-  }
-  .match__card--none .kicker {
-    margin-bottom: 6px;
   }
   .match__text {
     margin: 0;

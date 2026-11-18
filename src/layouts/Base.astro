@@ -21,6 +21,8 @@ interface Props {
   /** Obraz do podglądu linku na Facebooku (adres względny lub pełny). */
   ogImage?: string;
   ogType?: "website" | "profile" | "article";
+  /** Strona, której wyszukiwarki nie powinny indeksować (np. 404). */
+  noindex?: boolean;
 }
 
 const { lang, title, description = lang === "en" ? klub.opisEn : klub.opis, alt, active, ogImage, ogType } = Astro.props;
@@ -68,6 +70,7 @@ const jsonLd = {
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    {Astro.props.noindex && <meta name="robots" content="noindex" />}
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="pl" href={altPl} />
     <link rel="alternate" hreflang="en" href={altEn} />

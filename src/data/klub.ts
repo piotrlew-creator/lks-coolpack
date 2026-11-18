@@ -26,13 +26,7 @@ export const klub = {
   // Oficjalna strona drużyny w serwisie ligi (terminarz, wyniki, statystyki)
   stronaLigi: "https://1lm.pzkosz.pl/druzyny/d/14303/lks-coolpack-lodz.html",
 
-  // Akademia — droga od grup naborowych do 1. ligi
-  akademia: {
-    nazwa: "ŁKS Koszykówka Męska",
-    adres: "https://lkskmjunior.pl/",
-  },
-
-  // Kontakt — DO UZUPEŁNIENIA (dane biura drużyny seniorskiej)
+  // Kontakt — biuro (uzupełnione); hala, bilety, sponsoring i media do uzupełnienia
   kontakt: {
     biuro: {
       // te same dane co na lkskmjunior.pl (biuro Stowarzyszenia ŁKS Koszykówka Męska)

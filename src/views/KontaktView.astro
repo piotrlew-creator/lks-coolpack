@@ -65,7 +65,7 @@ const allBoxes: Box[] = [
 const boxes = allBoxes.filter((b) => b.lines.length || b.who);
 ---
 
-<Base lang={lang} title={t(lang, "contact.title")} description={t(lang, "contact.lead")} alt={{ pl: u(ROUTES.kontakt.pl), en: u(ROUTES.kontakt.en) }} active="kontakt">
+<Base lang={lang} title={t(lang, "contact.title")} description={t(lang, "contact.meta")} alt={{ pl: u(ROUTES.kontakt.pl), en: u(ROUTES.kontakt.en) }} active="kontakt">
   <PageHero kicker={t(lang, "contact.kicker")} title={t(lang, "contact.title")} lead={t(lang, "contact.lead")} />
 
   <section class="section">

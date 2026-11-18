@@ -372,7 +372,15 @@ function initMatch() {
       const wrap = card.closest<HTMLElement>(".news-home__match");
       if (wrap) {
         wrap.hidden = true;
-        document.querySelector<HTMLElement>("[data-po-meczu]")?.removeAttribute("hidden");
+        if (wrap.hasAttribute("data-zapas")) {
+          document.querySelector<HTMLElement>("[data-po-meczu]")?.removeAttribute("hidden");
+        } else {
+          // pokaż kolejny mecz z terminarza (jeśli jest), inaczej odnośnik do terminarza
+          const zapas = document.querySelector<HTMLElement>("[data-zapas]");
+          const zapasKoniec = Number(zapas?.querySelector<HTMLElement>(".mcard")?.dataset.koniec ?? 0);
+          if (zapas && now <= zapasKoniec) zapas.hidden = false;
+          else document.querySelector<HTMLElement>("[data-po-meczu]")?.removeAttribute("hidden");
+        }
       }
       return;
     }

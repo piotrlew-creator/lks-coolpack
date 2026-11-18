@@ -26,12 +26,14 @@ git push
 
 | Co zmieniasz | Plik / folder |
 | --- | --- |
-| Dane klubu, kontakt, Instagram, najbliższy mecz | `src/data/klub.ts` |
+| Dane klubu, kontakt, hala, bilety, Instagram | `src/data/klub.ts` |
+| Terminarz i tabela ligowa (najbliższy mecz liczy się sam) | `src/data/terminarz.json`, `src/data/tabela.json` |
+| Grupy młodzieżowe: adres lkskmjunior.pl i koordynatorzy | `src/data/mlodziez.ts` |
 | Zawodnicy (jeden plik = jeden zawodnik) | `src/content/zawodnicy/` |
 | Sztab (jeden plik = jedna osoba) | `src/content/sztab/` |
-| Sponsorzy | `src/content/sponsorzy/` |
+| Sponsorzy (pole `poziom`: Sponsor tytularny, Sponsor strategiczny, Partner, Partner techniczny…) | `src/content/sponsorzy/` |
 | Zdjęcia zawodników / sztabu / sponsorów | `src/assets/zawodnicy/`, `src/assets/sztab/`, `src/assets/sponsorzy/` |
-| Zdjęcie w tle strony startowej | `src/assets/start/hero.jpg` (lub .png/.webp) |
+| Zdjęcie drużyny na stronie startowej | `src/assets/start/druzyna.jpg` + podłączenie w `src/views/StartView.astro` (opis w komentarzu `zdjecieDruzyny`) |
 | Wszystkie stałe teksty PL i EN | `src/i18n/ui.ts` |
 | Kolory, czcionki | `src/styles/global.css` |
 | Efekt pioruna | `src/scripts/site.ts` + koniec `src/styles/global.css` |
@@ -62,8 +64,8 @@ Każdy wpis to plik w `src/content/aktualnosci/`, np. `2026-11-25-wynik-z-kotwic
 `tytul`/`tytulEn`, `data`, `lead`/`leadEn`, `tresc`/`trescEn` (akapity oddzielone pustą linią),
 opcjonalnie `zdjecie` i `mecz` (karta meczu). Trzy najnowsze wpisy pokazują się na stronie startowej.
 
-Najbliższy mecz na stronie startowej: `najblizszyMecz` w `src/data/klub.ts`.
-Trzy godziny po rozpoczęciu karta meczu sama się chowa.
+Najbliższy mecz na stronie startowej liczy się sam z `src/data/terminarz.json` (pierwszy mecz bez wyniku).
+Trzy godziny po rozpoczęciu karta meczu sama się chowa i pokazuje się kolejny mecz z terminarza.
 
 ## Terminarz i wyniki
 
