@@ -279,6 +279,7 @@ const mecz = najblizszyMecz;
     position: relative;
     z-index: 1;
     margin-top: calc(-1 * min(7vw, 130px));
+    overflow: clip; /* zdjęcie nie wystaje poza ramkę podczas animacji wejścia */
   }
   :global(html[data-theme="dark"] .hero__team .hero__img--light),
   :global(html[data-theme="light"] .hero__team .hero__img--dark) {
@@ -439,7 +440,7 @@ const mecz = najblizszyMecz;
       animation: hero-crest 1000ms 300ms var(--ease) both;
     }
     .hero__team :global(.hero__img) {
-      animation: hero-team 1400ms 200ms var(--ease) both;
+      animation: hero-team 600ms var(--ease) both;
     }
   }
   @keyframes hero-in {
@@ -449,7 +450,7 @@ const mecz = najblizszyMecz;
     from { opacity: 0; transform: scale(0.6) rotate(-25deg); }
   }
   @keyframes hero-team {
-    from { opacity: 0; transform: scale(1.04); filter: brightness(1.8); }
+    from { opacity: 0; }
   }
 
   /* -- Najbliższy mecz ---------------------------------------- */

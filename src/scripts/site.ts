@@ -208,20 +208,24 @@ function initBolt() {
     const slug = new URL(from).pathname.split("/").filter(Boolean).pop();
     const card = slug && document.querySelector<HTMLElement>(`.pcard[data-slug="${CSS.escape(slug)}"]`);
     if (!card) return;
+    // Wraca tylko zdjęcie. Duży numer ze strony zawodnika płynnie gaśnie
+    // w miejscu (w kaflu numer jest tylko delikatnym konturem za zdjęciem).
+    // Podpis kafla (imię, nazwisko) rysujemy nad lecącym zdjęciem, żeby nie
+    // „wyskakiwał” dopiero na końcu animacji.
     const photo = card.querySelector<HTMLElement>("[data-vt=photo]");
-    const num = card.querySelector<HTMLElement>("[data-vt=number]");
+    const info = card.querySelector<HTMLElement>(".pcard__info");
     photo?.style.setProperty("view-transition-name", "player-photo");
-    num?.style.setProperty("view-transition-name", "player-number");
+    info?.style.setProperty("view-transition-name", "player-info");
     e.viewTransition.finished.finally(() => {
       photo?.style.removeProperty("view-transition-name");
-      num?.style.removeProperty("view-transition-name");
+      info?.style.removeProperty("view-transition-name");
     });
   });
 
   // Strona wraca z pamięci przeglądarki (bfcache) — sprzątamy po efekcie
   window.addEventListener("pageshow", () => {
     document.querySelectorAll(".pcard.is-struck").forEach((c) => c.classList.remove("is-struck"));
-    document.querySelectorAll<HTMLElement>(".pcard [data-vt]").forEach((el) => el.style.removeProperty("view-transition-name"));
+    document.querySelectorAll<HTMLElement>(".pcard [data-vt], .pcard__info").forEach((el) => el.style.removeProperty("view-transition-name"));
   });
 }
 

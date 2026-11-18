@@ -464,6 +464,19 @@ p {
   object-fit: contain;
   object-position: 50% 100%;
 }
+/* Powrót do składu: numer nie ma pary w kaflu — szybko i płynnie gaśnie */
+::view-transition-old(player-number):only-child {
+  animation: vt-num-out 220ms ease-out both;
+}
+@keyframes vt-num-out {
+  to { opacity: 0; transform: translateY(-12px); }
+}
+::view-transition-new(player-info):only-child {
+  animation: vt-info-in 320ms 160ms ease-out both;
+}
+@keyframes vt-info-in {
+  from { opacity: 0; transform: translateY(8px); }
+}
 
 /* -- Facebook: kafel zgody --------------------------------------- */
 .fb {
