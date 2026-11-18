@@ -60,7 +60,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang={lang} data-theme="dark">
+<html lang={lang} data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -92,18 +92,8 @@ const jsonLd = {
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
-    <!-- Motyw ustawiamy przed narysowaniem strony, żeby nie mrugała. -->
-    <script is:inline>
-      (function () {
-        var t = null;
-        try { t = localStorage.getItem("lks-theme"); } catch (e) {}
-        if (t !== "light" && t !== "dark") {
-          t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-        }
-        document.documentElement.setAttribute("data-theme", t);
-        document.documentElement.classList.add("js");
-      })();
-    </script>
+    <!-- Strona ma tylko jasny motyw; klasa „js” włącza animacje pojawiania się. -->
+    <script is:inline>document.documentElement.classList.add("js");</script>
   </head>
   <body>
     <a class="skip-link" href="#tresc">{t(lang, "skip")}</a>

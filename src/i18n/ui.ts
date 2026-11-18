@@ -53,9 +53,6 @@ export const ui = {
     "nav.menu": "Menu",
     "nav.open": "Otwórz menu",
     "nav.close": "Zamknij menu",
-    "theme.toggle": "Przełącz motyw: jasny lub ciemny",
-    "theme.light": "Jasny motyw",
-    "theme.dark": "Ciemny motyw",
 
     "hero.sub":
       "ŁKS to klub z tradycją sięgającą 1908 roku. Nasi koszykarze grają w 1. lidze i walczą o awans do ekstraklasy.",
@@ -208,9 +205,6 @@ export const ui = {
     "nav.menu": "Menu",
     "nav.open": "Open menu",
     "nav.close": "Close menu",
-    "theme.toggle": "Switch between light and dark theme",
-    "theme.light": "Light theme",
-    "theme.dark": "Dark theme",
 
     "hero.sub":
       "ŁKS is a club with a history going back to 1908. Our basketball team plays in the Polish 1st League and is pushing for promotion to the top flight.",

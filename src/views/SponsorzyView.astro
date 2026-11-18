@@ -36,11 +36,10 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
                 const linkProps = s.data.link ? { href: s.data.link, target: "_blank", rel: "noopener" } : {};
                 return (
                   <li class="reveal">
-                    <Tag class:list={["sp", { "has-mono": s.data.logoMono, "sp--nolink": !s.data.link }]} {...linkProps}>
+                    <Tag class:list={["sp", { "sp--nolink": !s.data.link }]} {...linkProps}>
                       {s.data.logo ? (
                         <>
-                          <Image class="sp__light" src={s.data.logo} alt={s.data.nazwa} height={gi === 0 ? 96 : 64} />
-                          {s.data.logoMono && <Image class="sp__dark" src={s.data.logoMono} alt="" height={gi === 0 ? 96 : 64} />}
+                          <Image src={s.data.logo} alt={s.data.nazwa} height={gi === 0 ? 96 : 64} />
                         </>
                       ) : (
                         <span class="sp__name">{s.data.nazwa}</span>
@@ -142,10 +141,6 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
     font-weight: 800;
     font-size: clamp(18px, 4.6vw, 28px);
     text-transform: uppercase;
-  }
-  :global([data-theme="dark"]) .has-mono :global(.sp__light),
-  :global([data-theme="light"]) :global(.sp__dark) {
-    display: none;
   }
 
   .join__in {

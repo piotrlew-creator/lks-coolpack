@@ -7,7 +7,6 @@ import Social from "../components/Social.astro";
 import MatchCard from "../components/MatchCard.astro";
 import NewsCard from "../components/NewsCard.astro";
 import heroLight from "../assets/start/hero-light.jpg";
-import heroDark from "../assets/start/hero-dark.jpg";
 import herbBialy from "../assets/logo/herb-bialy.png";
 import herbCzerwony from "../assets/logo/herb-czerwony.png";
 import { klub } from "../data/klub";
@@ -52,20 +51,13 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     <!-- Zdjęcie drużyny: białe stroje w jasnym motywie, czarne w ciemnym -->
     <div class="hero__team">
       <Image
-        class="hero__img hero__img--light"
+        class="hero__img"
         src={heroLight}
         alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź w białych strojach" : "ŁKS CoolPack Łódź players and staff in white kits"}
         widths={[800, 1200, 1600, 2400]}
         sizes="100vw"
-        loading="lazy"
-      />
-      <Image
-        class="hero__img hero__img--dark"
-        src={heroDark}
-        alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź w czarnych strojach" : "ŁKS CoolPack Łódź players and staff in black kits"}
-        widths={[800, 1200, 1600, 2400]}
-        sizes="100vw"
-        loading="lazy"
+        loading="eager"
+        fetchpriority="high"
       />
     </div>
     </div>
@@ -181,11 +173,10 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
               const linkProps = s.data.link ? { href: s.data.link, target: "_blank", rel: "noopener", "aria-label": s.data.nazwa } : {};
               return (
                 <li class="reveal">
-                  <Tag class:list={["logos__tile", { "has-mono": s.data.logoMono }]} {...linkProps}>
+                  <Tag class="logos__tile" {...linkProps}>
                     {s.data.logo ? (
                       <>
-                        <Image class="logo-light" src={s.data.logo} alt={s.data.nazwa} height={56} />
-                        {s.data.logoMono && <Image class="logo-dark" src={s.data.logoMono} alt="" height={56} />}
+                        <Image src={s.data.logo} alt={s.data.nazwa} height={56} />
                       </>
                     ) : (
                       <span class="logos__name">{s.data.nazwa}</span>
@@ -293,10 +284,6 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     z-index: 1;
     margin-top: calc(-1 * min(7vw, 130px));
     overflow: clip; /* zdjęcie nie wystaje poza ramkę podczas animacji wejścia */
-  }
-  :global(html[data-theme="dark"] .hero__team .hero__img--light),
-  :global(html[data-theme="light"] .hero__team .hero__img--dark) {
-    display: none;
   }
   .hero__team::after {
     content: "";
@@ -752,11 +739,5 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     font-size: clamp(16px, 4.2vw, 24px);
     text-transform: uppercase;
     color: var(--text);
-  }
-  :global([data-theme="dark"]) .logos .has-mono :global(.logo-light) {
-    display: none;
-  }
-  :global([data-theme="light"]) .logos :global(.logo-dark) {
-    display: none;
   }
 </style>

@@ -28,7 +28,7 @@
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-snap: cubic-bezier(0.3, 1.4, 0.5, 1);
 
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 /* -- Motywy: jasny i ciemny ---------------------------------- */
@@ -45,17 +45,6 @@
   --shadow: 0 10px 30px rgba(23, 20, 15, 0.12);
 }
 
-[data-theme="dark"] {
-  --bg: var(--black);
-  --bg-2: var(--dark-surface);
-  --surface: var(--dark-surface);
-  --text: var(--cream);
-  --muted: #a0968c;
-  --border: #3a322b;
-  --accent: var(--red-on-dark);
-  --card-bg: #2a231e;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-}
 
 /* -- Podstawy ------------------------------------------------- */
 *,

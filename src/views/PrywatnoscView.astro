@@ -22,7 +22,7 @@ const stats = Boolean(klub.cfAnalyticsToken);
         lang === "pl" ? (
           <>
             <h2>Bez plików cookies</h2>
-            <p>Strona nie używa plików cookies, nie ma formularzy i nie zbiera danych osobowych.</p>
+            <p>Strona nie używa plików cookies, nic nie zapisuje w przeglądarce, nie ma formularzy i nie zbiera danych osobowych.</p>
             {stats && (
               <>
                 <h2>Statystyki odwiedzin</h2>
@@ -41,11 +41,15 @@ const stats = Boolean(klub.cfAnalyticsToken);
                 </p>
               </>
             )}
-            <h2>Pamięć przeglądarki</h2>
-            <p>
-              W przeglądarce zapisujemy tylko wybrany motyw (jasny lub ciemny){klub.facebookWtyczka ? " i zgodę na posty z Facebooka" : ""}.
-              Te informacje do nas nie trafiają. Usuniesz je, czyszcząc dane strony w ustawieniach przeglądarki.
-            </p>
+            {klub.facebookWtyczka && (
+              <>
+                <h2>Pamięć przeglądarki</h2>
+                <p>
+                  W przeglądarce zapisujemy tylko zgodę na posty z Facebooka. Ta informacja do nas nie trafia. Usuniesz ją,
+                  czyszcząc dane strony w ustawieniach przeglądarki.
+                </p>
+              </>
+            )}
             <h2>Linki zewnętrzne</h2>
             <p>
               Odnośniki do Facebooka, Instagrama i strony ligi prowadzą do innych serwisów, które mają własne zasady
@@ -63,7 +67,7 @@ const stats = Boolean(klub.cfAnalyticsToken);
         ) : (
           <>
             <h2>No cookies</h2>
-            <p>This website doesn't use cookies, has no forms and doesn't collect personal data.</p>
+            <p>This website doesn't use cookies, stores nothing in your browser, has no forms and doesn't collect personal data.</p>
             {stats && (
               <>
                 <h2>Visitor statistics</h2>
@@ -82,12 +86,15 @@ const stats = Boolean(klub.cfAnalyticsToken);
                 </p>
               </>
             )}
-            <h2>Browser storage</h2>
-            <p>
-              We only store your theme choice (light or dark){klub.facebookWtyczka ? " and your consent to show Facebook posts" : ""} in
-              your browser. This information isn't sent to us. You can remove it by clearing this site's data in your
-              browser settings.
-            </p>
+            {klub.facebookWtyczka && (
+              <>
+                <h2>Browser storage</h2>
+                <p>
+                  We only store your consent to show Facebook posts in your browser. This isn't sent to us. You can remove
+                  it by clearing this site's data in your browser settings.
+                </p>
+              </>
+            )}
             <h2>External links</h2>
             <p>Links to Facebook, Instagram and the league website take you to other services with their own privacy policies.</p>
             {email && (

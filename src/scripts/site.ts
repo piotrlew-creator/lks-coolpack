@@ -7,21 +7,6 @@
 const reduceMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const finePointer = () => window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
-/* ── Motyw jasny / ciemny ─────────────────────────────────────── */
-function initTheme() {
-  document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const root = document.documentElement;
-      const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", next);
-      try {
-        localStorage.setItem("lks-theme", next);
-      } catch {
-        /* tryb prywatny */
-      }
-    });
-  });
-}
 
 /* ── Menu na telefonie ────────────────────────────────────────── */
 function initMenu() {
@@ -414,7 +399,6 @@ function initSwipe() {
   window.addEventListener("pageshow", reset);
 }
 
-initTheme();
 initMatch();
 initSwipe();
 initMenu();
