@@ -31,6 +31,7 @@ const mecz = najblizszyMecz;
 <Base lang={lang} alt={{ pl: u(ROUTES.start.pl), en: u(ROUTES.start.en) }} active="start">
   <!-- ══════════════ HERO ══════════════ -->
   <section class="hero" aria-labelledby="hero-title">
+    <div class="hero__top">
     <div class="hero__year" aria-hidden="true">{klub.rokZalozenia}</div>
 
     <!-- Nazwa drużyny „nachodzi” na górę zdjęcia (ciemna ściana nad głowami) -->
@@ -63,6 +64,7 @@ const mecz = najblizszyMecz;
         sizes="100vw"
         loading="lazy"
       />
+    </div>
     </div>
 
     <div class="hero__foot wrap">
@@ -331,9 +333,40 @@ const mecz = najblizszyMecz;
     display: block;
   }
 
+  /* Monitor i tablet w jasnym motywie: pas z nazwą i zdjęciem ma ciemne tło
+     (jak pasek nawigacji i ściana na zdjęciu), biało dopiero pod zdjęciem. */
+  .hero__top {
+    position: relative;
+  }
+  @media (min-width: 701px) and (min-height: 501px), (min-width: 701px) and (orientation: portrait) {
+    :global(html[data-theme="light"]) .hero__top {
+      background: var(--black);
+      color: #fff;
+    }
+    :global(html[data-theme="light"]) .hero__top .hero__t2 {
+      color: var(--red-on-dark);
+    }
+    :global(html[data-theme="light"]) .hero__top .hero__year {
+      -webkit-text-stroke-color: rgba(255, 255, 255, 0.07);
+    }
+    :global(html[data-theme="light"]) .hero__top .hero__crest-dark {
+      display: block;
+    }
+    :global(html[data-theme="light"]) .hero__top .hero__crest-light {
+      display: none;
+    }
+    :global(html[data-theme="light"]) .hero__team :global(.hero__img) {
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%);
+      mask-image: linear-gradient(to bottom, transparent 0%, #000 12%);
+    }
+    :global(html[data-theme="light"]) .hero__team::after {
+      background: linear-gradient(transparent, #ffffff);
+    }
+  }
+
   /* Telefon w pionie i w poziomie: najpierw zdjęcie drużyny, pod nim tekst */
   @media (max-width: 700px), (orientation: landscape) and (max-height: 500px) {
-    .hero {
+    .hero__top {
       display: flex;
       flex-direction: column;
     }
