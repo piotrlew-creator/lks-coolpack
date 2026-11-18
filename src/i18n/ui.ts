@@ -14,6 +14,7 @@ export const ROUTES = {
   sklad: { pl: "sklad/", en: "en/roster/" },
   terminarz: { pl: "terminarz/", en: "en/fixtures/" },
   sztab: { pl: "sztab/", en: "en/staff/" },
+  mlodziez: { pl: "grupy-mlodziezowe/", en: "en/youth/" },
   sponsorzy: { pl: "sponsorzy/", en: "en/sponsors/" },
   aktualnosci: { pl: "aktualnosci/", en: "en/news/" },
   kontakt: { pl: "kontakt/", en: "en/contact/" },
@@ -35,7 +36,7 @@ export function playerUrl(slug: string, lang: Lang): string {
   return lang === "pl" ? u(`sklad/${slug}/`) : u(`en/roster/${slug}/`);
 }
 
-export const NAV: RouteKey[] = ["start", "sklad", "terminarz", "sztab", "aktualnosci", "sponsorzy", "kontakt"];
+export const NAV: RouteKey[] = ["start", "sklad", "terminarz", "sztab", "mlodziez", "aktualnosci", "sponsorzy", "kontakt"];
 
 export const ui = {
   pl: {
@@ -46,6 +47,7 @@ export const ui = {
     "nav.sklad": "Skład",
     "nav.terminarz": "Terminarz",
     "nav.sztab": "Sztab",
+    "nav.mlodziez": "Grupy młodzieżowe",
     "nav.sponsorzy": "Sponsorzy",
     "nav.aktualnosci": "Aktualności",
     "nav.kontakt": "Kontakt",
@@ -156,6 +158,29 @@ export const ui = {
     "stats.none": "Statystyki pojawią się po pierwszym meczu zawodnika w sezonie.",
     "swipe.hint": "Przesuń palcem — kolejny zawodnik",
 
+    "youth.kicker": "ŁKS Koszykówka Męska",
+    "youth.title": "Grupy młodzieżowe",
+    "youth.lead": "Stowarzyszenie ŁKS Koszykówka Męska prowadzi drużyny chłopców od grup naborowych po 2. ligę. To pełna piramida szkoleniowa — chcemy, żeby nasi wychowankowie grali kiedyś w ŁKS CoolPack.",
+    "youth.site": "Przejdź na lkskmjunior.pl",
+    "youth.teams": "drużyn",
+    "youth.players": "zawodników",
+    "youth.topLevel": "2. liga",
+    "youth.top": "drużyna seniorska",
+    "youth.groupsKicker": "Od najmłodszych do seniorów",
+    "youth.groupsTitle": "Nasze drużyny",
+    "youth.born": "chłopcy urodzeni w {r} roku i młodsi",
+    "youth.senior": "drużyna seniorska · 2. liga",
+    "youth.coach": "trener",
+    "youth.more": "Strona drużyny",
+    "youth.joinKicker": "Dołącz do Klubu",
+    "youth.joinTitle": "Jak zacząć?",
+    "youth.joinBeg": "Grupy naborowe: nabór otwarty przez cały sezon",
+    "youth.joinOld": "Drużyny U11–U19: najpierw rozmowa z koordynatorem",
+    "youth.coordBeg": "Koordynator grup naborowych",
+    "youth.coordOrg": "Koordynator organizacyjny",
+    "youth.ctaKicker": "Wszystko o grupach młodzieżowych",
+    "youth.ctaText": "Harmonogramy treningów, hale, trenerzy, aktualności i zapisy — na stronie grup młodzieżowych ŁKS.",
+    "youth.join": "Zapisy krok po kroku",
     "staff.kicker": "Za kulisami",
     "staff.title": "Sztab",
     "staff.lead": "Trenerzy i specjaliści, którzy na co dzień pracują z drużyną.",
@@ -192,11 +217,6 @@ export const ui = {
     "news.fb.card": "Wyniki, zapowiedzi, zdjęcia i relacje z meczów.",
     "news.ig.card": "Zdjęcia, filmy i kulisy życia drużyny.",
 
-    "academy.kicker": "Od grup naborowych do 1. ligi",
-    "academy.title": "Szkolimy następców",
-    "academy.text":
-      "Stowarzyszenie ŁKS Koszykówka Męska szkoli chłopców — od grup naborowych po zespół w 2. lidze. Chcemy, żeby nasi wychowankowie grali kiedyś w ŁKS CoolPack.",
-    "academy.cta": "ŁKS KM Junior",
 
     "contact.kicker": "ŁKS CoolPack Łódź",
     "contact.title": "Kontakt",
@@ -229,6 +249,7 @@ export const ui = {
     "nav.sklad": "Roster",
     "nav.terminarz": "Fixtures",
     "nav.sztab": "Staff",
+    "nav.mlodziez": "Youth teams",
     "nav.sponsorzy": "Sponsors",
     "nav.aktualnosci": "News",
     "nav.kontakt": "Contact",
@@ -339,6 +360,29 @@ export const ui = {
     "stats.none": "Stats will appear after the player's first game of the season.",
     "swipe.hint": "Swipe for the next player",
 
+    "youth.kicker": "ŁKS Koszykówka Męska",
+    "youth.title": "Youth teams",
+    "youth.lead": "The ŁKS Koszykówka Męska association runs boys’ teams from beginner groups up to the 2nd League. It is a complete development pathway — we want our players to wear the ŁKS CoolPack shirt one day.",
+    "youth.site": "Go to lkskmjunior.pl",
+    "youth.teams": "teams",
+    "youth.players": "players",
+    "youth.topLevel": "2nd League",
+    "youth.top": "senior team",
+    "youth.groupsKicker": "From beginners to seniors",
+    "youth.groupsTitle": "Our teams",
+    "youth.born": "boys born in {r} or later",
+    "youth.senior": "senior team · 2nd League",
+    "youth.coach": "coach",
+    "youth.more": "Team page",
+    "youth.joinKicker": "Join the club",
+    "youth.joinTitle": "How to start",
+    "youth.joinBeg": "Beginner groups: open to new players all season",
+    "youth.joinOld": "U11–U19 teams: start with a call to the coordinator",
+    "youth.coordBeg": "Beginner groups coordinator",
+    "youth.coordOrg": "Organisational coordinator",
+    "youth.ctaKicker": "Everything about our youth teams",
+    "youth.ctaText": "Training schedules, venues, coaches, news and sign-up — on the ŁKS youth website (in Polish).",
+    "youth.join": "How to sign up",
     "staff.kicker": "Behind the scenes",
     "staff.title": "Staff",
     "staff.lead": "The coaches and specialists who work with the team every day.",
@@ -375,11 +419,6 @@ export const ui = {
     "news.fb.card": "Results, previews, photos and match reports.",
     "news.ig.card": "Photos, videos and behind the scenes.",
 
-    "academy.kicker": "From beginners to the 1st League",
-    "academy.title": "Developing young players",
-    "academy.text":
-      "The ŁKS Koszykówka Męska association coaches boys from beginner groups up to its 2nd League team. We want our young players to play for ŁKS CoolPack one day.",
-    "academy.cta": "ŁKS KM Junior",
 
     "contact.kicker": "ŁKS CoolPack Łódź",
     "contact.title": "Contact",

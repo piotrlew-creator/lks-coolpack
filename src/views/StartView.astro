@@ -7,8 +7,6 @@ import Social from "../components/Social.astro";
 import MatchCard from "../components/MatchCard.astro";
 import NewsCard from "../components/NewsCard.astro";
 import LastResult from "../components/LastResult.astro";
-import heroLight from "../assets/start/hero-light.jpg";
-import herbBialy from "../assets/logo/herb-bialy.png";
 import herbCzerwony from "../assets/logo/herb-czerwony.png";
 import { klub } from "../data/klub";
 import { najblizszyMecz } from "../lib/terminarz";
@@ -25,6 +23,12 @@ const players = (await getZawodnicy()).slice(0, 8);
 const sponsors = await getSponsorzy();
 
 
+/* Zdjęcie drużyny w hero — na razie brak (będzie nowe).
+   Gdy przyjdzie: zapisz plik jako src/assets/start/druzyna.jpg,
+   dodaj na górze  import druzyna from "../assets/start/druzyna.jpg";
+   i zamień poniższe undefined na  druzyna  — pokaże się pod nazwą klubu. */
+const zdjecieDruzyny: ImageMetadata | undefined = undefined;
+
 const mecz = najblizszyMecz;
 // Wpis o najbliższym meczu nie dubluje karty meczu — karta prowadzi do niego przyciskiem
 const wszystkie = await aktualnosci();
@@ -35,41 +39,36 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
 <Base lang={lang} alt={{ pl: u(ROUTES.start.pl), en: u(ROUTES.start.en) }} active="start">
   <!-- ══════════════ HERO ══════════════ -->
   <section class="hero" aria-labelledby="hero-title">
-    <div class="hero__top">
     <div class="hero__year" aria-hidden="true">{klub.rokZalozenia}</div>
-
-    <!-- Nazwa drużyny „nachodzi” na górę zdjęcia (ciemna ściana nad głowami) -->
     <div class="hero__in wrap">
-      <h1 id="hero-title" class="hero__title">
-        <span class="hero__t1">ŁKS</span>{" "}<span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
-      </h1>
-      <div class="hero__crest" aria-hidden="true">
-        <Image class="hero__crest-dark" src={herbBialy} alt="" width={320} height={321} loading="eager" />
-        <Image class="hero__crest-light" src={herbCzerwony} alt="" width={320} height={321} loading="eager" />
+      <div class="hero__crest">
+        <Image src={herbCzerwony} alt={lang === "pl" ? "Herb ŁKS Łódź" : "ŁKS Łódź crest"} width={320} height={321} loading="eager" fetchpriority="high" />
+      </div>
+      <div class="hero__text">
+        <h1 id="hero-title" class="hero__title">
+          <span class="hero__t1">ŁKS</span>{" "}<span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
+        </h1>
+        <p class="hero__sub">{t(lang, "hero.sub")}</p>
+        <div class="btn-row btn-row--equal">
+          <a class="btn" href={route("sklad", lang)}>{t(lang, "hero.cta.team")}</a>
+          <a class="btn btn--ghost" href={route("aktualnosci", lang)}>{t(lang, "hero.cta.news")}</a>
+        </div>
       </div>
     </div>
-
-    <!-- Zdjęcie drużyny: białe stroje w jasnym motywie, czarne w ciemnym -->
-    <div class="hero__team">
-      <Image
-        class="hero__img"
-        src={heroLight}
-        alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź w białych strojach" : "ŁKS CoolPack Łódź players and staff in white kits"}
-        widths={[800, 1200, 1600, 2400]}
-        sizes="100vw"
-        loading="eager"
-        fetchpriority="high"
-      />
-    </div>
-    </div>
-
-    <div class="hero__foot wrap">
-      <p class="hero__sub">{t(lang, "hero.sub")}</p>
-      <div class="btn-row btn-row--equal">
-        <a class="btn" href={route("sklad", lang)}>{t(lang, "hero.cta.team")}</a>
-        <a class="btn btn--ghost" href={route("aktualnosci", lang)}>{t(lang, "hero.cta.news")}</a>
-      </div>
-    </div>
+    {
+      zdjecieDruzyny && (
+        <div class="hero__team wrap">
+          <Image
+            class="hero__img"
+            src={zdjecieDruzyny}
+            alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź" : "ŁKS CoolPack Łódź players and staff"}
+            widths={[800, 1200, 1600, 2400]}
+            sizes="(min-width: 1280px) 1200px, 100vw"
+            loading="eager"
+          />
+        </div>
+      )
+    }
   </section>
 
   <!-- ══════════════ AKTUALNOŚCI: najbliższy mecz + najnowsze wpisy ══════════════ -->
@@ -126,18 +125,14 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
 
   <!-- ══════════════ SZTAB + AKADEMIA ══════════════ -->
   <section class="section">
-    <div class="wrap duo">
+    <div class="wrap">
       <a class="panel reveal" href={route("sztab", lang)}>
-        <p class="kicker">{t(lang, "staff.kicker")}</p>
-        <h2 class="h-lg">{t(lang, "staff.title")}</h2>
-        <p>{t(lang, "staff.lead")}</p>
+        <div>
+          <p class="kicker">{t(lang, "staff.kicker")}</p>
+          <h2 class="h-lg">{t(lang, "staff.title")}</h2>
+          <p>{t(lang, "staff.lead")}</p>
+        </div>
         <span class="btn btn--ghost panel__cta">{t(lang, "staff.cta")} →</span>
-      </a>
-      <a class="panel reveal" style="--d:120ms" href={klub.akademia.adres} target="_blank" rel="noopener">
-        <p class="kicker">{t(lang, "academy.kicker")}</p>
-        <h2 class="h-lg">{t(lang, "academy.title")}</h2>
-        <p>{t(lang, "academy.text")}</p>
-        <span class="btn btn--ghost panel__cta">{t(lang, "academy.cta")} ↗</span>
       </a>
     </div>
   </section>
@@ -195,68 +190,42 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
 
 <style>
   /* -- Hero ------------------------------------------------------
-     Tekst na ciemnym tle, pod nim pełna szerokość zdjęcia drużyny
-     (cała drużyna zawsze widoczna — także na telefonie).            */
+     Jasny, zwarty: herb klubu + nazwa, opis i przyciski.
+     Miejsce na zdjęcie drużyny pod spodem (gdy będzie).            */
   .hero {
-    --hero-bg: #0f0c0a;
     position: relative;
-    background:
-      radial-gradient(70% 60% at 80% 10%, #3b0a0e 0%, transparent 60%),
-      linear-gradient(180deg, #120f0c 0%, #0b0907 100%);
-    color: #fff;
     overflow: hidden;
     isolation: isolate;
-    margin-top: calc(-1 * var(--header-h));
-    padding-top: var(--header-h);
+    background: var(--bg);
+    padding-block: clamp(28px, 5vw, 64px) clamp(20px, 3vw, 36px);
   }
   .hero__year {
     position: absolute;
     z-index: -1;
     right: -2vw;
-    top: calc(var(--header-h) - 2vw);
+    top: -1vw;
     font-family: var(--font-cond);
     font-weight: 800;
-    font-size: clamp(140px, 28vw, 420px);
+    font-size: clamp(130px, 26vw, 380px);
     line-height: 0.8;
     letter-spacing: -0.04em;
     color: transparent;
-    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.07);
+    -webkit-text-stroke: 2px rgba(23, 20, 15, 0.06);
     user-select: none;
   }
   .hero__in {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 24px;
-    padding-block: clamp(28px, 5vh, 56px) 0;
-    pointer-events: none;
-  }
-  .hero__foot {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: auto 1fr;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px 40px;
-    padding-block: clamp(16px, 2vw, 28px) clamp(8px, 2vw, 24px);
-  }
-  .hero__foot .hero__sub {
-    margin: 0;
+    gap: clamp(18px, 4vw, 56px);
   }
   .hero__crest {
-    flex: none;
-    width: clamp(96px, 16vw, 220px);
+    width: clamp(96px, 20vw, 240px);
   }
   .hero__crest :global(img) {
+    display: block;
     width: 100%;
     height: auto;
-  }
-  .hero__kicker {
-    color: #fff;
-  }
-  .hero__kicker::before {
-    background: var(--red);
   }
   .hero__title {
     margin: 0;
@@ -264,201 +233,83 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     flex-wrap: wrap;
     align-items: baseline;
     gap: 0 0.22em;
-    line-height: 0.86;
+    line-height: 0.88;
   }
   .hero__t1 {
-    font-size: clamp(64px, 11vw, 150px);
+    font-size: clamp(56px, 9vw, 130px);
   }
   .hero__t2 {
-    font-size: clamp(40px, 7vw, 96px);
-    color: var(--red-on-dark);
+    font-size: clamp(34px, 5.6vw, 82px);
+    color: var(--red);
   }
   .hero__sub {
-    max-width: 60ch;
+    max-width: 58ch;
+    margin: clamp(12px, 1.6vw, 20px) 0 clamp(16px, 2vw, 24px);
     font-size: clamp(16px, 1.5vw, 19px);
-    color: #ddd4ca;
+    color: var(--muted);
   }
-  /* Zdjęcie podjeżdża pod dolną część nazwy — tylko na pas ściany nad
-     głowami zawodników (ok. 15% wysokości zdjęcia), nikogo nie zasłania. */
   .hero__team {
-    position: relative;
-    z-index: 1;
-    margin-top: calc(-1 * min(7vw, 130px));
-    overflow: clip; /* zdjęcie nie wystaje poza ramkę podczas animacji wejścia */
-  }
-  .hero__team::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    pointer-events: none;
-    bottom: 0;
-    height: 8%;
-    background: linear-gradient(transparent, var(--bg));
+    margin-top: clamp(20px, 3vw, 36px);
   }
   .hero__team :global(.hero__img) {
     display: block;
     width: 100%;
     height: auto;
-    /* górna krawędź zdjęcia płynnie przechodzi w tło */
-    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, #000 14%);
-    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, #000 14%);
+    border-radius: var(--radius);
   }
-  /* Jasny motyw: białe tło pod tytułem, ciemne napisy, czerwony herb */
-  :global([data-theme="light"]) .hero {
-    --hero-bg: #ffffff;
-    background: #ffffff;
-    color: var(--black);
-  }
-  :global([data-theme="light"]) .hero__team :global(.hero__img) {
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 12%, #000 18%);
-    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 12%, #000 18%);
-  }
-  :global([data-theme="light"]) .hero__sub {
-    color: #4a423b;
-  }
-  :global([data-theme="light"]) .hero__t2 {
-    color: var(--red);
-  }
-  :global([data-theme="light"]) .hero__year {
-    -webkit-text-stroke-color: rgba(23, 20, 15, 0.07);
-  }
-  :global([data-theme="light"]) .hero .btn--ghost {
-    color: var(--black);
-  }
-  .hero__crest-light,
-  :global([data-theme="light"]) .hero__crest-dark {
-    display: none;
-  }
-  :global([data-theme="light"]) .hero__crest-light {
-    display: block;
-  }
-
-  /* Monitor i tablet w jasnym motywie: pas z nazwą i zdjęciem ma ciemne tło
-     (jak pasek nawigacji i ściana na zdjęciu), biało dopiero pod zdjęciem. */
-  .hero__top {
-    position: relative;
-  }
-  @media (min-width: 701px) and (min-height: 501px), (min-width: 701px) and (orientation: portrait) {
-    :global(html[data-theme="light"]) .hero__top {
-      background: var(--black);
-      color: #fff;
-    }
-    :global(html[data-theme="light"]) .hero__top .hero__t2 {
-      color: var(--red-on-dark);
-    }
-    :global(html[data-theme="light"]) .hero__top .hero__year {
-      -webkit-text-stroke-color: rgba(255, 255, 255, 0.07);
-    }
-    :global(html[data-theme="light"]) .hero__top .hero__crest-dark {
-      display: block;
-    }
-    :global(html[data-theme="light"]) .hero__top .hero__crest-light {
-      display: none;
-    }
-    :global(html[data-theme="light"]) .hero__team :global(.hero__img) {
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%);
-      mask-image: linear-gradient(to bottom, transparent 0%, #000 12%);
-    }
-    :global(html[data-theme="light"]) .hero__team::after {
-      background: linear-gradient(transparent, #ffffff);
-    }
-  }
-
-  /* Telefon w pionie i w poziomie: najpierw zdjęcie drużyny, pod nim tekst */
-  @media (max-width: 700px), (orientation: landscape) and (max-height: 500px) {
-    .hero__top {
-      display: flex;
-      flex-direction: column;
-    }
-    .hero__team {
-      order: -1;
-      margin: 0;
-      z-index: 0;
-    }
-    .hero__year {
-      display: none;
-    }
-    /* zdjęcie zaraz pod paskiem nawigacji: tło w tym samym ciemnym kolorze,
-       bez jasnego pasa (także w jasnym motywie) */
-    .hero__team {
-      background: var(--black);
-    }
-    .hero__team :global(.hero__img),
-    :global([data-theme]) .hero__team :global(.hero__img) {
-      -webkit-mask-image: none;
-      mask-image: none;
-    }
-    .hero__team::after {
-      height: 22%;
-      background: linear-gradient(transparent, var(--hero-bg));
-    }
+  /* Telefon: herb obok nazwy, opis i przyciski pod spodem na całą szerokość */
+  @media (max-width: 640px) {
     .hero__in {
-      align-items: flex-start;
-      margin-top: -30px;
-      padding-block: 0;
-    }
-    .hero__foot {
-      padding-block: 14px 8px;
-    }
-    .hero__crest {
-      display: none; /* herb jest już w pasku u góry */
+      grid-template-columns: auto 1fr;
+      gap: 6px 16px;
     }
     .hero__text {
-      padding-right: 0;
-    }
-  }
-
-  @media (orientation: landscape) and (max-height: 500px) {
-    /* telefon poziomo: niższe zdjęcie, żeby nazwa klubu była widać od razu */
-    .hero__team :global(.hero__img) {
-      width: auto;
-      max-width: 100%;
-      max-height: calc(100svh - var(--header-h) - 110px);
-      margin-inline: auto;
-    }
-    .hero__t1 {
-      font-size: 64px;
-    }
-    .hero__t2 {
-      font-size: 44px;
+      display: contents;
     }
     .hero__crest {
-      display: block;
-      width: 120px;
+      width: 92px;
+    }
+    .hero__title {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+    .hero__t1 {
+      font-size: 60px;
+    }
+    .hero__t2 {
+      font-size: 34px;
+    }
+    .hero__sub,
+    .hero .btn-row {
+      grid-column: 1 / -1;
+    }
+    .hero__sub {
+      margin-top: 14px;
     }
   }
 
-  /* Wejście hero: piorun uderza, tytuł wjeżdża */
+  /* Wejście hero: herb się obraca, tytuł wjeżdża */
   @media (prefers-reduced-motion: no-preference) {
     .hero__t1,
     .hero__t2,
     .hero__sub,
-    .hero .btn-row,
-    .hero__kicker {
+    .hero .btn-row {
       animation: hero-in 800ms var(--ease) both;
     }
-    .hero__kicker { animation-delay: 250ms; }
-    .hero__t1 { animation-delay: 320ms; }
-    .hero__t2 { animation-delay: 420ms; }
-    .hero__sub { animation-delay: 520ms; }
-    .hero .btn-row { animation-delay: 620ms; }
+    .hero__t1 { animation-delay: 200ms; }
+    .hero__t2 { animation-delay: 300ms; }
+    .hero__sub { animation-delay: 400ms; }
+    .hero .btn-row { animation-delay: 480ms; }
     .hero__crest {
-      animation: hero-crest 1000ms 300ms var(--ease) both;
-    }
-    .hero__team :global(.hero__img) {
-      animation: hero-team 600ms var(--ease) both;
+      animation: hero-crest 900ms 100ms var(--ease) both;
     }
   }
   @keyframes hero-in {
-    from { opacity: 0; transform: translateY(40px) skewY(3deg); }
+    from { opacity: 0; transform: translateY(30px) skewY(2deg); }
   }
   @keyframes hero-crest {
     from { opacity: 0; transform: scale(0.6) rotate(-25deg); }
-  }
-  @keyframes hero-team {
-    from { opacity: 0; }
   }
 
   /* -- Najbliższy mecz ---------------------------------------- */
@@ -618,21 +469,12 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     }
   }
 
-  /* -- Karty: sztab i akademia (jak pozostałe karty na stronie) -- */
-  .duo {
+  /* -- Karta: sztab (układ jak karta social media) -------------- */
+  .panel {
     display: grid;
     gap: 16px;
-  }
-  @media (min-width: 860px) {
-    .duo {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  .panel {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: clamp(22px, 4vw, 36px);
+    align-items: center;
+    padding: clamp(20px, 3vw, 32px);
     border-radius: var(--radius);
     background: var(--surface);
     border: 1px solid var(--border);
@@ -641,22 +483,25 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     text-decoration: none;
     transition: transform 200ms var(--ease), border-color 200ms var(--ease);
   }
+  @media (min-width: 760px) {
+    .panel {
+      grid-template-columns: 1fr auto;
+    }
+  }
   .panel:hover {
     transform: translateY(-3px);
     border-color: var(--red);
   }
-  .panel p {
-    max-width: 46ch;
+  .panel p:not(.kicker) {
+    margin: 0;
+    max-width: 52ch;
     color: var(--muted);
-  }
-  .panel .kicker {
-    color: var(--accent);
-  }
-  .panel__cta {
-    margin-top: auto;
   }
   .panel:hover .panel__cta {
     color: var(--accent);
+  }
+  .panel__cta {
+    justify-self: start;
   }
 
   /* -- Karta social media ---------------------------------------- */
