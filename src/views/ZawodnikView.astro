@@ -269,8 +269,11 @@ const desc = `${name} — #${d.numer}, ${pozycje(d.pozycje, lang)}. ${lang === "
     margin: 0 0 10px;
     font-family: var(--font-cond);
     font-weight: 700;
-    font-size: 13px;
-    letter-spacing: 0.08em;
+    font-size: clamp(11px, 3.4vw, 13px);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     text-transform: uppercase;
     color: #a0968c;
   }

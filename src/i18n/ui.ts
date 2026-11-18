@@ -113,7 +113,7 @@ export const ui = {
     "stats.pm": "+/− na mecz",
     "stats.source": "Źródło: Polski Związek Koszykówki (1lm.pzkosz.pl), stan na",
     "stats.none": "Statystyki pojawią się po pierwszym meczu zawodnika w tym sezonie.",
-    "swipe.hint": "Przesuń palcem, aby zobaczyć kolejnego zawodnika",
+    "swipe.hint": "Przesuń palcem — kolejny zawodnik",
 
     "staff.kicker": "Ludzie za drużyną",
     "staff.title": "Sztab",
@@ -257,7 +257,7 @@ export const ui = {
     "stats.pm": "+/− per game",
     "stats.source": "Source: Polish Basketball Federation (1lm.pzkosz.pl), as of",
     "stats.none": "Stats will appear after the player's first game this season.",
-    "swipe.hint": "Swipe to see the next player",
+    "swipe.hint": "Swipe for the next player",
 
     "staff.kicker": "The people behind the team",
     "staff.title": "Staff",
