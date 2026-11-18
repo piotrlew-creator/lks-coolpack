@@ -34,7 +34,10 @@ const stats = [
   { k: t(lang, "team.since"), v: odSezonu },
   { k: t(lang, "team.prevClub"), v: poprzedni },
 ].filter((s) => s.v);
-const desc = `${name} — #${d.numer}, ${pozycje(d.pozycje, lang)}. ${lang === "pl" ? "ŁKS CoolPack Łódź, 1. liga." : "ŁKS CoolPack Łódź, Polish 1st League."}`;
+const desc =
+  lang === "pl"
+    ? `${name} (#${d.numer}, ${pozycje(d.pozycje, lang).toLowerCase()}) — zawodnik ŁKS CoolPack Łódź. Statystyki sezonu i kariera.`
+    : `${name} (#${d.numer}, ${pozycje(d.pozycje, lang).toLowerCase()}) — ŁKS CoolPack Łódź player. Season stats and career.`;
 ---
 
 <Base

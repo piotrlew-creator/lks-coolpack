@@ -10,13 +10,13 @@ kapitan: false
 zdjecie: "../../assets/zawodnicy/igor-urban.jpg" # strona zawodnika (4:5)
 kafel: "../../assets/zawodnicy/igor-urban-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
-  Najmłodszy zawodnik w składzie. W ŁKS gra od sezonu 2023/2024 — występuje w 1. lidze, a równolegle w drużynie ŁKS II Politechnika Łódzka w 2. lidze.
+  Najmłodszy zawodnik w składzie. W ŁKS od sezonu 2023/2024. Oprócz 1. ligi gra też w drużynie ŁKS II Politechnika Łódzka w 2. lidze.
 
-  Pierwsze koszykarskie kroki stawiał w Suchym Lesie i Poznaniu, gdzie przeszedł wszystkie kategorie młodzieżowe.
+  Koszykówki uczył się w Suchym Lesie i Poznaniu.
 opisEn: |
-  The youngest player on the roster. He has been with ŁKS since the 2023/2024 season, playing in the 1st League and also for ŁKS II Politechnika Łódzka in the 2nd League.
+  The youngest player on the roster. With ŁKS since 2023/2024, he also plays for ŁKS II Politechnika Łódzka in the 2nd League.
 
-  He learned the game in Suchy Las and Poznań, where he came through all the youth age groups.
+  He learned the game in Suchy Las and Poznań.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }

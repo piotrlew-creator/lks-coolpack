@@ -11,6 +11,7 @@ interface Props {
 }
 const { lang } = Astro.props;
 const email = klub.kontakt.biuro.email;
+const stats = Boolean(klub.cfAnalyticsToken);
 ---
 
 <Base lang={lang} title={t(lang, "privacy.title")} alt={{ pl: u(ROUTES.prywatnosc.pl), en: u(ROUTES.prywatnosc.en) }}>
@@ -20,31 +21,41 @@ const email = klub.kontakt.biuro.email;
       {
         lang === "pl" ? (
           <>
-            <h2>Bez cookies</h2>
-            <p>Strona nie używa plików cookies i nie zbiera danych osobowych. Nie ma na niej formularzy.</p>
-            <h2>Statystyki odwiedzin</h2>
+            <h2>Bez plików cookies</h2>
+            <p>Strona nie używa plików cookies, nie ma formularzy i nie zbiera danych osobowych.</p>
+            {stats && (
+              <>
+                <h2>Statystyki odwiedzin</h2>
+                <p>
+                  Odwiedziny liczymy anonimowo w Cloudflare Web Analytics, bez cookies i bez rozpoznawania
+                  użytkowników. Widzimy tylko dane zbiorcze, np. liczbę odwiedzin i najczęściej oglądane strony.
+                </p>
+              </>
+            )}
+            {klub.facebookWtyczka && (
+              <>
+                <h2>Posty z Facebooka</h2>
+                <p>
+                  Posty z Facebooka wczytują się dopiero po kliknięciu „Pokaż posty”. Wtedy przeglądarka łączy się
+                  z serwerami Meta, które mogą zapisać własne pliki cookies. Twój wybór zapamiętujemy w przeglądarce.
+                </p>
+              </>
+            )}
+            <h2>Pamięć przeglądarki</h2>
             <p>
-              Liczymy odwiedziny anonimowo, za pomocą Cloudflare Web Analytics — bez plików cookies i bez
-              rozpoznawania poszczególnych osób. Widzimy tylko zbiorcze dane, np. liczbę odwiedzin i najczęściej
-              oglądane podstrony.
+              W przeglądarce zapisujemy tylko wybrany motyw (jasny lub ciemny){klub.facebookWtyczka ? " i zgodę na posty z Facebooka" : ""}.
+              Te informacje do nas nie trafiają. Usuniesz je, czyszcząc dane strony w ustawieniach przeglądarki.
             </p>
-            <h2>Posty z Facebooka</h2>
+            <h2>Linki zewnętrzne</h2>
             <p>
-              Posty z Facebooka wczytujemy dopiero po kliknięciu przycisku „Pokaż posty”. Wtedy przeglądarka łączy
-              się z serwerami Meta, które mogą zapisywać własne pliki cookies (zgodnie z polityką prywatności Meta).
-              Twoją decyzję zapamiętujemy w przeglądarce, żeby przy kolejnej wizycie nie pytać ponownie.
-            </p>
-            <h2>Ustawienia w przeglądarce</h2>
-            <p>
-              W pamięci przeglądarki (localStorage) zapisujemy tylko wybrany motyw (jasny lub ciemny) i zgodę na
-              wyświetlanie postów z Facebooka. Te informacje nie trafiają do nas. Możesz je usunąć, czyszcząc dane
-              strony w ustawieniach przeglądarki.
+              Odnośniki do Facebooka, Instagrama i strony ligi prowadzą do innych serwisów, które mają własne zasady
+              prywatności.
             </p>
             {email && (
               <>
                 <h2>Kontakt</h2>
                 <p>
-                  Pytania dotyczące prywatności: <a href={`mailto:${email}`}>{email}</a>
+                  Pytania o prywatność: <a href={`mailto:${email}`}>{email}</a>
                 </p>
               </>
             )}
@@ -52,25 +63,33 @@ const email = klub.kontakt.biuro.email;
         ) : (
           <>
             <h2>No cookies</h2>
-            <p>This website does not use cookies and does not collect personal data. There are no forms on it.</p>
-            <h2>Visitor statistics</h2>
+            <p>This website doesn't use cookies, has no forms and doesn't collect personal data.</p>
+            {stats && (
+              <>
+                <h2>Visitor statistics</h2>
+                <p>
+                  We count visits anonymously with Cloudflare Web Analytics, without cookies and without identifying
+                  anyone. We only see totals, such as the number of visits and the most viewed pages.
+                </p>
+              </>
+            )}
+            {klub.facebookWtyczka && (
+              <>
+                <h2>Facebook posts</h2>
+                <p>
+                  Facebook posts only load after you click “Show posts”. Your browser then connects to Meta's servers,
+                  which may set their own cookies. We remember your choice in your browser.
+                </p>
+              </>
+            )}
+            <h2>Browser storage</h2>
             <p>
-              We count visits anonymously with Cloudflare Web Analytics — without cookies and without identifying
-              individual visitors. We only see aggregated data, such as the number of visits and the most viewed
-              pages.
+              We only store your theme choice (light or dark){klub.facebookWtyczka ? " and your consent to show Facebook posts" : ""} in
+              your browser. This information isn't sent to us. You can remove it by clearing this site's data in your
+              browser settings.
             </p>
-            <h2>Facebook posts</h2>
-            <p>
-              Facebook posts are loaded only after you click “Show posts”. Your browser then connects to Meta's
-              servers, which may set their own cookies (under Meta's privacy policy). We remember your choice in your
-              browser so we don't ask again on your next visit.
-            </p>
-            <h2>Browser settings</h2>
-            <p>
-              We store only your theme choice (light or dark) and your consent to show Facebook posts in your
-              browser's local storage. This information is not sent to us. You can remove it by clearing this site's
-              data in your browser settings.
-            </p>
+            <h2>External links</h2>
+            <p>Links to Facebook, Instagram and the league website take you to other services with their own privacy policies.</p>
             {email && (
               <>
                 <h2>Contact</h2>

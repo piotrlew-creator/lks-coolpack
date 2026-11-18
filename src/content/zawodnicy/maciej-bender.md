@@ -10,13 +10,13 @@ kapitan: false
 zdjecie: "../../assets/zawodnicy/maciej-bender.jpg" # strona zawodnika (4:5)
 kafel: "../../assets/zawodnicy/maciej-bender-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
-  Do ŁKS CoolPack przyszedł przed sezonem 2026/2027 z Tauron GTK Gliwice.
+  Przyszedł do ŁKS przed sezonem 2026/2027 z Tauron GTK Gliwice.
 
-  Doświadczony zawodnik ekstraklasy — grał w niej także w barwach Dzików Warszawa i Śląska Wrocław.
+  Ma duże doświadczenie z ekstraklasy — grał w niej też w Dzikach Warszawa i Śląsku Wrocław.
 opisEn: |
-  He joined ŁKS CoolPack ahead of the 2026/2027 season from Tauron GTK Gliwice.
+  Joined ŁKS before the 2026/2027 season from Tauron GTK Gliwice.
 
-  An experienced top-division player, he has also played at that level for Dziki Warszawa and Śląsk Wrocław.
+  An experienced top-flight player, he has also played for Dziki Warszawa and Śląsk Wrocław.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }

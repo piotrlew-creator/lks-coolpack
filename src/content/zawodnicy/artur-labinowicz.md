@@ -10,13 +10,13 @@ kapitan: false
 zdjecie: "../../assets/zawodnicy/artur-labinowicz.jpg" # strona zawodnika (4:5)
 kafel: "../../assets/zawodnicy/artur-labinowicz-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
-  Do ŁKS CoolPack dołączył przed sezonem 2026/2027 z Solvery Sokoła Łańcut, z którym grał w 1. lidze.
+  Przyszedł do ŁKS przed sezonem 2026/2027 z Solvery Sokoła Łańcut (1. liga).
 
-  Ma za sobą występy w ekstraklasie w barwach Orlen Zastalu Zielona Góra, Sokoła Łańcut, Kinga Szczecin i Śląska Wrocław.
+  W ekstraklasie grał w Orlen Zastalu Zielona Góra, Sokole Łańcut, Kingu Szczecin i Śląsku Wrocław.
 opisEn: |
-  He joined ŁKS CoolPack ahead of the 2026/2027 season from Solvera Sokół Łańcut, where he played in the 1st League.
+  Joined ŁKS before the 2026/2027 season from 1st League side Solvera Sokół Łańcut.
 
-  He has top-division experience with Orlen Zastal Zielona Góra, Sokół Łańcut, King Szczecin and Śląsk Wrocław.
+  He has top-flight experience with Orlen Zastal Zielona Góra, Sokół Łańcut, King Szczecin and Śląsk Wrocław.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }

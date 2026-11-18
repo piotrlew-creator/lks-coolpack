@@ -12,11 +12,11 @@ kafel: "../../assets/zawodnicy/marcel-ponitka-kafel.jpg" # kafel w składzie i n
 opis: |
   W ŁKS od sezonu 2025/2026.
 
-  Przez lata grał w ekstraklasie — w barwach Śląska Wrocław, Legii Warszawa, Zastalu Zielona Góra oraz Arki i Asseco Gdynia.
+  Wcześniej przez lata grał w ekstraklasie: w Śląsku Wrocław, Legii Warszawa, Zastalu Zielona Góra oraz Arce i Asseco Gdynia.
 opisEn: |
-  He has been with ŁKS since the 2025/2026 season.
+  With ŁKS since 2025/2026.
 
-  He spent many years in the top division, playing for Śląsk Wrocław, Legia Warszawa, Zastal Zielona Góra and Arka/Asseco Gdynia.
+  Before that he spent many years in the top flight with Śląsk Wrocław, Legia Warszawa, Zastal Zielona Góra and Arka/Asseco Gdynia.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }

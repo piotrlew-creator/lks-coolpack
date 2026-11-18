@@ -10,13 +10,13 @@ kapitan: true
 zdjecie: "../../assets/zawodnicy/norbert-kulon.jpg" # strona zawodnika (4:5)
 kafel: "../../assets/zawodnicy/norbert-kulon-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
-  Kapitan drużyny. W ŁKS od sezonu 2021/2022 — razem z zespołem przeszedł drogę z 2. ligi do 1. ligi.
+  Kapitan drużyny. W ŁKS od sezonu 2021/2022 — razem z zespołem awansował z 2. do 1. ligi.
 
   Seniorską karierę zaczynał w Śląsku Wrocław, z którym grał też w ekstraklasie. Występował również m.in. w Kingu Szczecin, GKS Tychy i Kotwicy Kołobrzeg.
 opisEn: |
-  The team captain. He has been with ŁKS since the 2021/2022 season and moved up with the team from the 2nd League to the 1st League.
+  Team captain. With ŁKS since 2021/2022, he moved up with the team from the 2nd to the 1st League.
 
-  He started his senior career at Śląsk Wrocław, also playing for them in the top division. His other clubs include King Szczecin, GKS Tychy and Kotwica Kołobrzeg.
+  He began his senior career at Śląsk Wrocław, also playing for them in the top flight. His other clubs include King Szczecin, GKS Tychy and Kotwica Kołobrzeg.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }

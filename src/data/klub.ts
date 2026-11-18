@@ -10,8 +10,9 @@ export const klub = {
   liga: "1. liga",
   ligaPelna: "1. Liga Mężczyzn",
   rokZalozenia: 1908,
-  opis:
-    "ŁKS CoolPack Łódź — koszykarze ŁKS w 1. lidze. Walczymy o awans do ekstraklasy.",
+  // Opis strony dla Google i podglądu linków
+  opis: "ŁKS CoolPack Łódź — drużyna koszykówki w 1. lidze. Skład, statystyki zawodników, aktualności i kontakt.",
+  opisEn: "ŁKS CoolPack Łódź — a basketball team in the Polish 1st League. Roster, player stats, news and contact.",
 
   // Media społecznościowe
   facebook: "https://www.facebook.com/lkscoolpack",

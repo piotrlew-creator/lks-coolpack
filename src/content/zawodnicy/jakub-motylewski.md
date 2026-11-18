@@ -10,13 +10,13 @@ kapitan: false
 zdjecie: "../../assets/zawodnicy/jakub-motylewski.jpg" # strona zawodnika (4:5)
 kafel: "../../assets/zawodnicy/jakub-motylewski-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
-  W ŁKS od sezonu 2025/2026, wcześniej przez dwa sezony grał w Kotwicy Kołobrzeg.
+  W ŁKS od sezonu 2025/2026, wcześniej przez dwa sezony w Kotwicy Kołobrzeg.
 
-  Seniorską karierę zaczynał w Treflu Sopot, z którym grał w ekstraklasie. Na najwyższym poziomie występował też w MKS Dąbrowa Górnicza i Polpharmie Starogard Gdański.
+  Seniorską karierę zaczynał w Treflu Sopot, z którym grał w ekstraklasie. Na tym poziomie występował też w MKS Dąbrowa Górnicza i Polpharmie Starogard Gdański.
 opisEn: |
-  He has been with ŁKS since the 2025/2026 season, after two seasons with Kotwica Kołobrzeg.
+  With ŁKS since 2025/2026, after two seasons at Kotwica Kołobrzeg.
 
-  He started his senior career at Trefl Sopot, playing with them in the top division. He has also played at that level for MKS Dąbrowa Górnicza and Polpharma Starogard Gdański.
+  He began his senior career at Trefl Sopot, playing with them in the top flight. He has also played at that level for MKS Dąbrowa Górnicza and Polpharma Starogard Gdański.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }

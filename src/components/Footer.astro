@@ -24,7 +24,7 @@ const rok = new Date().getFullYear();
     <div class="ftr__brand">
       <Image src={herbBialy} alt={klub.nazwa} width={120} height={120} />
       <p class="ftr__name">{klub.nazwa}</p>
-      <p class="ftr__since">{lang === "pl" ? "Koszykówka męska od" : "Men's basketball since"} {klub.rokZalozenia}</p>
+      <p class="ftr__since">{lang === "pl" ? `ŁKS od ${klub.rokZalozenia} roku` : `ŁKS since ${klub.rokZalozenia}`}</p>
       <Social lang={lang} />
     </div>
 

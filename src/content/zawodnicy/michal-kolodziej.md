@@ -10,13 +10,13 @@ kapitan: false
 zdjecie: "../../assets/zawodnicy/michal-kolodziej.jpg" # strona zawodnika (4:5)
 kafel: "../../assets/zawodnicy/michal-kolodziej-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
-  Do ŁKS CoolPack dołączył przed sezonem 2026/2027 z Anwilu Włocławek.
+  Przyszedł do ŁKS przed sezonem 2026/2027 z Anwilu Włocławek.
 
-  Ma za sobą wiele sezonów w ekstraklasie — m.in. w Zastalu Zielona Góra, Legii Warszawa, Arce Gdynia, Twardych Piernikach Toruń i Astorii Bydgoszcz.
+  Ma za sobą wiele sezonów w ekstraklasie, m.in. w Zastalu Zielona Góra, Legii Warszawa, Arce Gdynia, Twardych Piernikach Toruń i Astorii Bydgoszcz.
 opisEn: |
-  He joined ŁKS CoolPack ahead of the 2026/2027 season from Anwil Włocławek.
+  Joined ŁKS before the 2026/2027 season from Anwil Włocławek.
 
-  He has many top-division seasons behind him, with clubs including Zastal Zielona Góra, Legia Warszawa, Arka Gdynia, Twarde Pierniki Toruń and Astoria Bydgoszcz.
+  He has played many seasons in the top flight, for clubs including Zastal Zielona Góra, Legia Warszawa, Arka Gdynia, Twarde Pierniki Toruń and Astoria Bydgoszcz.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }

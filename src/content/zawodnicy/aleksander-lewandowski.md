@@ -12,11 +12,11 @@ kafel: "../../assets/zawodnicy/aleksander-lewandowski-kafel.jpg" # kafel w skła
 opis: |
   W ŁKS od sezonu 2025/2026, wcześniej grał w MKKS Żak Koszalin.
 
-  W ekstraklasie występował w barwach HydroTrucka Radom, Astorii Bydgoszcz i Zastalu Zielona Góra.
+  W ekstraklasie występował w HydroTrucku Radom, Astorii Bydgoszcz i Zastalu Zielona Góra.
 opisEn: |
-  He has been with ŁKS since the 2025/2026 season, having previously played for MKKS Żak Koszalin.
+  With ŁKS since 2025/2026, having previously played for MKKS Żak Koszalin.
 
-  In the top division he played for HydroTruck Radom, Astoria Bydgoszcz and Zastal Zielona Góra.
+  In the top flight he played for HydroTruck Radom, Astoria Bydgoszcz and Zastal Zielona Góra.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }

@@ -10,13 +10,13 @@ kapitan: false
 zdjecie: "../../assets/zawodnicy/adam-lapeta.jpg" # strona zawodnika (4:5)
 kafel: "../../assets/zawodnicy/adam-lapeta-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
-  Najwyższy zawodnik w składzie. Do ŁKS CoolPack dołączył przed sezonem 2026/2027 z Górnika Zamek Książ Wałbrzych.
+  Najwyższy zawodnik w składzie. Przyszedł do ŁKS przed sezonem 2026/2027 z Górnika Zamek Książ Wałbrzych.
 
-  Wieloletni zawodnik ekstraklasy — grał w niej m.in. w Prokomie i Asseco Prokomie, Stelmecie Zielona Góra, Anwilu Włocławek, Kingu Szczecin, Spójni Stargard i MKS Dąbrowa Górnicza.
+  Od lat gra w ekstraklasie — m.in. w Prokomie i Asseco Prokomie, Stelmecie Zielona Góra, Anwilu Włocławek, Kingu Szczecin, Spójni Stargard i MKS Dąbrowa Górnicza.
 opisEn: |
-  The tallest player on the roster. He joined ŁKS CoolPack ahead of the 2026/2027 season from Górnik Zamek Książ Wałbrzych.
+  The tallest player on the roster. Joined ŁKS before the 2026/2027 season from Górnik Zamek Książ Wałbrzych.
 
-  A long-time top-division player, his clubs include Prokom and Asseco Prokom, Stelmet Zielona Góra, Anwil Włocławek, King Szczecin, Spójnia Stargard and MKS Dąbrowa Górnicza.
+  A long-time top-flight player, his clubs include Prokom/Asseco Prokom, Stelmet Zielona Góra, Anwil Włocławek, King Szczecin, Spójnia Stargard and MKS Dąbrowa Górnicza.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }

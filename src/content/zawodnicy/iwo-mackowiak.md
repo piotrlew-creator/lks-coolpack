@@ -10,13 +10,13 @@ kapitan: false
 zdjecie: "../../assets/zawodnicy/iwo-mackowiak.jpg" # strona zawodnika (4:5)
 kafel: "../../assets/zawodnicy/iwo-mackowiak-kafel.jpg" # kafel w składzie i na Start (3:4)
 opis: |
-  W ŁKS od sezonu 2023/2024. W poprzednich sezonach grał równolegle w 1. lidze i w drużynie ŁKS Politechnika Łódzka w 2. lidze.
+  W ŁKS od sezonu 2023/2024. W poprzednich sezonach grał też w drużynie ŁKS Politechnika Łódzka w 2. lidze.
 
-  Wcześniej występował w Enea Basket Poznań, gdzie przeszedł też kategorie młodzieżowe.
+  Wcześniej występował w Enea Basket Poznań, gdzie przeszedł szkolenie młodzieżowe.
 opisEn: |
-  He has been with ŁKS since the 2023/2024 season. In previous seasons he played in the 1st League and also for ŁKS Politechnika Łódzka in the 2nd League.
+  With ŁKS since 2023/2024. In previous seasons he also played for ŁKS Politechnika Łódzka in the 2nd League.
 
-  Before that he played for Enea Basket Poznań, where he also came through the youth ranks.
+  Before that he played for Enea Basket Poznań, where he came through the youth system.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
 kariera:
   - { sezon: "2026/2027", klub: "ŁKS CoolPack Łódź", liga: "1L" }
