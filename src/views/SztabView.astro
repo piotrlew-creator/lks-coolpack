@@ -139,6 +139,36 @@ const staff = await sztab();
     margin: 0 0 0.8em;
   }
 
+  /* Telefon: małe pionowe zdjęcie po lewej, funkcja, imię i opis obok */
+  @media (max-width: 639px) {
+    .member {
+      flex-direction: row;
+      align-items: stretch;
+    }
+    .member__photo {
+      flex: 0 0 38%;
+      aspect-ratio: 3 / 4;
+      align-self: flex-start;
+    }
+    .member__body {
+      flex: 1;
+      min-width: 0;
+      padding: 14px 14px 14px 16px;
+    }
+    .member__role {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+    .member__name {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+    .member__bio {
+      font-size: 14px;
+      line-height: 1.45;
+    }
+  }
+
   /* Trener główny — większa karta na szerokim ekranie */
   @media (min-width: 1024px) {
     .member--lead {

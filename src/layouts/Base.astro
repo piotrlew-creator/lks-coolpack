@@ -24,7 +24,7 @@ interface Props {
 }
 
 const { lang, title, description = lang === "en" ? klub.opisEn : klub.opis, alt, active, ogImage, ogType } = Astro.props;
-const fullTitle = title ? `${title} · ${klub.nazwa}` : `${klub.nazwa} · ${klub.liga}`;
+const fullTitle = title ? `${title} · ${klub.nazwa}` : `${klub.nazwa} · ${lang === "en" ? "Polish 1st League" : klub.liga}`;
 const site = Astro.site ?? new URL("https://piotrlew-creator.github.io");
 const canonical = new URL(Astro.url.pathname, site).href;
 const altPl = new URL(alt.pl, site).href;

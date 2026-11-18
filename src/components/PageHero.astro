@@ -39,6 +39,22 @@ const { kicker, title, lead } = Astro.props;
     color: #cfc6bc;
     margin: 0;
   }
+  /* Telefon poziomo (niski ekran): niższy pas, żeby treść była od razu widać */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .phero {
+      padding: calc(var(--header-h) + 16px) 0 20px;
+    }
+    .phero .kicker {
+      margin-bottom: 6px;
+    }
+    .phero h1 {
+      font-size: 44px;
+      margin-bottom: 8px;
+    }
+    .phero .lead {
+      font-size: 16px;
+    }
+  }
   @media (prefers-reduced-motion: no-preference) {
     @keyframes phero-in {
     from { opacity: 0; transform: translateY(26px); }

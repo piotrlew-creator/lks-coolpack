@@ -234,11 +234,13 @@ function initFilter() {
   const bar = document.querySelector<HTMLElement>("[data-filter]");
   if (!bar) return;
   const cards = document.querySelectorAll<HTMLElement>(".pcard");
-  bar.addEventListener("click", (e) => {
-    const btn = (e.target as Element).closest<HTMLButtonElement>("button[data-pos]");
-    if (!btn) return;
+  const buttons = [...bar.querySelectorAll<HTMLButtonElement>("button[data-pos]")];
+  // pozycja w adresie, np. ?pozycja=srodkowy — wybór zostaje po powrocie z profilu
+  const slug = (s: string) =>
+    s.toLowerCase().replace(/ł/g, "l").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "-");
+  const select = (btn: HTMLButtonElement, animate: boolean) => {
     const pos = btn.dataset.pos ?? "";
-    bar.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+    buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
     const apply = () =>
       cards.forEach((c) => {
         const show = !pos || (c.dataset.pos ?? "").split("|").includes(pos);
@@ -246,8 +248,19 @@ function initFilter() {
       });
     // Płynna zmiana siatki tam, gdzie się da
     // @ts-ignore
-    if (document.startViewTransition && !reduceMotion()) document.startViewTransition(apply);
+    if (animate && document.startViewTransition && !reduceMotion()) document.startViewTransition(apply);
     else apply();
+    const url = new URL(location.href);
+    if (pos) url.searchParams.set("pozycja", slug(pos));
+    else url.searchParams.delete("pozycja");
+    history.replaceState(history.state, "", url);
+  };
+  const fromUrl = new URL(location.href).searchParams.get("pozycja");
+  const start = fromUrl && buttons.find((b) => b.dataset.pos && slug(b.dataset.pos) === fromUrl);
+  if (start) select(start, false);
+  bar.addEventListener("click", (e) => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>("button[data-pos]");
+    if (btn) select(btn, true);
   });
 }
 

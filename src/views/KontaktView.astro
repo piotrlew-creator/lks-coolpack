@@ -12,13 +12,15 @@ interface Props {
 }
 const { lang } = Astro.props;
 const k = klub.kontakt;
+// do Map Google sam adres, bez piętra (np. „, II piętro”)
+const adresMapy = k.biuro.adres.replace(/,\s*[IVX\d]+\.?[\s\u00a0]*piętro.*$/i, "");
 
 type Box = { title: UiKey; who?: string; lines: { label?: string; text: string; href?: string; ext?: boolean }[] };
 const allBoxes: Box[] = [
   {
     title: "contact.office",
     lines: [
-      k.biuro.adres && { text: k.biuro.adres, href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(k.biuro.adres)}`, ext: true },
+      k.biuro.adres && { text: k.biuro.adres, href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(adresMapy)}`, ext: true },
       k.biuro.telefon && { label: t(lang, "contact.tel"), text: k.biuro.telefon, href: telHref(k.biuro.telefon) },
       k.biuro.email && { label: t(lang, "contact.mail"), text: k.biuro.email, href: `mailto:${k.biuro.email}` },
     ].filter(Boolean) as Box["lines"],

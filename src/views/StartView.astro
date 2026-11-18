@@ -40,8 +40,7 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     <!-- Nazwa drużyny „nachodzi” na górę zdjęcia (ciemna ściana nad głowami) -->
     <div class="hero__in wrap">
       <h1 id="hero-title" class="hero__title">
-        <span class="hero__t1">ŁKS</span>
-        <span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
+        <span class="hero__t1">ŁKS</span>{" "}<span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
       </h1>
       <div class="hero__crest" aria-hidden="true">
         <Image class="hero__crest-dark" src={herbBialy} alt="" width={320} height={321} loading="eager" />
@@ -423,6 +422,13 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
   }
 
   @media (orientation: landscape) and (max-height: 500px) {
+    /* telefon poziomo: niższe zdjęcie, żeby nazwa klubu była widać od razu */
+    .hero__team :global(.hero__img) {
+      width: auto;
+      max-width: 100%;
+      max-height: calc(100svh - var(--header-h) - 110px);
+      margin-inline: auto;
+    }
     .hero__t1 {
       font-size: 64px;
     }
