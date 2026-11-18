@@ -15,7 +15,9 @@ interface Props {
 const { lang } = Astro.props;
 const all = await sponsorzy();
 const groups = POZIOMY_SPONSORA.map((lvl) => ({ lvl, items: all.filter((s) => s.data.poziom === lvl) })).filter((g) => g.items.length);
-const sp = klub.kontakt.sponsoring;
+// Kontakt dla firm: osobna osoba od sponsoringu, a jeśli jej nie ma — biuro Klubu
+const k = klub.kontakt;
+const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: "", telefon: k.biuro.telefon, email: k.biuro.email };
 ---
 
 <Base lang={lang} title={t(lang, "sponsors.title")} description={t(lang, "sponsors.lead")} alt={{ pl: u(ROUTES.sponsorzy.pl), en: u(ROUTES.sponsorzy.en) }} active="sponsorzy">
@@ -28,20 +30,25 @@ const sp = klub.kontakt.sponsoring;
           <div class="tier">
             <h2 class="tier__h">{poziom(g.lvl, lang)}</h2>
             <ul class:list={["tier__list", { "tier__list--top": gi === 0 }]} role="list">
-              {g.items.map((s) => (
-                <li class="reveal">
-                  <a class:list={["sp", { "has-mono": s.data.logoMono }]} href={s.data.link} target="_blank" rel="noopener">
-                    {s.data.logo ? (
-                      <>
-                        <Image class="sp__light" src={s.data.logo} alt={s.data.nazwa} height={gi === 0 ? 96 : 64} />
-                        {s.data.logoMono && <Image class="sp__dark" src={s.data.logoMono} alt="" height={gi === 0 ? 96 : 64} />}
-                      </>
-                    ) : (
-                      <span class="sp__name">{s.data.nazwa}</span>
-                    )}
-                  </a>
-                </li>
-              ))}
+              {g.items.map((s) => {
+                // sponsor bez strony www: kafel bez linku
+                const Tag = s.data.link ? "a" : "div";
+                const linkProps = s.data.link ? { href: s.data.link, target: "_blank", rel: "noopener" } : {};
+                return (
+                  <li class="reveal">
+                    <Tag class:list={["sp", { "has-mono": s.data.logoMono, "sp--nolink": !s.data.link }]} {...linkProps}>
+                      {s.data.logo ? (
+                        <>
+                          <Image class="sp__light" src={s.data.logo} alt={s.data.nazwa} height={gi === 0 ? 96 : 64} />
+                          {s.data.logoMono && <Image class="sp__dark" src={s.data.logoMono} alt="" height={gi === 0 ? 96 : 64} />}
+                        </>
+                      ) : (
+                        <span class="sp__name">{s.data.nazwa}</span>
+                      )}
+                    </Tag>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ))
@@ -90,7 +97,7 @@ const sp = klub.kontakt.sponsoring;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(200px, calc(50% - 8px)), 1fr));
     gap: 16px;
   }
   .tier__list--top {
@@ -99,8 +106,8 @@ const sp = klub.kontakt.sponsoring;
   .sp {
     display: grid;
     place-items: center;
-    min-height: 140px;
-    padding: 28px;
+    min-height: clamp(110px, 22vw, 140px);
+    padding: clamp(16px, 4vw, 28px);
     border-radius: var(--radius);
     background: var(--bg-2);
     border: 1px solid var(--border);
@@ -110,6 +117,10 @@ const sp = klub.kontakt.sponsoring;
   }
   .tier__list--top .sp {
     min-height: 240px;
+  }
+  .sp--nolink:hover {
+    transform: none;
+    box-shadow: none;
   }
   .sp:hover {
     border-color: var(--red);
@@ -125,9 +136,11 @@ const sp = klub.kontakt.sponsoring;
     max-height: 96px;
   }
   .sp__name {
+    text-align: center;
+    line-height: 1.1;
     font-family: var(--font-cond);
     font-weight: 800;
-    font-size: 28px;
+    font-size: clamp(18px, 4.6vw, 28px);
     text-transform: uppercase;
   }
   :global([data-theme="dark"]) .has-mono :global(.sp__light),

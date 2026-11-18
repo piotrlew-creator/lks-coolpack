@@ -35,9 +35,10 @@ export const klub = {
   // Kontakt — DO UZUPEŁNIENIA (dane biura drużyny seniorskiej)
   kontakt: {
     biuro: {
-      adres: "", // np. "Al. Unii Lubelskiej 2, 94-020 Łódź"
-      telefon: "", // np. "733 34 1908"
-      email: "", // np. "biuro@..."
+      // te same dane co na lkskmjunior.pl (biuro Stowarzyszenia ŁKS Koszykówka Męska)
+      adres: "Al. Unii Lubelskiej 2, 94-020 Łódź, II\u00a0piętro",
+      telefon: "733 34 1908",
+      email: "biuro@lkskm.pl",
     },
     sponsoring: { osoba: "", telefon: "", email: "" },
     media: { osoba: "", telefon: "", email: "" },

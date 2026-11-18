@@ -21,7 +21,7 @@ interface Props {
 const { lang } = Astro.props;
 
 const players = (await getZawodnicy()).slice(0, 8);
-const sponsors = (await getSponsorzy()).filter((s) => s.data.logo);
+const sponsors = await getSponsorzy();
 
 
 const mecz = najblizszyMecz;
@@ -176,14 +176,24 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
             <a class="btn btn--ghost" href={route("sponsorzy", lang)}>{t(lang, "sponsors.join.title")} →</a>
           </div>
           <ul class="logos" role="list">
-            {sponsors.map((s) => (
-              <li class="reveal">
-                <a class:list={[{ "has-mono": s.data.logoMono }]} href={s.data.link} target="_blank" rel="noopener" aria-label={s.data.nazwa}>
-                  <Image class="logo-light" src={s.data.logo!} alt={s.data.nazwa} height={56} />
-                  {s.data.logoMono && <Image class="logo-dark" src={s.data.logoMono} alt="" height={56} />}
-                </a>
-              </li>
-            ))}
+            {sponsors.map((s) => {
+              const Tag = s.data.link ? "a" : "div";
+              const linkProps = s.data.link ? { href: s.data.link, target: "_blank", rel: "noopener", "aria-label": s.data.nazwa } : {};
+              return (
+                <li class="reveal">
+                  <Tag class:list={["logos__tile", { "has-mono": s.data.logoMono }]} {...linkProps}>
+                    {s.data.logo ? (
+                      <>
+                        <Image class="logo-light" src={s.data.logo} alt={s.data.nazwa} height={56} />
+                        {s.data.logoMono && <Image class="logo-dark" src={s.data.logoMono} alt="" height={56} />}
+                      </>
+                    ) : (
+                      <span class="logos__name">{s.data.nazwa}</span>
+                    )}
+                  </Tag>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>
@@ -237,7 +247,7 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     align-items: center;
     justify-content: space-between;
     gap: 16px 40px;
-    padding-block: clamp(16px, 2vw, 28px) clamp(36px, 5vw, 56px);
+    padding-block: clamp(16px, 2vw, 28px) clamp(8px, 2vw, 24px);
   }
   .hero__foot .hero__sub {
     margin: 0;
@@ -402,7 +412,7 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
       padding-block: 0;
     }
     .hero__foot {
-      padding-block: 14px 32px;
+      padding-block: 14px 8px;
     }
     .hero__crest {
       display: none; /* herb jest już w pasku u góry */
@@ -704,14 +714,15 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(min(200px, calc(50% - 6px)), 1fr));
+    gap: 12px;
   }
-  .logos a {
+  .logos__tile {
+    text-decoration: none;
     display: grid;
     place-items: center;
-    min-height: 120px;
-    padding: 24px;
+    min-height: clamp(96px, 20vw, 120px);
+    padding: clamp(14px, 3.5vw, 24px);
     border-radius: var(--radius);
     background: var(--bg-2);
     border: 1px solid var(--border);
@@ -723,7 +734,17 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
   }
   .logos :global(img) {
     max-height: 48px;
+    max-width: 100%;
     width: auto;
+  }
+  .logos__name {
+    text-align: center;
+    line-height: 1.1;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(16px, 4.2vw, 24px);
+    text-transform: uppercase;
+    color: var(--text);
   }
   :global([data-theme="dark"]) .logos .has-mono :global(.logo-light) {
     display: none;

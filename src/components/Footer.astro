@@ -12,7 +12,6 @@ interface Props {
 }
 const { lang } = Astro.props;
 const sponsorzy = (await getCollection("sponsorzy"))
-  .filter((s) => s.data.logoMono || s.data.logo)
   .sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
 const biuro = klub.kontakt.biuro;
 const rok = new Date().getFullYear();
@@ -55,9 +54,19 @@ const rok = new Date().getFullYear();
         <ul>
           {sponsorzy.map((s) => (
             <li>
-              <a href={s.data.link} target="_blank" rel="noopener" aria-label={s.data.nazwa}>
+              {s.data.link ? (
+                <a href={s.data.link} target="_blank" rel="noopener" aria-label={s.data.nazwa}>
+                  {s.data.logoMono || s.data.logo ? (
+                    <Image src={(s.data.logoMono ?? s.data.logo)!} alt={s.data.nazwa} height={36} />
+                  ) : (
+                    <span class="ftr__spname">{s.data.nazwa}</span>
+                  )}
+                </a>
+              ) : s.data.logoMono || s.data.logo ? (
                 <Image src={(s.data.logoMono ?? s.data.logo)!} alt={s.data.nazwa} height={36} />
-              </a>
+              ) : (
+                <span class="ftr__spname">{s.data.nazwa}</span>
+              )}
             </li>
           ))}
         </ul>
@@ -75,7 +84,7 @@ const rok = new Date().getFullYear();
     position: relative;
     background: var(--black-deep);
     color: #c9c0b6;
-    padding-top: clamp(48px, 7vw, 80px);
+    padding-top: clamp(40px, 6vw, 64px);
     overflow: hidden;
     font-size: 16px;
   }
@@ -167,8 +176,8 @@ const rok = new Date().getFullYear();
     margin-top: 18px !important;
   }
   .ftr__sponsors {
-    margin-top: 48px;
-    padding-top: 28px;
+    margin-top: 32px;
+    padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
   .ftr__sponsors ul {
@@ -185,6 +194,15 @@ const rok = new Date().getFullYear();
     width: auto;
     opacity: 0.85;
     transition: opacity 160ms;
+  }
+  .ftr__spname {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.85;
   }
   .ftr__sponsors a:hover :global(img) {
     opacity: 1;

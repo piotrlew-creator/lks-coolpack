@@ -14,7 +14,7 @@ const { lang } = Astro.props;
 const k = klub.kontakt;
 
 type Box = { title: UiKey; who?: string; lines: { label?: string; text: string; href?: string; ext?: boolean }[] };
-const boxes: Box[] = [
+const allBoxes: Box[] = [
   {
     title: "contact.office",
     lines: [
@@ -59,6 +59,8 @@ const boxes: Box[] = [
     ].filter(Boolean) as Box["lines"],
   },
 ];
+// Pokazujemy tylko uzupełnione bloki (puste czekają w src/data/klub.ts)
+const boxes = allBoxes.filter((b) => b.lines.length || b.who);
 ---
 
 <Base lang={lang} title={t(lang, "contact.title")} description={t(lang, "contact.lead")} alt={{ pl: u(ROUTES.kontakt.pl), en: u(ROUTES.kontakt.en) }} active="kontakt">

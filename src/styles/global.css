@@ -156,7 +156,11 @@ p {
 
 /* -- Sekcje i nagłówki --------------------------------------- */
 .section {
-  padding-block: clamp(56px, 9vw, 112px);
+  padding-block: clamp(36px, 5vw, 64px);
+}
+/* Dwie sekcje z tym samym tłem jedna pod drugą: bez podwójnego odstępu */
+.section:not(.section--alt, .section--dark) + .section:not(.section--alt, .section--dark) {
+  padding-top: 0;
 }
 .section--alt {
   background: var(--bg-2);
@@ -214,7 +218,7 @@ p {
   align-items: end;
   justify-content: space-between;
   gap: 16px 32px;
-  margin-bottom: clamp(28px, 4vw, 48px);
+  margin-bottom: clamp(20px, 3vw, 36px);
 }
 .section-head > div {
   max-width: 720px;
