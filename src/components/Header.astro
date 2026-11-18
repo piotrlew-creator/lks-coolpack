@@ -298,8 +298,8 @@ const { lang, alt, active } = Astro.props;
     z-index: 100;
     display: flex;
     flex-direction: column;
-    background: var(--black-deep);
-    color: var(--cream);
+    background: #fff;
+    color: var(--black);
     overflow-y: auto;
     overscroll-behavior: contain;
   }
@@ -318,7 +318,10 @@ const { lang, alt, active } = Astro.props;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--red-on-dark);
+    color: var(--red);
+  }
+  .menu__top {
+    border-bottom: 1px solid var(--border);
   }
   .menu__nav {
     position: relative;
@@ -342,17 +345,17 @@ const { lang, alt, active } = Astro.props;
     font-size: clamp(40px, 11vw, 72px);
     line-height: 1;
     text-transform: uppercase;
-    color: var(--cream);
+    color: var(--black);
     text-decoration: none;
   }
   .menu__nav a[aria-current="page"],
   .menu__nav a:hover {
-    color: var(--red-on-dark);
+    color: var(--red);
   }
   .menu__num {
     font-size: 15px;
     letter-spacing: 0.1em;
-    color: var(--muted, #a0968c);
+    color: #8a8076;
     width: 24px;
   }
   .menu__foot {
@@ -364,6 +367,23 @@ const { lang, alt, active } = Astro.props;
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
+  }
+  /* przełącznik języka na białym tle menu */
+  .lang--big {
+    background: var(--cream);
+    border-color: var(--border);
+  }
+  .lang--big a {
+    color: var(--black);
+  }
+  .lang--big a:hover {
+    background: rgba(23, 20, 15, 0.08);
+  }
+  .lang--big a[aria-current="true"] {
+    color: #fff;
+  }
+  .menu .icon-btn:hover {
+    background: rgba(23, 20, 15, 0.08);
   }
   .lang--big a {
     min-height: 48px;

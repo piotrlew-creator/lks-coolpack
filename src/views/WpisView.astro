@@ -1,5 +1,6 @@
 ---
 /* Pojedynczy wpis w Aktualnościach. */
+import { rywalZTerminarza } from "../lib/terminarz";
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Base from "../layouts/Base.astro";
@@ -34,7 +35,7 @@ const inne = (await aktualnosci()).filter((x) => x.id !== w.id).slice(0, 3);
 
     <div class="wrap post__wrap post__body">
       {d.zdjecie && <Image class="post__img" src={d.zdjecie} alt="" widths={[600, 900, 1400]} sizes="(min-width: 900px) 820px, 92vw" />}
-      {d.mecz && <MatchCard lang={lang} data={d.mecz.data} rywal={d.mecz.rywal} dom={d.mecz.dom} miejsce={d.mecz.miejsce} kicker={t(lang, "news.match")} />}
+      {d.mecz && <MatchCard lang={lang} data={d.mecz.data} rywal={rywalZTerminarza(d.mecz.data, d.mecz.rywal)} dom={d.mecz.dom} miejsce={d.mecz.miejsce} kicker={t(lang, "news.match")} />}
       <div class="post__text">
         {tresc.map((p) => <p>{p}</p>)}
       </div>

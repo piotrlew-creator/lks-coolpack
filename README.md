@@ -73,6 +73,9 @@ drużyny na 1lm.pzkosz.pl). Każdy mecz: `data` (czas polski, bez godziny = „d
 Karta „Najbliższy mecz” na stronie startowej liczy się sama — to pierwszy mecz bez wyniku.
 Po meczu Claude pobiera aktualny terminarz i podmienia ten plik.
 
+Tabela ligi jest w `src/data/tabela.json` (źródło: 1lm.pzkosz.pl/tabele.html) — też podmieniana po meczu.
+„Ostatni wynik” na stronie startowej i miejsce w tabeli liczą się same z tych dwóch plików.
+
 ## Statystyki zawodników
 
 Dane sezonu są w `src/data/statystyki.json` (źródło: 1lm.pzkosz.pl).

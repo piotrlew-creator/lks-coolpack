@@ -41,27 +41,25 @@ const gosc = dom ? rywal : klub.nazwaKrotka;
 
 <div class="mcard" data-koniec={koniec} data-start={start.getTime()}>
   <p class="kicker mcard__kicker">{kicker ?? t(lang, "match.kicker")}</p>
-  <div class="mcard__row">
-    <div class="mcard__when">
-      <span class="mcard__day">{dzien}</span>
-      {!bezGodziny && <span class="mcard__time">{godz}</span>}
-      <span class="mcard__count" data-odliczanie hidden></span>
-    </div>
-    <div class="mcard__teams">
-      <span class:list={[{ "mcard__us": dom }]}>{gospodarz}</span>
-      <span class="mcard__vs">vs</span>
-      <span class:list={[{ "mcard__us": !dom }]}>{gosc}</span>
-    </div>
-    <div class="mcard__where">
-      <span class="mcard__tag">{t(lang, dom ? "match.home" : "match.away")}</span>
-      {miejsce}
-    </div>
-  </div>
+  <p class="mcard__when">
+    <span class="mcard__day">{dzien}</span>
+    {!bezGodziny && <span class="mcard__time">{godz}</span>}
+  </p>
+  <p class="mcard__teams">
+    <span class:list={[{ "mcard__us": dom }]}>{gospodarz}</span>
+    <span class="mcard__vs">–</span>
+    <span class:list={[{ "mcard__us": !dom }]}>{gosc}</span>
+  </p>
+  <p class="mcard__meta">
+    <span class:list={["mcard__tag", { "mcard__tag--home": dom }]}>{t(lang, dom ? "match.home" : "match.away")}</span>
+    {miejsce && <span>{miejsce}</span>}
+    <span class="mcard__count" data-odliczanie hidden></span>
+  </p>
   {
     (bilety || transmisja || zapowiedz || terminarz) && (
       <div class="btn-row btn-row--equal mcard__btns">
         {zapowiedz && <a class="btn mcard__more" href={zapowiedz}>{t(lang, "match.preview")} →</a>}
-        {terminarz && <a class="btn btn--ghost mcard__sched" href={terminarz}>{t(lang, "match.none.cta")}</a>}
+        {terminarz && <a class="btn btn--ghost" href={terminarz}>{t(lang, "match.none.cta")}</a>}
         {bilety && <a class="btn" href={bilety} target="_blank" rel="noopener">{t(lang, "match.tickets")}</a>}
         {transmisja && <a class="btn btn--ghost" href={transmisja} target="_blank" rel="noopener">{t(lang, "match.stream")}</a>}
       </div>
@@ -70,100 +68,83 @@ const gosc = dom ? rywal : klub.nazwaKrotka;
 </div>
 
 <style>
-  .mcard__sched {
-    color: #fff;
-  }
-  .mcard__btns {
-    position: relative;
-    z-index: 1;
-    margin-top: 22px;
-  }
+  /* Jasna, prosta karta: data i godzina, drużyny, miejsce, odliczanie */
   .mcard {
-    position: relative;
-    background: var(--black-deep);
-    color: #fff;
+    background: var(--bg-2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--red);
     border-radius: var(--radius);
-    padding: clamp(20px, 3vw, 32px);
-    overflow: hidden;
-    isolation: isolate;
-  }
-  .mcard::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    inset: 0 0 0 auto;
-    width: 40%;
-    background: linear-gradient(110deg, transparent 0 30%, rgba(212, 4, 20, 0.35) 30% 100%);
+    padding: clamp(20px, 3vw, 30px);
   }
   .mcard__kicker {
-    color: var(--red-on-dark);
+    margin-bottom: 10px;
   }
-  .mcard__row {
-    display: grid;
-    gap: 14px;
-    font-family: var(--font-cond);
-    text-transform: uppercase;
-  }
-  .mcard__row:not(:last-child) {
-    margin-bottom: 18px;
-  }
-  @media (min-width: 760px) {
-    .mcard__row {
-      grid-template-columns: auto 1fr auto;
-      align-items: center;
-      gap: 32px;
-    }
+  .mcard p {
+    margin: 0;
   }
   .mcard__when {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 12px;
+    font-family: var(--font-cond);
+    text-transform: uppercase;
   }
   .mcard__day {
     font-weight: 700;
-    font-size: 17px;
-    color: #cfc6bc;
+    font-size: clamp(17px, 2vw, 20px);
+    color: var(--muted);
   }
   .mcard__time {
     font-weight: 800;
-    font-size: 48px;
+    font-size: clamp(30px, 4vw, 40px);
     line-height: 1;
   }
-  .mcard__count {
-    margin-top: 6px;
-    text-transform: none;
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.06em;
-    color: var(--red-on-dark);
-  }
   .mcard__teams {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    gap: 4px 14px;
+    margin-top: 10px !important;
+    font-family: var(--font-cond);
     font-weight: 800;
-    font-size: clamp(26px, 3.6vw, 42px);
-    line-height: 1.05;
+    font-size: clamp(24px, 3.2vw, 34px);
+    line-height: 1.1;
+    text-transform: uppercase;
   }
   .mcard__us {
-    color: var(--red-on-dark);
+    color: var(--red);
   }
   .mcard__vs {
-    font-size: 18px;
-    color: #a0968c;
+    margin-inline: 6px;
+    color: var(--muted);
   }
-  .mcard__where {
-    font-weight: 700;
-    font-size: 18px;
+  .mcard__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 14px;
+    margin-top: 12px !important;
+    font-size: 16px;
+    color: var(--muted);
   }
   .mcard__tag {
-    display: inline-block;
-    margin-right: 8px;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: var(--red);
-    color: #fff;
-    font-size: 14px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1.5px solid var(--text);
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 13px;
     letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+  .mcard__tag--home {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .mcard__count {
+    font-weight: 600;
+    color: var(--red);
+  }
+  .mcard__btns {
+    margin-top: 20px;
   }
 </style>

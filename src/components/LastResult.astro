@@ -1,0 +1,205 @@
+---
+/*
+  Ostatni wynik i miejsce w tabeli (strona startowa).
+  Dane: src/data/terminarz.json i src/data/tabela.json — aktualizowane po każdym meczu.
+*/
+import { type Lang, route, t } from "../i18n/ui";
+import { miejsceLks, ostatni } from "../lib/terminarz";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const m = ostatni;
+const loc = lang === "pl" ? "pl-PL" : "en-GB";
+const dzien = m
+  ? new Intl.DateTimeFormat(loc, { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" }).format(
+      new Date(Date.UTC(+m.data.slice(0, 4), +m.data.slice(5, 7) - 1, +m.data.slice(8, 10), 12)),
+    )
+  : "";
+const lewa = m ? (m.dom ? { n: "ŁKS CoolPack", p: m.lks, lks: true } : { n: m.rywal, p: m.rywalPkt, lks: false }) : null;
+const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁKS CoolPack", p: m.lks, lks: true }) : null;
+---
+
+{
+  m && lewa && prawa && (
+    <div class="last">
+      <a class="last__game" href={m.link} target="_blank" rel="noopener">
+        <p class="kicker last__kicker">{t(lang, "last.kicker")}</p>
+        <p class="last__date">
+          {dzien} · {t(lang, m.dom ? "sched.vsHome" : "sched.vsAway")}
+        </p>
+        <div class="last__score">
+          <span class:list={["last__team", { "is-lks": lewa.lks }]}>{lewa.n}</span>
+          <span class="last__pts">
+            {lewa.p}
+            <span>:</span>
+            {prawa.p}
+          </span>
+          <span class:list={["last__team", { "is-lks": prawa.lks }]}>{prawa.n}</span>
+        </div>
+        <p class="last__foot">
+          <span class:list={["last__wl", { "is-w": m.wygrana }]}>{t(lang, m.wygrana ? "sched.winLong" : "sched.lossLong")}</span>
+          <span class="last__link">{t(lang, "sched.stats")} ↗</span>
+        </p>
+      </a>
+      {miejsceLks && (
+        <a class="last__table" href={`${route("terminarz", lang)}#tabela`}>
+          <span class="last__place">
+            {miejsceLks.miejsce}
+            <small>.</small>
+          </span>
+          <span class="last__placeTxt">{t(lang, "last.place")}</span>
+          <span class="last__rec">
+            {miejsceLks.bilans[0]}–{miejsceLks.bilans[1]} · {miejsceLks.pkt} {t(lang, "table.pts").toLowerCase()}
+          </span>
+          <span class="last__link">{t(lang, "last.table")} →</span>
+        </a>
+      )}
+    </div>
+  )
+}
+
+<style>
+  .last {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .last > a {
+    display: block;
+    padding: clamp(18px, 2.4vw, 26px);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: var(--bg-2);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 200ms, transform 200ms;
+  }
+  .last > a:hover {
+    border-color: var(--red);
+    transform: translateY(-2px);
+  }
+  .last__kicker {
+    margin-bottom: 6px;
+  }
+  .last__date {
+    margin: 0 0 12px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .last__date::first-letter {
+    text-transform: uppercase;
+  }
+  .last__score {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+  }
+  .last__team {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: clamp(17px, 2vw, 22px);
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+  .last__team:last-child {
+    text-align: right;
+  }
+  .last__team.is-lks {
+    color: var(--red);
+  }
+  .last__pts {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(36px, 5vw, 52px);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .last__pts span {
+    margin-inline: 4px;
+    color: var(--muted);
+  }
+  .last__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    margin: 14px 0 0;
+  }
+  .last__wl {
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 2px solid var(--muted);
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .last__wl.is-w {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+  .last__link {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .last__table {
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-width: 200px;
+  }
+  .last__place {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(56px, 7vw, 80px);
+    line-height: 0.9;
+    color: var(--red);
+  }
+  .last__place small {
+    font-size: 0.6em;
+  }
+  .last__placeTxt {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .last__rec {
+    margin: 2px 0 10px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  @media (max-width: 640px) {
+    .last {
+      grid-template-columns: 1fr;
+    }
+    .last__table {
+      display: grid !important;
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto auto;
+      column-gap: 14px;
+      align-items: center;
+    }
+    .last__place {
+      grid-row: span 3;
+    }
+    .last__rec {
+      margin: 0;
+    }
+  }
+</style>

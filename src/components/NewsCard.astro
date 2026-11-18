@@ -1,5 +1,6 @@
 ---
 /* Kafel wpisu w Aktualnościach (lista i strona startowa). */
+import { rywalZTerminarza } from "../lib/terminarz";
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { type Lang, newsUrl, t } from "../i18n/ui";
@@ -15,6 +16,7 @@ const d = w.data;
 const tytul = pick(d.tytul, d.tytulEn, lang);
 const lead = pick(d.lead, d.leadEn, lang);
 const m = d.mecz;
+const rywal = m ? rywalZTerminarza(m.data, m.rywal) : "";
 const md = m ? new Date(m.data + ":00") : null;
 ---
 
@@ -30,7 +32,7 @@ const md = m ? new Date(m.data + ":00") : null;
           </span>
           <span class="ncard__hour">{m.data.slice(11, 16)}</span>
           <span class="ncard__vs">
-            {m.dom ? "ŁKS — " + m.rywal : m.rywal + " — ŁKS"}
+            {m.dom ? "ŁKS — " + rywal : rywal + " — ŁKS"}
           </span>
         </span>
       ) : (

@@ -249,6 +249,59 @@ function initFilter() {
   });
 }
 
+/* ── Filtry terminarza (u siebie / na wyjeździe, rozegrane / nadchodzące) ── */
+function initSchedFilter() {
+  const bar = document.querySelector<HTMLElement>("[data-sched-filter]");
+  if (!bar) return;
+  const chips = [...bar.querySelectorAll<HTMLButtonElement>("button[data-f]")];
+  const clear = bar.querySelector<HTMLButtonElement>("[data-f-clear]");
+  const none = document.querySelector<HTMLElement>("[data-sched-none]");
+  const months = [...document.querySelectorAll<HTMLDetailsElement>("details.month")];
+  const startOpen = months.map((d) => d.open);
+
+  const apply = (write = true) => {
+    const on = chips.filter((c) => c.getAttribute("aria-pressed") === "true");
+    const want = (g: string) => on.filter((c) => c.dataset.grupa === g).map((c) => c.dataset.f);
+    const miejsce = want("miejsce");
+    const status = want("status");
+    let ile = 0;
+    months.forEach((d, i) => {
+      let w = 0;
+      d.querySelectorAll<HTMLElement>(".game").forEach((g) => {
+        const show =
+          (!miejsce.length || miejsce.includes(g.dataset.miejsce)) && (!status.length || status.includes(g.dataset.status));
+        g.hidden = !show;
+        if (show) w++;
+      });
+      d.hidden = w === 0;
+      // z filtrem: wszystkie miesiące rozwinięte; bez filtra — jak na początku
+      d.open = on.length ? true : startOpen[i];
+      ile += w;
+    });
+    if (clear) clear.hidden = !on.length;
+    if (none) none.hidden = ile > 0;
+    if (write) {
+      const url = new URL(location.href);
+      if (on.length) url.searchParams.set("filtr", on.map((c) => c.dataset.f).join(","));
+      else url.searchParams.delete("filtr");
+      history.replaceState(history.state, "", url);
+    }
+  };
+
+  const fromUrl = (new URL(location.href).searchParams.get("filtr") ?? "").split(",").filter(Boolean);
+  if (fromUrl.length) {
+    chips.forEach((c) => c.setAttribute("aria-pressed", String(fromUrl.includes(c.dataset.f ?? ""))));
+    apply(false);
+  }
+  bar.addEventListener("click", (e) => {
+    const btn = (e.target as Element).closest<HTMLButtonElement>("button");
+    if (!btn) return;
+    if (btn.hasAttribute("data-f-clear")) chips.forEach((c) => c.setAttribute("aria-pressed", "false"));
+    else btn.setAttribute("aria-pressed", String(btn.getAttribute("aria-pressed") !== "true"));
+    apply();
+  });
+}
+
 /* ── Posty z Facebooka — dopiero po kliknięciu (zgoda) ──────────── */
 const FB_OK = "lks-fb-ok";
 function fbAllowed() {
@@ -406,5 +459,6 @@ initReveal();
 initTilt();
 initBolt();
 initFilter();
+initSchedFilter();
 initFacebook();
 initHeader();

@@ -3,6 +3,7 @@
   (pobierane ze strony 1lm.pzkosz.pl po każdym meczu).
 */
 import dane from "../data/terminarz.json";
+import tabelaDane from "../data/tabela.json";
 import { klub, type Mecz } from "../data/klub";
 
 export type MeczT = {
@@ -75,3 +76,33 @@ export const najblizszyMecz: Mecz | null = nastepny
       bilety: nastepny.dom ? klub.kontakt.bilety.link || undefined : undefined,
     }
   : null;
+
+/** Oficjalna nazwa rywala z terminarza dla meczu o danej dacie (np. we wpisach). */
+export function rywalZTerminarza(data: string, zapas: string): string {
+  return terminarz.find((m) => m.data === data)?.rywal ?? zapas;
+}
+
+/** Ostatni rozegrany mecz — sekcja „Ostatni wynik” na stronie startowej. */
+export const ostatni: MeczLks | undefined = [...terminarz].reverse().find((m) => m.wygrana !== null);
+
+/* ── Tabela ligowa (src/data/tabela.json, z 1lm.pzkosz.pl/tabele.html) ── */
+
+export type Wiersz = {
+  miejsce: number;
+  druzyna: string;
+  pkt: number;
+  mecze: number;
+  bilans: [number, number];
+  dom: [number, number];
+  wyjazd: [number, number];
+  kosze: [number, number];
+  roznica: number;
+  strefa: "playoff" | "spadek" | "";
+  link: string;
+  lks: boolean;
+};
+
+export const tabela: Wiersz[] = (tabelaDane.druzyny as Omit<Wiersz, "lks">[]).map((w) => ({ ...w, lks: jestLks(w.druzyna) }));
+export const aktualizacjaTabeli = tabelaDane.aktualizacja;
+export const zrodloTabeli = tabelaDane.zrodlo;
+export const miejsceLks = tabela.find((w) => w.lks);

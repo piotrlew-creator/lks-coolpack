@@ -6,7 +6,7 @@
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import { type Lang, ROUTES, t } from "../i18n/ui";
-import { aktualizacjaTerminarza, bilans, nastepny, sezon, terminarz, zrodloTerminarza, type MeczLks } from "../lib/terminarz";
+import { aktualizacjaTabeli, aktualizacjaTerminarza, bilans, nastepny, sezon, tabela, terminarz, zrodloTabeli, zrodloTerminarza, type MeczLks } from "../lib/terminarz";
 import { u } from "../lib/url";
 
 interface Props {
@@ -25,7 +25,7 @@ const fmt = (o: Intl.DateTimeFormatOptions) => new Intl.DateTimeFormat(loc, { ..
 const fMiesiac = fmt({ month: "long", year: "numeric" });
 const fDzienTyg = fmt({ weekday: "short" });
 
-const grupy: { klucz: string; nazwa: string; mecze: MeczLks[] }[] = [];
+const grupy: { klucz: string; nazwa: string; mecze: MeczLks[]; rozegrany?: boolean; w?: number; p?: number }[] = [];
 for (const m of terminarz) {
   const klucz = m.data.slice(0, 7);
   let g = grupy.at(-1);
@@ -36,7 +36,21 @@ for (const m of terminarz) {
   }
   g.mecze.push(m);
 }
-const aktualizacja = new Intl.DateTimeFormat(loc, { day: "numeric", month: "long", year: "numeric" }).format(new Date(aktualizacjaTerminarza));
+// Miesiąc w całości rozegrany: na telefonie zwinięty (z bilansem w nagłówku)
+for (const g of grupy) {
+  g.rozegrany = g.mecze.every((m) => m.wygrana !== null);
+  g.w = g.mecze.filter((m) => m.wygrana).length;
+  g.p = g.mecze.filter((m) => m.wygrana === false).length;
+}
+const fData = new Intl.DateTimeFormat(loc, { day: "numeric", month: "long", year: "numeric" });
+const aktualizacja = fData.format(new Date(aktualizacjaTerminarza));
+const aktualizacjaT = fData.format(new Date(aktualizacjaTabeli));
+const filtry = [
+  { grupa: "miejsce", f: "dom", k: "sched.f.home" },
+  { grupa: "miejsce", f: "wyjazd", k: "sched.f.away" },
+  { grupa: "status", f: "rozegrane", k: "sched.f.played" },
+  { grupa: "status", f: "nadchodzace", k: "sched.f.upcoming" },
+] as const;
 ---
 
 <Base
@@ -69,17 +83,43 @@ const aktualizacja = new Intl.DateTimeFormat(loc, { day: "numeric", month: "long
         </div>
       </dl>
 
-      {nastepny && <a class="jump" href="#najblizszy">{t(lang, "sched.jump")} ↓</a>}
+      <div class="jumps">
+        {nastepny && <a class="jump" href="#najblizszy">{t(lang, "sched.jump")} ↓</a>}
+        <a class="jump" href="#tabela">{t(lang, "sched.toTable")} ↓</a>
+      </div>
+
+      <div class="sfilter" role="group" aria-label={t(lang, "sched.filter")} data-sched-filter>
+        {filtry.map((x) => (
+          <button type="button" class="chip" data-grupa={x.grupa} data-f={x.f} aria-pressed="false">
+            <span class="chip__box" aria-hidden="true"></span>
+            {t(lang, x.k)}
+          </button>
+        ))}
+        <button type="button" class="chip chip--clear" data-f-clear hidden>{t(lang, "sched.f.clear")} ✕</button>
+      </div>
+      <p class="sfilter__none" data-sched-none hidden>{t(lang, "sched.f.none")}</p>
 
       {
         grupy.map((g) => (
-          <section class="month" aria-labelledby={`m-${g.klucz}`}>
-            <h2 class="month__h" id={`m-${g.klucz}`}>{g.nazwa}</h2>
+          <details class="month" data-rozegrany={g.rozegrany ? "" : undefined} open={g.rozegrany ? undefined : true}>
+            <summary class="month__h">
+              <span>{g.nazwa}</span>
+              {g.rozegrany && (
+                <span class="month__sum">
+                  {g.mecze.length} {t(lang, g.mecze.length === 1 ? "sched.game" : g.mecze.length < 5 ? "sched.games2" : "sched.games5")} · {g.w}–{g.p}
+                </span>
+              )}
+            </summary>
             <ol class="games" role="list">
               {g.mecze.map((m) => {
                 const next = m === nastepny;
                 return (
-                  <li class:list={["game", { "game--next": next, "game--w": m.wygrana === true, "game--l": m.wygrana === false }]} id={next ? "najblizszy" : undefined}>
+                  <li
+                    class:list={["game", { "game--next": next, "game--w": m.wygrana === true, "game--l": m.wygrana === false }]}
+                    id={next ? "najblizszy" : undefined}
+                    data-miejsce={m.dom ? "dom" : "wyjazd"}
+                    data-status={m.wygrana === null ? "nadchodzace" : "rozegrane"}
+                  >
                     <time class="game__date" datetime={m.data}>
                       <span class="game__day">{Number(m.data.slice(8, 10))}</span>
                       <span class="game__wd">{fDzienTyg.format(dzien(m)).replace(".", "")}</span>
@@ -112,13 +152,64 @@ const aktualizacja = new Intl.DateTimeFormat(loc, { day: "numeric", month: "long
                 );
               })}
             </ol>
-          </section>
+          </details>
         ))
       }
+
+      <script is:inline>
+        // Na szerszym ekranie wszystkie miesiące rozwinięte; na telefonie rozegrane są zwinięte
+        if (window.matchMedia("(min-width: 900px)").matches) {
+          document.querySelectorAll("details.month").forEach(function (d) { d.open = true; });
+        }
+      </script>
 
       <p class="source">
         {t(lang, "sched.source")} {aktualizacja}. <a href={zrodloTerminarza} target="_blank" rel="noopener">1lm.pzkosz.pl ↗</a>
       </p>
+
+      <!-- Tabela ligowa -->
+      <section class="tbl" id="tabela" aria-labelledby="tabela-h">
+        <h2 class="tbl__h" id="tabela-h">{t(lang, "table.title")}</h2>
+        <div class="tbl__scroll">
+          <table class="league">
+            <thead>
+              <tr>
+                <th scope="col" class="c-pos"><abbr title={t(lang, "table.pos")}>#</abbr></th>
+                <th scope="col" class="c-team">{t(lang, "table.team")}</th>
+                <th scope="col"><abbr title={t(lang, "table.gpLong")}>{t(lang, "table.gp")}</abbr></th>
+                <th scope="col"><abbr title={t(lang, "table.wlLong")}>{t(lang, "table.wl")}</abbr></th>
+                <th scope="col" class="c-wide">{t(lang, "table.home")}</th>
+                <th scope="col" class="c-wide">{t(lang, "table.away")}</th>
+                <th scope="col" class="c-wide"><abbr title={t(lang, "table.diffLong")}>{t(lang, "table.diff")}</abbr></th>
+                <th scope="col" class="c-pts"><abbr title={t(lang, "table.ptsLong")}>{t(lang, "table.pts")}</abbr></th>
+              </tr>
+            </thead>
+            <tbody>
+              {tabela.map((w) => (
+                <tr class:list={[{ "is-lks": w.lks, "z-po": w.strefa === "playoff", "z-sp": w.strefa === "spadek" }]} aria-current={w.lks ? "true" : undefined}>
+                  <td class="c-pos">{w.miejsce}</td>
+                  <th scope="row" class="c-team">
+                    <a href={w.link} target="_blank" rel="noopener">{w.druzyna}</a>
+                  </th>
+                  <td>{w.mecze}</td>
+                  <td>{w.bilans[0]}–{w.bilans[1]}</td>
+                  <td class="c-wide">{w.dom[0]}–{w.dom[1]}</td>
+                  <td class="c-wide">{w.wyjazd[0]}–{w.wyjazd[1]}</td>
+                  <td class="c-wide">{w.roznica > 0 ? `+${w.roznica}` : w.roznica}</td>
+                  <td class="c-pts">{w.pkt}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="tbl__legend">
+          <span class="lg lg--po"></span>{t(lang, "table.playoff")}
+          <span class="lg lg--sp"></span>{t(lang, "table.releg")}
+        </p>
+        <p class="source">
+          {t(lang, "table.source")} {aktualizacjaT}. <a href={zrodloTabeli} target="_blank" rel="noopener">1lm.pzkosz.pl ↗</a>
+        </p>
+      </section>
     </div>
   </section>
 </Base>
@@ -178,6 +269,11 @@ const aktualizacja = new Intl.DateTimeFormat(loc, { day: "numeric", month: "long
     }
   }
 
+  .jumps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 24px;
+  }
   .jump {
     display: inline-flex;
     align-items: center;
@@ -198,10 +294,44 @@ const aktualizacja = new Intl.DateTimeFormat(loc, { day: "numeric", month: "long
     margin-top: clamp(20px, 3vw, 32px);
   }
   .month__h {
-    font-size: clamp(20px, 2.4vw, 26px);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
     margin: 0 0 10px;
     padding-bottom: 8px;
     border-bottom: 2px solid var(--text);
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(20px, 2.4vw, 26px);
+    text-transform: uppercase;
+    cursor: pointer;
+    list-style: none;
+  }
+  .month__h::-webkit-details-marker {
+    display: none;
+  }
+  .month__h::after {
+    content: "";
+    margin-left: auto;
+    width: 10px;
+    height: 10px;
+    border-right: 2.5px solid currentColor;
+    border-bottom: 2.5px solid currentColor;
+    transform: translateY(-3px) rotate(45deg);
+    transition: transform 200ms;
+  }
+  .month[open] > .month__h::after {
+    transform: translateY(2px) rotate(-135deg);
+  }
+  .month__sum {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .month:not([open]) > .month__h {
+    margin-bottom: 0;
   }
   .games {
     list-style: none;
@@ -361,6 +491,198 @@ const aktualizacja = new Intl.DateTimeFormat(loc, { day: "numeric", month: "long
     .game__score {
       padding-right: 8px;
     }
+  }
+
+  /* -- Filtry ------------------------------------------------- */
+  .sfilter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0 4px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 16px 0 12px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 150ms, border-color 150ms, color 150ms;
+  }
+  .chip:hover {
+    border-color: var(--text);
+  }
+  .chip__box {
+    display: inline-grid;
+    place-items: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 2px solid currentColor;
+  }
+  .chip[aria-pressed="true"] {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+  .chip[aria-pressed="true"] .chip__box::after {
+    content: "";
+    width: 9px;
+    height: 5px;
+    border-left: 2.5px solid currentColor;
+    border-bottom: 2.5px solid currentColor;
+    transform: translateY(-1px) rotate(-45deg);
+  }
+  .chip--clear {
+    padding-inline: 14px;
+    border-style: dashed;
+    color: var(--muted);
+  }
+  .chip[hidden] {
+    display: none;
+  }
+  .sfilter__none {
+    margin: 16px 0 0;
+    color: var(--muted);
+  }
+  .game[hidden],
+  .month[hidden] {
+    display: none;
+  }
+
+  /* -- Tabela ligowa ------------------------------------------- */
+  .tbl {
+    margin-top: clamp(36px, 5vw, 56px);
+    scroll-margin-top: calc(var(--header-h) + 16px);
+  }
+  .tbl__h {
+    font-size: clamp(26px, 3.4vw, 40px);
+    margin: 0 0 14px;
+  }
+  .tbl__scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .league {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .league th,
+  .league td {
+    padding: 10px 8px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .league thead th {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 2px solid var(--text);
+  }
+  .league abbr {
+    text-decoration: none;
+  }
+  .league .c-team {
+    text-align: left;
+    white-space: normal;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+  .league tbody .c-team a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .league tbody .c-team a:hover {
+    text-decoration: underline;
+  }
+  .league .c-pos {
+    width: 36px;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 18px;
+  }
+  .league .c-pts {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 19px;
+  }
+  /* strefy: pasek z lewej */
+  .league tbody tr.z-po .c-pos {
+    box-shadow: inset 4px 0 0 #2e7d4f;
+  }
+  .league tbody tr.z-sp .c-pos {
+    box-shadow: inset 4px 0 0 #8f857b;
+  }
+  /* ŁKS: wyraźne podświetlenie */
+  .league tbody tr.is-lks > * {
+    background: var(--red);
+    color: #fff;
+    border-bottom-color: var(--red);
+  }
+  .league tbody tr.is-lks .c-team {
+    font-size: 18px;
+  }
+  .league tbody tr.is-lks .c-pos {
+    border-radius: 10px 0 0 10px;
+    box-shadow: inset 4px 0 0 #fff;
+  }
+  .league tbody tr.is-lks > :last-child {
+    border-radius: 0 10px 10px 0;
+  }
+  @media (max-width: 640px) {
+    .league .c-wide {
+      display: none;
+    }
+    .league th,
+    .league td {
+      padding: 9px 5px;
+    }
+    .league .c-team {
+      font-size: 15px;
+    }
+  }
+  .tbl__legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    margin: 12px 0 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .lg {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    margin-left: 6px;
+  }
+  .lg:first-child {
+    margin-left: 0;
+  }
+  .lg--po {
+    background: #2e7d4f;
+  }
+  .lg--sp {
+    background: #8f857b;
   }
 
   .source {

@@ -21,29 +21,29 @@ const rok = new Date().getFullYear();
   <div class="ftr__bolt" aria-hidden="true"></div>
   <div class="wrap ftr__grid">
     <div class="ftr__brand">
-      <Image src={herbBialy} alt={klub.nazwa} width={120} height={120} />
-      <p class="ftr__name">{klub.nazwa}</p>
-      <p class="ftr__since">{lang === "pl" ? `ŁKS od ${klub.rokZalozenia} roku` : `ŁKS since ${klub.rokZalozenia}`}</p>
-      <Social lang={lang} />
+      <Image class="ftr__crest" src={herbBialy} alt={klub.nazwa} width={120} height={120} />
+      <div class="ftr__id">
+        <p class="ftr__name">{klub.nazwa}</p>
+        <p class="ftr__since">{lang === "pl" ? `ŁKS od ${klub.rokZalozenia} roku` : `ŁKS since ${klub.rokZalozenia}`}</p>
+      </div>
+      <div class="ftr__social"><Social lang={lang} /></div>
     </div>
 
     <nav aria-label={t(lang, "nav.menu")}>
       <ul class="ftr__links">
         {NAV.map((k) => <li><a href={route(k, lang)}>{t(lang, `nav.${k}`)}</a></li>)}
-        <li><a href={route("prywatnosc", lang)}>{t(lang, "nav.prywatnosc")}</a></li>
       </ul>
     </nav>
 
     <div class="ftr__contact">
       <p class="ftr__h">{t(lang, "contact.office")}</p>
       {biuro.adres && <p>{biuro.adres}</p>}
-      {biuro.telefon && <p><a href={telHref(biuro.telefon)}>{t(lang, "contact.tel")} {biuro.telefon}</a></p>}
-      {biuro.email && <p><a href={`mailto:${biuro.email}`}>{biuro.email}</a></p>}
-      {!biuro.adres && !biuro.telefon && !biuro.email && <p class="ftr__muted">{t(lang, "contact.tbd")}</p>}
-      <p class="ftr__extra">
-        <a href={route("terminarz", lang)}>{t(lang, "footer.league")}</a><br />
+      <p class="ftr__lines">
+        {biuro.telefon && <a href={telHref(biuro.telefon)}>{t(lang, "contact.tel")} {biuro.telefon}</a>}
+        {biuro.email && <a href={`mailto:${biuro.email}`}>{biuro.email}</a>}
         <a href={klub.akademia.adres} target="_blank" rel="noopener">{t(lang, "footer.academy")} ↗</a>
       </p>
+      {!biuro.adres && !biuro.telefon && !biuro.email && <p class="ftr__muted">{t(lang, "contact.tbd")}</p>}
     </div>
   </div>
 
@@ -76,6 +76,7 @@ const rok = new Date().getFullYear();
 
   <div class="wrap ftr__bottom">
     <p>© {rok} {klub.nazwa}. {t(lang, "footer.rights")}</p>
+    <a href={route("prywatnosc", lang)}>{t(lang, "nav.prywatnosc")}</a>
   </div>
 </footer>
 
@@ -114,10 +115,20 @@ const rok = new Date().getFullYear();
       grid-template-columns: 1.4fr 1fr 1.2fr;
     }
   }
-  .ftr__brand :global(img) {
+  .ftr__brand {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-content: start;
+    align-items: center;
+    column-gap: 16px;
+  }
+  .ftr__crest {
     width: 84px;
     height: 84px;
-    margin-bottom: 14px;
+  }
+  .ftr__social {
+    grid-column: 1 / -1;
+    margin-top: 16px;
   }
   .ftr__name {
     font-family: var(--font-cond);
@@ -129,7 +140,7 @@ const rok = new Date().getFullYear();
     line-height: 1;
   }
   .ftr__since {
-    margin: 4px 0 18px;
+    margin: 4px 0 0;
     color: var(--red-on-dark);
     font-family: var(--font-cond);
     font-weight: 700;
@@ -163,17 +174,21 @@ const rok = new Date().getFullYear();
     margin: 0 0 10px;
   }
   .ftr__contact p {
-    margin: 0 0 6px;
+    margin: 0 0 4px;
   }
+  .ftr__lines {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  /* pole dotyku 44 px */
   .ftr__contact a {
-    display: inline-block;
-    padding: 6px 0;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
   .ftr__muted {
     color: #8f857b;
-  }
-  .ftr__extra {
-    margin-top: 18px !important;
   }
   .ftr__sponsors {
     margin-top: 32px;
@@ -219,7 +234,98 @@ const rok = new Date().getFullYear();
     font-size: 14px;
     color: #8f857b;
   }
+  .ftr__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0 24px;
+  }
   .ftr__bottom p {
     margin: 0;
+  }
+  .ftr__bottom a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: #c9c0b6;
+  }
+
+  /* -- Telefon: zwarta stopka ---------------------------------- */
+  @media (max-width: 759px) {
+    .ftr {
+      padding-top: 28px;
+      font-size: 15px;
+    }
+    .ftr__grid {
+      gap: 22px;
+    }
+    .ftr__brand {
+      grid-template-columns: auto 1fr auto;
+      column-gap: 12px;
+    }
+    .ftr__crest {
+      width: 52px;
+      height: 52px;
+      grid-row: auto;
+    }
+    .ftr__name {
+      font-size: 22px;
+    }
+    .ftr__since {
+      font-size: 12px;
+    }
+    .ftr__social {
+      grid-column: auto;
+      margin-top: 0;
+    }
+    .ftr__links {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 16px;
+      gap: 0 16px;
+    }
+    .ftr__links a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0;
+      font-size: 16px;
+    }
+    .ftr__h {
+      margin-bottom: 4px;
+      font-size: 12px;
+    }
+    .ftr__lines {
+      flex-direction: row;
+      flex-wrap: wrap;
+      column-gap: 18px;
+    }
+    .ftr__sponsors {
+      margin-top: 18px;
+      padding-top: 16px;
+    }
+    .ftr__sponsors ul {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 4px 16px;
+    }
+    .ftr__sponsors li {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+    }
+    .ftr__sponsors :global(img) {
+      height: auto;
+      max-height: 24px;
+      max-width: 100%;
+    }
+    .ftr__spname {
+      font-size: 15px;
+    }
+    .ftr__bottom {
+      margin-top: 18px;
+      padding-block: 6px calc(10px + env(safe-area-inset-bottom));
+      font-size: 13px;
+    }
   }
 </style>

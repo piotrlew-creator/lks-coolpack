@@ -6,6 +6,7 @@ import PlayerCard from "../components/PlayerCard.astro";
 import Social from "../components/Social.astro";
 import MatchCard from "../components/MatchCard.astro";
 import NewsCard from "../components/NewsCard.astro";
+import LastResult from "../components/LastResult.astro";
 import heroLight from "../assets/start/hero-light.jpg";
 import herbBialy from "../assets/logo/herb-bialy.png";
 import herbCzerwony from "../assets/logo/herb-czerwony.png";
@@ -88,6 +89,7 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
           </div>
         )
       }
+      <LastResult lang={lang} />
       <div class="news-home__league reveal" data-po-meczu hidden={mecz ? true : undefined}>
         <div>
           <p class="kicker">{t(lang, "match.none.title")}</p>

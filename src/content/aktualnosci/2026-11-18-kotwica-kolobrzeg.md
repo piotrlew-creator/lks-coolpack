@@ -14,7 +14,7 @@ trescEn: |
   Keep your fingers crossed!
 mecz:
   data: "2026-11-19T18:00"
-  rywal: "Kotwica Kołobrzeg"
+  rywal: "Datzzy Kotwica Port Kołobrzeg"
   dom: false
   miejsce: "Kołobrzeg"
 ---

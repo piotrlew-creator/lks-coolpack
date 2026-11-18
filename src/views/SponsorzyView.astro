@@ -115,7 +115,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
     transition: border-color 200ms, transform 200ms, box-shadow 200ms;
   }
   .tier__list--top .sp {
-    min-height: 240px;
+    min-height: clamp(130px, 30vw, 240px);
   }
   .sp--nolink:hover {
     transform: none;

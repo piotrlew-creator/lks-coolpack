@@ -134,8 +134,8 @@ const staff = await sztab();
     font-weight: 600;
   }
 
-  /* Telefon: małe pionowe zdjęcie po lewej, funkcja, imię i opis obok */
-  @media (max-width: 639px) {
+  /* Telefon (pion i poziom): małe pionowe zdjęcie po lewej, funkcja i nazwisko obok */
+  @media (max-width: 639px), (orientation: landscape) and (max-height: 500px) {
     .member {
       flex-direction: row;
       align-items: stretch;
