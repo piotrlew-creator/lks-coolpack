@@ -220,7 +220,6 @@ export const ui = {
     "contact.mail": "e-mail:",
 
     "footer.rights": "Wszelkie prawa zastrzeżone.",
-    "footer.academy": "ŁKS KM Junior",
     "footer.league": "Terminarz i wyniki",
 
     "privacy.title": "Prywatność",
@@ -410,7 +409,6 @@ export const ui = {
     "contact.mail": "email:",
 
     "footer.rights": "All rights reserved.",
-    "footer.academy": "ŁKS KM Junior",
     "footer.league": "Fixtures and results",
 
     "privacy.title": "Privacy",

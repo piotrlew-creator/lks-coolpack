@@ -41,7 +41,6 @@ const rok = new Date().getFullYear();
       <p class="ftr__lines">
         {biuro.telefon && <a href={telHref(biuro.telefon)}>{t(lang, "contact.tel")} {biuro.telefon}</a>}
         {biuro.email && <a href={`mailto:${biuro.email}`}>{biuro.email}</a>}
-        <a href={klub.akademia.adres} target="_blank" rel="noopener">{t(lang, "footer.academy")} ↗</a>
       </p>
       {!biuro.adres && !biuro.telefon && !biuro.email && <p class="ftr__muted">{t(lang, "contact.tbd")}</p>}
     </div>
