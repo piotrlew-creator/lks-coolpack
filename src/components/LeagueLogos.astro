@@ -1,0 +1,54 @@
+---
+/*
+  Oficjalne logotypy rozgrywek: Polski Związek Koszykówki i 1 Liga Mężczyzn.
+  Pliki pobrane z pzkosz.pl / 1lm.pzkosz.pl (src/assets/liga/).
+*/
+import { Image } from "astro:assets";
+import logoPzkosz from "../assets/liga/pzkosz.png";
+import logo1lm from "../assets/liga/1lm.png";
+
+interface Props {
+  /** wysokość logotypów w px */
+  height?: number;
+  class?: string;
+}
+const { height = 36, class: cls } = Astro.props;
+const loga = [
+  { src: logoPzkosz, alt: "Polski Związek Koszykówki", href: "https://pzkosz.pl/" },
+  { src: logo1lm, alt: "PZKosz 1 Liga Mężczyzn", href: "https://1lm.pzkosz.pl/" },
+];
+---
+
+<ul class:list={["liga", cls]} role="list" style={`--liga-h:${height}px`}>
+  {
+    loga.map((l) => (
+      <li>
+        <a href={l.href} target="_blank" rel="noopener" aria-label={l.alt}>
+          <Image src={l.src} alt={l.alt} height={height * 2} loading="lazy" />
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .liga {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+  }
+  .liga a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .liga :global(img) {
+    display: block;
+    height: var(--liga-h);
+    width: auto;
+  }
+</style>

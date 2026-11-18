@@ -15,6 +15,7 @@ const sponsorzy = (await getCollection("sponsorzy"))
   .sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
 const biuro = klub.kontakt.biuro;
 const rok = new Date().getFullYear();
+import LeagueLogos from "./LeagueLogos.astro";
 ---
 
 <footer class="ftr">
@@ -72,6 +73,11 @@ const rok = new Date().getFullYear();
       </div>
     )
   }
+
+  <div class="wrap ftr__league">
+    <p class="ftr__h">{t(lang, "league.label")}</p>
+    <LeagueLogos height={32} />
+  </div>
 
   <div class="wrap ftr__bottom">
     <p>© {rok} {klub.nazwa}. {t(lang, "footer.rights")}</p>
@@ -225,6 +231,11 @@ const rok = new Date().getFullYear();
   }
   .ftr__sponsors a:hover :global(img) {
     opacity: 1;
+  }
+  .ftr__league {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
   .ftr__bottom {
     margin-top: 40px;

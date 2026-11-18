@@ -32,7 +32,8 @@ const zdjecieDruzyny: ImageMetadata | undefined = undefined;
 const mecz = najblizszyMecz;
 // Wpis o najbliższym meczu nie dubluje karty meczu — karta prowadzi do niego przyciskiem
 const wszystkie = await aktualnosci();
-const wpisy = wszystkie.slice(0, 3);
+// Zapowiedź najbliższego meczu nie dubluje karty meczu powyżej
+const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)).slice(0, 3);
 ---
 
 <Base lang={lang} alt={{ pl: u(ROUTES.start.pl), en: u(ROUTES.start.en) }} active="start">
