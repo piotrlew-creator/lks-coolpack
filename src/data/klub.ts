@@ -15,6 +15,11 @@ export const klub = {
 
   // Media społecznościowe
   facebook: "https://www.facebook.com/lkscoolpack",
+  // Posty z Facebooka na stronie Aktualności. Wyłączone, bo Facebook dla profilu
+  // ŁKS CoolPack zwraca we wtyczce tylko nagłówek, bez postów (najczęściej
+  // przez ograniczenia wieku/kraju w ustawieniach strony na Facebooku).
+  // Gdy administrator profilu to zmieni — ustaw true.
+  facebookWtyczka: false,
   instagram: "", // np. "https://www.instagram.com/..." — do uzupełnienia
 
   // Oficjalna strona drużyny w serwisie ligi (terminarz, wyniki, statystyki)

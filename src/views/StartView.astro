@@ -11,6 +11,7 @@ import { sponsorzy as getSponsorzy, zawodnicy as getZawodnicy } from "../lib/dat
 import { u } from "../lib/url";
 import heroLight from "../assets/start/hero-light.jpg";
 import heroDark from "../assets/start/hero-dark.jpg";
+import { getImage } from "astro:assets";
 
 interface Props {
   lang: Lang;
@@ -21,6 +22,10 @@ const players = (await getZawodnicy()).slice(0, 8);
 const sponsors = (await getSponsorzy()).filter((s) => s.data.logo);
 
 
+// Pełna rozdzielczość do powiększenia (dotknięcie zdjęcia na telefonie)
+const fullLight = await getImage({ src: heroLight, width: 2400, format: "jpg" });
+const fullDark = await getImage({ src: heroDark, width: 2400, format: "jpg" });
+const zoomLabel = lang === "pl" ? "Powiększ zdjęcie drużyny" : "Enlarge the team photo";
 const mecz = najblizszyMecz;
 const meczData = mecz ? new Date(mecz.data) : null;
 const fmtDay = meczData
@@ -56,6 +61,7 @@ const fmtTime = meczData
 
     <!-- Zdjęcie drużyny (jasny / ciemny motyw) -->
     <figure class="hero__team">
+      <a class="hero__zoom hero__zoom--light" href={fullLight.src} target="_blank" rel="noopener" aria-label={zoomLabel}>
       <Image
         class="hero__img hero__img--light"
         src={heroLight}
@@ -64,6 +70,8 @@ const fmtTime = meczData
         sizes="100vw"
         loading="lazy"
       />
+      </a>
+      <a class="hero__zoom hero__zoom--dark" href={fullDark.src} target="_blank" rel="noopener" aria-label={zoomLabel}>
       <Image
         class="hero__img hero__img--dark"
         src={heroDark}
@@ -72,7 +80,28 @@ const fmtTime = meczData
         sizes="100vw"
         loading="lazy"
       />
+      </a>
+      <span class="hero__zoom-hint" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6" /></svg>
+      </span>
     </figure>
+  </section>
+
+  <!-- ══════════════ SKŁAD ══════════════ -->
+  <section class="section" aria-labelledby="sklad-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">{t(lang, "team.kicker")}</p>
+          <h2 id="sklad-title" class="h-lg">{t(lang, "team.title")}</h2>
+          <p class="lead">{t(lang, "team.lead")}</p>
+        </div>
+        <a class="btn btn--ghost" href={route("sklad", lang)}>{t(lang, "team.all")} →</a>
+      </div>
+    </div>
+    <ul class="rail" role="list">
+      {players.map((p, i) => <li><PlayerCard p={p} lang={lang} index={i} /></li>)}
+    </ul>
   </section>
 
   <!-- ══════════════ NAJBLIŻSZY MECZ ══════════════ -->
@@ -111,23 +140,6 @@ const fmtTime = meczData
         </div>
       )
     }
-  </section>
-
-  <!-- ══════════════ SKŁAD ══════════════ -->
-  <section class="section" aria-labelledby="sklad-title">
-    <div class="wrap">
-      <div class="section-head">
-        <div>
-          <p class="kicker">{t(lang, "team.kicker")}</p>
-          <h2 id="sklad-title" class="h-lg">{t(lang, "team.title")}</h2>
-          <p class="lead">{t(lang, "team.lead")}</p>
-        </div>
-        <a class="btn btn--ghost" href={route("sklad", lang)}>{t(lang, "team.all")} →</a>
-      </div>
-    </div>
-    <ul class="rail" role="list">
-      {players.map((p, i) => <li><PlayerCard p={p} lang={lang} index={i} /></li>)}
-    </ul>
   </section>
 
   <!-- ══════════════ SZTAB + AKADEMIA ══════════════ -->
@@ -276,7 +288,7 @@ const fmtTime = meczData
     z-index: 1;
     pointer-events: none;
     bottom: 0;
-    height: 18%;
+    height: 8%;
     background: linear-gradient(transparent, var(--bg));
   }
   .hero__team :global(img) {
@@ -287,16 +299,67 @@ const fmtTime = meczData
     object-fit: cover;
     object-position: 50% 60%;
     /* górna krawędź zdjęcia płynnie przechodzi w tło */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 26%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%);
   }
-  :global([data-theme="dark"]) .hero__team :global(.hero__img--light),
-  :global([data-theme="light"]) .hero__team :global(.hero__img--dark) {
+  :global([data-theme="dark"]) .hero__zoom--light,
+  :global([data-theme="light"]) .hero__zoom--dark {
     display: none;
   }
-  @media (max-width: 700px) {
+  .hero__zoom {
+    display: block;
+    cursor: zoom-in;
+  }
+  .hero__zoom-hint {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    right: 12px;
+    bottom: 14px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(14, 12, 9, 0.7);
+    pointer-events: none;
+  }
+  .hero__zoom-hint svg {
+    width: 22px;
+    height: 22px;
+    margin: 9px;
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  @media (max-width: 1023px) {
+    .hero__zoom-hint {
+      display: block;
+    }
+  }
+  /* Telefon w pionie i w poziomie: najpierw zdjęcie drużyny, pod nim tekst */
+  @media (max-width: 700px), (orientation: landscape) and (max-height: 500px) {
+    .hero {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero__team {
+      order: -1;
+      margin: 0;
+    }
+    .hero__year {
+      display: none;
+    }
+    .hero__team :global(img) {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
+    .hero__team::after {
+      height: 22%;
+      background: linear-gradient(transparent, #0f0c0a);
+    }
     .hero__in {
       align-items: flex-start;
+      padding-block: 4px 32px;
     }
     .hero__crest {
       display: none; /* herb jest już w pasku u góry */
@@ -304,8 +367,21 @@ const fmtTime = meczData
     .hero__text {
       padding-right: 0;
     }
-    .hero__team {
-      margin-top: 8px;
+  }
+
+  @media (orientation: landscape) and (max-height: 500px) {
+    .hero__team :global(img) {
+      max-height: calc(100svh - var(--header-h));
+    }
+    .hero__t1 {
+      font-size: 64px;
+    }
+    .hero__t2 {
+      font-size: 44px;
+    }
+    .hero__crest {
+      display: block;
+      width: 120px;
     }
   }
 
@@ -343,8 +419,7 @@ const fmtTime = meczData
   /* -- Najbliższy mecz ---------------------------------------- */
   .match {
     position: relative;
-    z-index: 2;
-    margin-top: -40px;
+    padding-bottom: clamp(56px, 8vw, 96px);
   }
   .match__card {
     background: var(--surface);
@@ -352,7 +427,6 @@ const fmtTime = meczData
     border-left: 6px solid var(--red);
     border-radius: var(--radius);
     padding: clamp(20px, 3vw, 32px);
-    box-shadow: var(--shadow);
   }
   .match__card--none {
     display: flex;

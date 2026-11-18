@@ -118,6 +118,8 @@ export const ui = {
     "news.ig.open": "Otwórz profil na Instagramie",
     "news.ig.soon": "Instagram — adres wkrótce",
     "news.follow": "Obserwuj nas",
+    "news.fb.card": "Wyniki, zapowiedzi meczów, zdjęcia i relacje z każdego spotkania.",
+    "news.ig.card": "Zdjęcia, filmy i kulisy z życia drużyny.",
 
     "academy.kicker": "Od grup naborowych do 1. ligi",
     "academy.title": "Wychowujemy następców",
@@ -234,6 +236,8 @@ export const ui = {
     "news.ig.open": "Open our Instagram profile",
     "news.ig.soon": "Instagram — link coming soon",
     "news.follow": "Follow us",
+    "news.fb.card": "Results, game previews, photos and reports from every game.",
+    "news.ig.card": "Photos, videos and behind-the-scenes moments.",
 
     "academy.kicker": "From beginners to the 1st League",
     "academy.title": "Raising the next generation",
