@@ -19,7 +19,7 @@ interface Props {
 }
 const { lang } = Astro.props;
 
-const players = (await getZawodnicy()).slice(0, 8);
+const players = await getZawodnicy();
 const sponsors = await getSponsorzy();
 
 
