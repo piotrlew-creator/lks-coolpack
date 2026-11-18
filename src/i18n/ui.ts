@@ -36,7 +36,7 @@ export function playerUrl(slug: string, lang: Lang): string {
   return lang === "pl" ? u(`sklad/${slug}/`) : u(`en/roster/${slug}/`);
 }
 
-export const NAV: RouteKey[] = ["start", "sklad", "terminarz", "sztab", "mlodziez", "aktualnosci", "sponsorzy", "kontakt"];
+export const NAV: RouteKey[] = ["start", "aktualnosci", "sklad", "terminarz", "sztab", "mlodziez", "sponsorzy", "kontakt"];
 
 export const ui = {
   pl: {
@@ -438,8 +438,21 @@ export const POZIOMY_EN: Record<string, string> = {
   "Sponsor strategiczny": "Strategic sponsor",
   "Sponsor": "Sponsor",
   "Partner": "Partner",
+  "Partner techniczny": "Technical partner",
   "Partner medialny": "Media partner",
 };
+
+/** Nagłówek grupy sponsorów: liczba mnoga, gdy w grupie jest więcej niż jedna firma. */
+const POZIOMY_MNOGA: Record<string, { pl: string; en: string }> = {
+  "Sponsor": { pl: "Sponsorzy", en: "Sponsors" },
+  "Partner": { pl: "Partnerzy", en: "Partners" },
+  "Partner techniczny": { pl: "Partnerzy techniczni", en: "Technical partners" },
+  "Partner medialny": { pl: "Partnerzy medialni", en: "Media partners" },
+};
+export function poziomGrupa(p: string, ile: number, lang: Lang): string {
+  const m = ile > 1 ? POZIOMY_MNOGA[p] : undefined;
+  return m ? m[lang] : poziom(p, lang);
+}
 
 export function pozycja(p: string, lang: Lang): string {
   return lang === "en" ? POZYCJE_EN[p] ?? p : p;

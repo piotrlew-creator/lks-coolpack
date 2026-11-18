@@ -1,5 +1,5 @@
 ---
-nazwa: "Pakotrans"
-poziom: "Sponsor"
-kolejnosc: 3
+nazwa: "PakoTransport"
+poziom: "Partner"
+kolejnosc: 4
 ---

@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import { klub } from "../data/klub";
-import { type Lang, ROUTES, poziom, route, t } from "../i18n/ui";
+import { type Lang, ROUTES, poziomGrupa, route, t } from "../i18n/ui";
 import { POZIOMY_SPONSORA } from "../lib/consts";
 import { sponsorzy } from "../lib/data";
 import { telHref, u } from "../lib/url";
@@ -28,7 +28,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
       {
         groups.map((g, gi) => (
           <div class="tier">
-            <h2 class="tier__h">{poziom(g.lvl, lang)}</h2>
+            <h2 class="tier__h">{poziomGrupa(g.lvl, g.items.length, lang)}</h2>
             <ul class:list={["tier__list", { "tier__list--top": gi === 0 }]} role="list">
               {g.items.map((s) => {
                 // sponsor bez strony www: kafel bez linku

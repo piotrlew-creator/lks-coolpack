@@ -1,7 +1,7 @@
 ---
 nazwa: "Aquapark Fala"
-poziom: "Sponsor"
+poziom: "Partner"
 link: "https://aquapark.lodz.pl/"
 logo: "../../assets/sponsorzy/aquapark-fala.png"
-kolejnosc: 4
+kolejnosc: 3
 ---

@@ -13,6 +13,7 @@ export const POZIOMY_SPONSORA = [
   "Sponsor strategiczny",
   "Sponsor",
   "Partner",
+  "Partner techniczny",
   "Partner medialny",
 ] as const;
 
