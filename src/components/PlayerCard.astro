@@ -6,7 +6,7 @@
 */
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import { type Lang, playerUrl, pozycja, t } from "../i18n/ui";
+import { type Lang, playerUrl, pozycje, t } from "../i18n/ui";
 import Silhouette from "./Silhouette.astro";
 
 interface Props {
@@ -23,7 +23,7 @@ const d = p.data;
   href={playerUrl(p.id, lang)}
   data-bolt
   data-slug={p.id}
-  data-pos={d.pozycja}
+  data-pos={d.pozycje.join("|")}
   style={`--d:${Math.min(index, 8) * 60}ms`}
 >
   <span class="pcard__num" aria-hidden="true" data-vt="number">{d.numer}</span>
@@ -46,11 +46,11 @@ const d = p.data;
   <span class="pcard__info">
     <span class="pcard__meta">
       <span class="pcard__badge">#{d.numer}</span>
-      {pozycja(d.pozycja, lang)}
-      {d.kapitan && <span class="pcard__cap" title={t(lang, "team.captain")}>C</span>}
+      {d.kapitan && <span class="pcard__cap">{t(lang, "team.captain")}</span>}
     </span>
     <span class="pcard__first">{d.imie}</span>
     <span class="pcard__last">{d.nazwisko}</span>
+    <span class="pcard__pos">{pozycje(d.pozycje, lang)}</span>
   </span>
   <span class="pcard__glare" aria-hidden="true"></span>
 </a>
@@ -177,13 +177,20 @@ const d = p.data;
     font-size: 14px;
   }
   .pcard__cap {
-    display: inline-grid;
-    place-items: center;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    padding: 2px 7px 1px;
+    border-radius: 999px;
     border: 1.5px solid currentColor;
     font-size: 12px;
+  }
+  .pcard__pos {
+    margin-top: 6px;
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #d8cfc5;
+    line-height: 1.2;
   }
   .pcard__first {
     font-family: var(--font-cond);

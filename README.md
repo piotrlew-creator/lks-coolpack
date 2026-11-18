@@ -42,11 +42,12 @@ git push
    wrzuć do `src/assets/zawodnicy/`, np. `jan-kowalski.png`.
 2. Skopiuj dowolny plik z `src/content/zawodnicy/` i nazwij go `jan-kowalski.md`
    — nazwa pliku to adres strony zawodnika (`/sklad/jan-kowalski/`).
-3. Uzupełnij pola. Pozycja musi być jedną z: Rozgrywający, Rzucający obrońca,
-   Niski skrzydłowy, Silny skrzydłowy, Środkowy. Narodowość wpisz kodem kraju (PL, US, LT…).
-4. Odkomentuj linię `zdjecie:` i usuń `szkic: true`.
-
-Przykładowe pliki `zawodnik-00.md` … `zawodnik-33.md` usuń, gdy będzie prawdziwy skład.
+3. Uzupełnij pola. W `pozycje` wpisz jedną lub dwie z: Rozgrywający, Rzucający,
+   Niski skrzydłowy, Silny skrzydłowy, Środkowy. Narodowość wpisz kodem kraju (PL, US, LT…),
+   datę urodzenia jako RRRR-MM-DD. Karierę (`kariera`) przepisz ze strony zawodnika na 1lm.pzkosz.pl
+   (liga: EKS = ekstraklasa, 1L, 2L, 3L) — „W ŁKS od sezonu” i „Poprzedni klub” liczą się z niej same.
+4. Odkomentuj linię `zdjecie:`.
+5. Kapitan ma `kapitan: true`.
 
 ## Własna domena (później)
 

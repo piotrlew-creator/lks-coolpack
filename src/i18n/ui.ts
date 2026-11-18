@@ -78,14 +78,16 @@ export const ui = {
     "team.captain": "Kapitan",
     "team.position": "Pozycja",
     "team.height": "Wzrost",
-    "team.born": "Rocznik",
+    "team.born": "Data urodzenia",
+    "team.since": "W ŁKS od sezonu",
+    "team.career": "Kariera w Polsce",
+    "team.career.note": "Na podstawie danych Polskiego Związku Koszykówki.",
     "team.nation": "Narodowość",
     "team.prevClub": "Poprzedni klub",
     "team.number": "Numer",
     "team.back": "Wróć do składu",
     "team.prev": "Poprzedni zawodnik",
     "team.next": "Następny zawodnik",
-    "team.draft": "Profil w przygotowaniu — zdjęcie i opis wkrótce.",
     "team.see": "Zobacz profil",
 
     "staff.kicker": "Ludzie za drużyną",
@@ -192,14 +194,16 @@ export const ui = {
     "team.captain": "Captain",
     "team.position": "Position",
     "team.height": "Height",
-    "team.born": "Born",
+    "team.born": "Date of birth",
+    "team.since": "At ŁKS since",
+    "team.career": "Career in Poland",
+    "team.career.note": "Based on data from the Polish Basketball Federation.",
     "team.nation": "Nationality",
     "team.prevClub": "Previous club",
     "team.number": "Number",
     "team.back": "Back to the team",
     "team.prev": "Previous player",
     "team.next": "Next player",
-    "team.draft": "Profile coming soon — photo and bio on the way.",
     "team.see": "View profile",
 
     "staff.kicker": "The people behind the team",
@@ -270,7 +274,7 @@ export function t(lang: Lang, key: UiKey): string {
 /** Pozycje zawodników w obu językach. */
 export const POZYCJE_EN: Record<string, string> = {
   "Rozgrywający": "Point guard",
-  "Rzucający obrońca": "Shooting guard",
+  "Rzucający": "Shooting guard",
   "Niski skrzydłowy": "Small forward",
   "Silny skrzydłowy": "Power forward",
   "Środkowy": "Center",
@@ -286,6 +290,28 @@ export const POZIOMY_EN: Record<string, string> = {
 
 export function pozycja(p: string, lang: Lang): string {
   return lang === "en" ? POZYCJE_EN[p] ?? p : p;
+}
+/** Kilka pozycji: "Rozgrywający / Rzucający". */
+export function pozycje(list: readonly string[], lang: Lang): string {
+  return list.map((p) => pozycja(p, lang)).join(" / ");
+}
+
+const LIGA_NAZWY: Record<string, { pl: string; en: string }> = {
+  EKS: { pl: "Ekstraklasa", en: "Top division" },
+  "1L": { pl: "1. liga", en: "1st League" },
+  "2L": { pl: "2. liga", en: "2nd League" },
+  "3L": { pl: "3. liga", en: "3rd League" },
+};
+export function liga(code: string, lang: Lang): string {
+  return LIGA_NAZWY[code]?.[lang] ?? code;
+}
+
+/** Data w formacie zależnym od języka: 28.01.1997 / 28 Jan 1997. */
+export function dataUr(d: Date | undefined, lang: Lang): string | undefined {
+  if (!d) return undefined;
+  return lang === "pl"
+    ? new Intl.DateTimeFormat("pl-PL", { day: "2-digit", month: "2-digit", year: "numeric", timeZone: "UTC" }).format(d)
+    : new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(d);
 }
 export function poziom(p: string, lang: Lang): string {
   return lang === "en" ? POZIOMY_EN[p] ?? p : p;

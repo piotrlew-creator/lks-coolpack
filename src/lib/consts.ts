@@ -1,7 +1,7 @@
 /** Pozycje zawodników (w plikach zawodników wpisujemy dokładnie te nazwy). */
 export const POZYCJE = [
   "Rozgrywający",
-  "Rzucający obrońca",
+  "Rzucający",
   "Niski skrzydłowy",
   "Silny skrzydłowy",
   "Środkowy",
@@ -15,3 +15,6 @@ export const POZIOMY_SPONSORA = [
   "Partner",
   "Partner medialny",
 ] as const;
+
+/** Poziomy rozgrywek w karierze zawodnika. */
+export const LIGI = ["EKS", "1L", "2L", "3L"] as const;

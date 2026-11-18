@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Silhouette from "../components/Silhouette.astro";
-import { type Lang, kraj, playerUrl, pozycja, route, t } from "../i18n/ui";
+import { type Lang, dataUr, kraj, liga, playerUrl, pozycje, route, t } from "../i18n/ui";
 import { paragraphs, pick } from "../lib/data";
 
 interface Props {
@@ -17,14 +17,22 @@ const { lang, p, prev, next } = Astro.props;
 const d = p.data;
 const name = `${d.imie} ${d.nazwisko}`;
 const bio = paragraphs(pick(d.opis, d.opisEn, lang));
+const isLks = (klub: string) => klub.startsWith("ŁKS");
+// Ciągły okres w ŁKS (od najnowszego sezonu) i klub sprzed przyjścia do ŁKS
+let i = 0;
+while (i < d.kariera.length && isLks(d.kariera[i].klub)) i++;
+const odSezonu = i > 0 ? d.kariera[i - 1].sezon : undefined;
+const poprzedni = d.kariera[i]?.klub;
+
 const stats = [
-  { k: t(lang, "team.position"), v: pozycja(d.pozycja, lang) },
+  { k: t(lang, "team.position"), v: pozycje(d.pozycje, lang) },
   { k: t(lang, "team.height"), v: d.wzrost ? `${d.wzrost} cm` : undefined },
-  { k: t(lang, "team.born"), v: d.rocznik ? String(d.rocznik) : undefined },
+  { k: t(lang, "team.born"), v: dataUr(d.dataUrodzenia, lang) },
   { k: t(lang, "team.nation"), v: kraj(d.narodowosc, lang) },
-  { k: t(lang, "team.prevClub"), v: d.poprzedniKlub || undefined },
+  { k: t(lang, "team.since"), v: odSezonu },
+  { k: t(lang, "team.prevClub"), v: poprzedni },
 ].filter((s) => s.v);
-const desc = `${name} — #${d.numer}, ${pozycja(d.pozycja, lang)}. ${lang === "pl" ? "ŁKS CoolPack Łódź, 1. liga." : "ŁKS CoolPack Łódź, Polish 1st League."}`;
+const desc = `${name} — #${d.numer}, ${pozycje(d.pozycje, lang)}. ${lang === "pl" ? "ŁKS CoolPack Łódź, 1. liga." : "ŁKS CoolPack Łódź, Polish 1st League."}`;
 ---
 
 <Base lang={lang} title={name} description={desc} alt={{ pl: playerUrl(p.id, "pl"), en: playerUrl(p.id, "en") }} active="sklad">
@@ -50,7 +58,7 @@ const desc = `${name} — #${d.numer}, ${pozycja(d.pozycja, lang)}. ${lang === "
       <a class="pp__back" href={route("sklad", lang)}>← {t(lang, "team.back")}</a>
       <p class="pp__meta">
         <span class="pp__badge">#{d.numer}</span>
-        <span>{pozycja(d.pozycja, lang)}</span>
+        <span>{pozycje(d.pozycje, lang)}</span>
         {d.kapitan && <span class="pp__cap">{t(lang, "team.captain")}</span>}
       </p>
       <h1 class="pp__name">
@@ -73,8 +81,26 @@ const desc = `${name} — #${d.numer}, ${pozycja(d.pozycja, lang)}. ${lang === "
 
   <section class="section pp__bio-sec">
     <div class="wrap pp__bio">
-      {d.szkic && <p class="pp__draft">{t(lang, "team.draft")}</p>}
-      {bio.map((para) => <p>{para}</p>)}
+      <div class="pp__text">
+        {bio.map((para) => <p>{para}</p>)}
+      </div>
+      {
+        d.kariera.length > 0 && (
+          <div class="career">
+            <h2 class="career__h">{t(lang, "team.career")}</h2>
+            <ol class="career__list">
+              {d.kariera.map((k) => (
+                <li class:list={["career__row", { "career__row--lks": isLks(k.klub) }]}>
+                  <span class="career__season">{k.sezon}</span>
+                  <span class="career__club">{k.klub}</span>
+                  <span class:list={["career__league", `career__league--${k.liga}`]}>{liga(k.liga, lang)}</span>
+                </li>
+              ))}
+            </ol>
+            <p class="career__note">{t(lang, "team.career.note")}</p>
+          </div>
+        )
+      }
     </div>
   </section>
 
@@ -255,11 +281,11 @@ const desc = `${name} — #${d.numer}, ${pozycja(d.pozycja, lang)}. ${lang === "
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius);
     overflow: hidden;
-    max-width: 640px;
+    max-width: 680px;
   }
   @media (min-width: 600px) {
     .pp__stats {
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
   .pp__stats div {
@@ -289,15 +315,91 @@ const desc = `${name} — #${d.numer}, ${pozycja(d.pozycja, lang)}. ${lang === "
     padding-block: clamp(40px, 6vw, 72px);
   }
   .pp__bio {
-    max-width: 760px;
-    font-size: clamp(17px, 1.5vw, 19px);
+    display: grid;
+    gap: clamp(28px, 5vw, 64px);
   }
-  .pp__draft {
-    padding: 12px 16px;
-    border-left: 4px solid var(--red);
-    background: var(--bg-2);
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  @media (min-width: 960px) {
+    .pp__bio {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+      align-items: start;
+    }
+  }
+  .pp__text {
+    font-size: clamp(17px, 1.5vw, 19px);
+    max-width: 62ch;
+  }
+
+  .career__h {
+    font-size: clamp(26px, 3vw, 34px);
+    margin-bottom: 16px;
+  }
+  .career__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--border);
+  }
+  .career__row {
+    display: grid;
+    grid-template-columns: 88px minmax(0, 1fr) auto;
+    gap: 6px 14px;
+    align-items: center;
+    padding: 10px 4px;
+    border-bottom: 1px solid var(--border);
+    font-size: 16px;
+  }
+  .career__row--lks {
+    background: linear-gradient(90deg, color-mix(in srgb, var(--red) 12%, transparent), transparent 70%);
+  }
+  .career__row--lks .career__club {
+    font-weight: 700;
+  }
+  .career__season {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.04em;
     color: var(--muted);
+  }
+  .career__club {
+    line-height: 1.3;
+  }
+  .career__league {
+    justify-self: end;
+    white-space: nowrap;
+    padding: 3px 8px 2px;
+    border-radius: 6px;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .career__league--EKS {
+    background: var(--text);
+    border-color: var(--text);
+    color: var(--bg);
+  }
+  .career__league--1L {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .career__note {
+    margin: 10px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    .career__row {
+      grid-template-columns: 74px minmax(0, 1fr) auto;
+      gap: 4px 10px;
+      font-size: 15px;
+    }
+    .career__season {
+      font-size: 14px;
+    }
   }
 
   .pp__nav {

@@ -13,7 +13,7 @@ interface Props {
 }
 const { lang } = Astro.props;
 const players = await zawodnicy();
-const used = POZYCJE.filter((p) => players.some((pl) => pl.data.pozycja === p));
+const used = POZYCJE.filter((p) => players.some((pl) => pl.data.pozycje.includes(p)));
 ---
 
 <Base lang={lang} title={t(lang, "team.title")} description={t(lang, "team.lead")} alt={{ pl: u(ROUTES.sklad.pl), en: u(ROUTES.sklad.en) }} active="sklad">
@@ -104,9 +104,8 @@ const used = POZYCJE.filter((p) => players.some((pl) => pl.data.pozycja === p));
     .grid :global(.pcard__last) {
       font-size: 21px;
     }
-    .grid :global(.pcard__meta) {
+    .grid :global(.pcard__pos) {
       font-size: 11px;
-      gap: 6px;
     }
     .grid :global(.pcard__info) {
       padding: 48px 10px 10px;

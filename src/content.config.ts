@@ -7,7 +7,7 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
-import { POZIOMY_SPONSORA, POZYCJE } from "./lib/consts";
+import { LIGI, POZIOMY_SPONSORA, POZYCJE } from "./lib/consts";
 
 
 const zawodnicy = defineCollection({
@@ -17,19 +17,19 @@ const zawodnicy = defineCollection({
       imie: z.string(),
       nazwisko: z.string(),
       numer: z.number().int().min(0).max(99),
-      pozycja: z.enum(POZYCJE),
+      pozycje: z.array(z.enum(POZYCJE)).min(1), // jedna lub dwie, np. ["Rozgrywający", "Rzucający"]
       wzrost: z.number().int().optional(), // w cm, np. 201
-      rocznik: z.number().int().optional(), // np. 1998
+      dataUrodzenia: z.coerce.date().optional(), // RRRR-MM-DD
       narodowosc: z.string().optional(), // kod kraju: PL, US, LT… (nazwa pokaże się w obu językach)
-      poprzedniKlub: z.string().optional(),
       kapitan: z.boolean().default(false),
       zdjecie: image().optional(), // portret na przezroczystym lub jednolitym tle
-      // Zawodnicy bez zdjęcia i bez danych mogą mieć roboczo szkic: true —
-      // wtedy w siatce pokazuje się sylwetka zamiast zdjęcia.
-      szkic: z.boolean().default(false),
       // Opis zawodnika w obu językach (akapity rozdzielone pustą linią)
       opis: z.string().default(""),
       opisEn: z.string().default(""),
+      // Kariera w Polsce (od najnowszego sezonu). liga: EKS = ekstraklasa, 1L, 2L, 3L
+      kariera: z
+        .array(z.object({ sezon: z.string(), klub: z.string(), liga: z.enum(LIGI) }))
+        .default([]),
     }),
 });
 

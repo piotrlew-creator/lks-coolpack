@@ -237,7 +237,7 @@ function initFilter() {
     bar.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
     const apply = () =>
       cards.forEach((c) => {
-        const show = !pos || c.dataset.pos === pos;
+        const show = !pos || (c.dataset.pos ?? "").split("|").includes(pos);
         c.parentElement!.hidden = !show;
       });
     // Płynna zmiana siatki tam, gdzie się da
