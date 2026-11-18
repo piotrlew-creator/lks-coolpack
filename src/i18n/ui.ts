@@ -63,6 +63,7 @@ export const ui = {
     "match.home": "U siebie",
     "match.away": "Na wyjeździe",
     "match.tickets": "Bilety",
+    "match.preview": "Czytaj zapowiedź",
     "match.stream": "Transmisja",
     "match.none.title": "Terminarz i wyniki",
     "match.none.text":
@@ -196,6 +197,7 @@ export const ui = {
     "match.home": "Home",
     "match.away": "Away",
     "match.tickets": "Tickets",
+    "match.preview": "Read the preview",
     "match.stream": "Live stream",
     "match.none.title": "Fixtures and results",
     "match.none.text":

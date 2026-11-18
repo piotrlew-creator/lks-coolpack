@@ -11,7 +11,7 @@ import heroDark from "../assets/start/hero-dark.jpg";
 import herbBialy from "../assets/logo/herb-bialy.png";
 import herbCzerwony from "../assets/logo/herb-czerwony.png";
 import { klub, najblizszyMecz } from "../data/klub";
-import { type Lang, ROUTES, route, t } from "../i18n/ui";
+import { type Lang, ROUTES, newsUrl, route, t } from "../i18n/ui";
 import { aktualnosci, sponsorzy as getSponsorzy, zawodnicy as getZawodnicy } from "../lib/data";
 import { u } from "../lib/url";
 
@@ -24,8 +24,11 @@ const players = (await getZawodnicy()).slice(0, 8);
 const sponsors = (await getSponsorzy()).filter((s) => s.data.logo);
 
 
-const wpisy = (await aktualnosci()).slice(0, 3);
 const mecz = najblizszyMecz;
+// Wpis o najbliższym meczu nie dubluje karty meczu — karta prowadzi do niego przyciskiem
+const wszystkie = await aktualnosci();
+const zapowiedz = mecz ? wszystkie.find((w) => w.data.mecz?.data === mecz.data) : undefined;
+const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
 ---
 
 <Base lang={lang} alt={{ pl: u(ROUTES.start.pl), en: u(ROUTES.start.en) }} active="start">
@@ -89,7 +92,7 @@ const mecz = najblizszyMecz;
       {
         mecz && (
           <div class="news-home__match reveal">
-            <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} />
+            <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} zapowiedz={zapowiedz && newsUrl(zapowiedz.id, lang)} />
           </div>
         )
       }

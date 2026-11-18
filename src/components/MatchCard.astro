@@ -16,8 +16,9 @@ interface Props {
   bilety?: string;
   transmisja?: string;
   kicker?: string;
+  zapowiedz?: string; // link do wpisu o tym meczu (na stronie startowej)
 }
-const { lang, data, rywal, dom, miejsce, bilety, transmisja, kicker } = Astro.props;
+const { lang, data, rywal, dom, miejsce, bilety, transmisja, kicker, zapowiedz } = Astro.props;
 
 // Czas polski → UTC (zimą +1, latem +2) liczony w czasie budowania
 function polishToDate(local: string): Date {
@@ -54,8 +55,9 @@ const gosc = dom ? rywal : klub.nazwaKrotka;
     </div>
   </div>
   {
-    (bilety || transmisja) && (
-      <div class="btn-row">
+    (bilety || transmisja || zapowiedz) && (
+      <div class="btn-row mcard__btns">
+        {zapowiedz && <a class="btn mcard__more" href={zapowiedz}>{t(lang, "match.preview")} →</a>}
         {bilety && <a class="btn" href={bilety} target="_blank" rel="noopener">{t(lang, "match.tickets")}</a>}
         {transmisja && <a class="btn btn--ghost" href={transmisja} target="_blank" rel="noopener">{t(lang, "match.stream")}</a>}
       </div>
@@ -64,6 +66,11 @@ const gosc = dom ? rywal : klub.nazwaKrotka;
 </div>
 
 <style>
+  .mcard__btns {
+    position: relative;
+    z-index: 1;
+    margin-top: 22px;
+  }
   .mcard {
     position: relative;
     background: var(--black-deep);
