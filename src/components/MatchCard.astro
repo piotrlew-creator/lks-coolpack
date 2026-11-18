@@ -1,0 +1,155 @@
+---
+/*
+  Karta meczu (strona startowa i wpisy w Aktualnościach).
+  data-koniec: 3 godziny po rozpoczęciu karta sama się chowa
+  (skrypt w src/scripts/site.ts), a pojawia się element z data-po-meczu.
+*/
+import { klub } from "../data/klub";
+import { type Lang, t } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+  data: string; // "2026-11-19T18:00" czas polski
+  rywal: string;
+  dom: boolean;
+  miejsce?: string;
+  bilety?: string;
+  transmisja?: string;
+  kicker?: string;
+}
+const { lang, data, rywal, dom, miejsce, bilety, transmisja, kicker } = Astro.props;
+
+// Czas polski → UTC (zimą +1, latem +2) liczony w czasie budowania
+function polishToDate(local: string): Date {
+  const guess = new Date(local + "Z");
+  const pl = new Date(guess.toLocaleString("en-US", { timeZone: "Europe/Warsaw" }));
+  const utc = new Date(guess.toLocaleString("en-US", { timeZone: "UTC" }));
+  return new Date(guess.getTime() - (pl.getTime() - utc.getTime()));
+}
+const start = polishToDate(data);
+const koniec = start.getTime() + 3 * 3600 * 1000;
+const loc = lang === "pl" ? "pl-PL" : "en-GB";
+const dzien = new Intl.DateTimeFormat(loc, { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Warsaw" }).format(start);
+const godz = new Intl.DateTimeFormat("pl-PL", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Warsaw" }).format(start);
+const gospodarz = dom ? klub.nazwaKrotka : rywal;
+const gosc = dom ? rywal : klub.nazwaKrotka;
+---
+
+<div class="mcard" data-koniec={koniec} data-start={start.getTime()}>
+  <p class="kicker mcard__kicker">{kicker ?? t(lang, "match.kicker")}</p>
+  <div class="mcard__row">
+    <div class="mcard__when">
+      <span class="mcard__day">{dzien}</span>
+      <span class="mcard__time">{godz}</span>
+      <span class="mcard__count" data-odliczanie hidden></span>
+    </div>
+    <div class="mcard__teams">
+      <span class:list={[{ "mcard__us": dom }]}>{gospodarz}</span>
+      <span class="mcard__vs">vs</span>
+      <span class:list={[{ "mcard__us": !dom }]}>{gosc}</span>
+    </div>
+    <div class="mcard__where">
+      <span class="mcard__tag">{t(lang, dom ? "match.home" : "match.away")}</span>
+      {miejsce}
+    </div>
+  </div>
+  {
+    (bilety || transmisja) && (
+      <div class="btn-row">
+        {bilety && <a class="btn" href={bilety} target="_blank" rel="noopener">{t(lang, "match.tickets")}</a>}
+        {transmisja && <a class="btn btn--ghost" href={transmisja} target="_blank" rel="noopener">{t(lang, "match.stream")}</a>}
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .mcard {
+    position: relative;
+    background: var(--black-deep);
+    color: #fff;
+    border-radius: var(--radius);
+    padding: clamp(20px, 3vw, 32px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .mcard::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0 0 0 auto;
+    width: 40%;
+    background: linear-gradient(110deg, transparent 0 30%, rgba(212, 4, 20, 0.35) 30% 100%);
+  }
+  .mcard__kicker {
+    color: var(--red-on-dark);
+  }
+  .mcard__row {
+    display: grid;
+    gap: 14px;
+    font-family: var(--font-cond);
+    text-transform: uppercase;
+  }
+  .mcard__row:not(:last-child) {
+    margin-bottom: 18px;
+  }
+  @media (min-width: 760px) {
+    .mcard__row {
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 32px;
+    }
+  }
+  .mcard__when {
+    display: flex;
+    flex-direction: column;
+  }
+  .mcard__day {
+    font-weight: 700;
+    font-size: 17px;
+    color: #cfc6bc;
+  }
+  .mcard__time {
+    font-weight: 800;
+    font-size: 48px;
+    line-height: 1;
+  }
+  .mcard__count {
+    margin-top: 6px;
+    text-transform: none;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    color: var(--red-on-dark);
+  }
+  .mcard__teams {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 14px;
+    font-weight: 800;
+    font-size: clamp(26px, 3.6vw, 42px);
+    line-height: 1.05;
+  }
+  .mcard__us {
+    color: var(--red-on-dark);
+  }
+  .mcard__vs {
+    font-size: 18px;
+    color: #a0968c;
+  }
+  .mcard__where {
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .mcard__tag {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--red);
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+  }
+</style>

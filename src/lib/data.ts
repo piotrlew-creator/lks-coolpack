@@ -28,3 +28,18 @@ export function paragraphs(text: string): string[] {
     .map((p) => p.replace(/\s+/g, " ").trim())
     .filter(Boolean);
 }
+
+/** Wpisy w Aktualnościach, od najnowszego. */
+export async function aktualnosci() {
+  return (await getCollection("aktualnosci")).sort((a, b) => b.data.data.getTime() - a.data.data.getTime());
+}
+
+/** Data publikacji wpisu: „18 listopada 2026” / „18 November 2026”. */
+export function dataWpisu(d: Date, lang: Lang): string {
+  return new Intl.DateTimeFormat(lang === "pl" ? "pl-PL" : "en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(d);
+}

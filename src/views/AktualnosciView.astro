@@ -1,9 +1,11 @@
 ---
-/* Aktualności — posty z Facebooka (po zgodzie) i odnośniki do social mediów. */
+/* Aktualności — własne wpisy Klubu + Facebook i Instagram. */
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import Social from "../components/Social.astro";
+import NewsCard from "../components/NewsCard.astro";
 import { klub } from "../data/klub";
+import { aktualnosci } from "../lib/data";
 import { type Lang, ROUTES, t } from "../i18n/ui";
 import { u } from "../lib/url";
 
@@ -11,6 +13,7 @@ interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
+const wpisy = await aktualnosci();
 ---
 
 <Base lang={lang} title={t(lang, "news.title")} description={t(lang, "news.lead")} alt={{ pl: u(ROUTES.aktualnosci.pl), en: u(ROUTES.aktualnosci.en) }} active="aktualnosci">
@@ -20,7 +23,18 @@ const { lang } = Astro.props;
     </div>
   </PageHero>
 
-  <section class="section">
+  <section class="section news-list-sec">
+    <div class="wrap">
+      <ul class="news-list" role="list">
+        {wpisy.map((w, i) => <li><NewsCard w={w} lang={lang} index={i} /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="wrap">
+      <h2 class="h-md social-h">{t(lang, "news.social")}</h2>
+    </div>
     <div class="wrap news">
       {
         klub.facebookWtyczka ? (
@@ -37,18 +51,18 @@ const { lang } = Astro.props;
   
           ) : (
           <div class="news-cards">
-            <a class="ncard ncard--fb" href={klub.facebook} target="_blank" rel="noopener">
-              <svg class="ncard__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c-.02-3.03 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"></path></svg>
-              <span class="ncard__name">Facebook</span>
-              <span class="ncard__handle">facebook.com/lkscoolpack</span>
-              <span class="ncard__text">{t(lang, "news.fb.card")}</span>
-              <span class="ncard__cta">{t(lang, "news.fb.open")} ↗</span>
+            <a class="scard scard--fb" href={klub.facebook} target="_blank" rel="noopener">
+              <svg class="scard__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c-.02-3.03 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07z"></path></svg>
+              <span class="scard__name">Facebook</span>
+              <span class="scard__handle">facebook.com/lkscoolpack</span>
+              <span class="scard__text">{t(lang, "news.fb.card")}</span>
+              <span class="scard__cta">{t(lang, "news.fb.open")} ↗</span>
             </a>
             {klub.instagram && (
-              <a class="ncard ncard--ig" href={klub.instagram} target="_blank" rel="noopener">
-                <span class="ncard__name">Instagram</span>
-                <span class="ncard__text">{t(lang, "news.ig.card")}</span>
-                <span class="ncard__cta">{t(lang, "news.ig.open")} ↗</span>
+              <a class="scard scard--ig" href={klub.instagram} target="_blank" rel="noopener">
+                <span class="scard__name">Instagram</span>
+                <span class="scard__text">{t(lang, "news.ig.card")}</span>
+                <span class="scard__cta">{t(lang, "news.ig.open")} ↗</span>
               </a>
             )}
           </div>
@@ -67,11 +81,25 @@ const { lang } = Astro.props;
 </Base>
 
 <style>
+  .news-list-sec {
+    padding-top: clamp(32px, 5vw, 56px);
+  }
+  .news-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  }
+  .social-h {
+    margin-bottom: 22px;
+  }
   .news-cards {
     display: grid;
     gap: 16px;
   }
-  .ncard {
+  .scard {
     position: relative;
     display: grid;
     gap: 8px;
@@ -82,37 +110,37 @@ const { lang } = Astro.props;
     overflow: hidden;
     transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
   }
-  .ncard:hover {
+  .scard:hover {
     transform: translateY(-4px);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   }
-  .ncard--fb {
+  .scard--fb {
     background: linear-gradient(135deg, #1877f2 0%, #0b4fb3 100%);
   }
-  .ncard--ig {
+  .scard--ig {
     background: linear-gradient(135deg, #f58529 0%, #dd2a7b 50%, #8134af 100%);
   }
-  .ncard__icon {
+  .scard__icon {
     width: 48px;
     height: 48px;
     fill: #fff;
   }
-  .ncard__name {
+  .scard__name {
     font-family: var(--font-cond);
     font-weight: 800;
     font-size: clamp(32px, 5vw, 44px);
     text-transform: uppercase;
     line-height: 1;
   }
-  .ncard__handle {
+  .scard__handle {
     font-size: 15px;
     opacity: 0.85;
   }
-  .ncard__text {
+  .scard__text {
     font-size: 17px;
     max-width: 40ch;
   }
-  .ncard__cta {
+  .scard__cta {
     margin-top: 6px;
     font-family: var(--font-cond);
     font-weight: 800;

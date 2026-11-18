@@ -306,7 +306,120 @@ function initHeader() {
   window.addEventListener("scroll", onScroll, { passive: true });
 }
 
+/* ── Karta meczu: odliczanie i chowanie po meczu ─────────────── */
+function initMatch() {
+  const now = Date.now();
+  document.querySelectorAll<HTMLElement>(".mcard[data-koniec]").forEach((card) => {
+    const koniec = Number(card.dataset.koniec);
+    const start = Number(card.dataset.start);
+    if (now > koniec) {
+      // Mecz się skończył — chowamy kartę (na starcie pokazujemy link do terminarza)
+      const wrap = card.closest<HTMLElement>(".news-home__match");
+      if (wrap) {
+        wrap.hidden = true;
+        document.querySelector<HTMLElement>("[data-po-meczu]")?.removeAttribute("hidden");
+      }
+      return;
+    }
+    const out = card.querySelector<HTMLElement>("[data-odliczanie]");
+    if (!out) return;
+    const pl = document.documentElement.lang !== "en";
+    const tick = () => {
+      const ms = start - Date.now();
+      if (ms <= 0) {
+        out.textContent = pl ? "Trwa mecz" : "Game in progress";
+      } else {
+        const d = Math.floor(ms / 86400000);
+        const h = Math.floor((ms % 86400000) / 3600000);
+        const m = Math.floor((ms % 3600000) / 60000);
+        const dni = pl ? (d === 1 ? "dzień" : "dni") : d === 1 ? "day" : "days";
+        out.textContent =
+          (pl ? "Do meczu: " : "Tip-off in: ") + (d ? `${d} ${dni} ` : "") + (pl ? `${h} godz. ${m} min` : `${h} h ${m} min`);
+      }
+      out.hidden = false;
+    };
+    tick();
+    window.setInterval(tick, 30000);
+  });
+}
+
+/* ── Interaktywne zdjęcie drużyny ─────────────────────────────
+   Mysz: najechanie pokazuje podpis, kliknięcie otwiera profil.
+   Dotyk: pierwsze dotknięcie pokazuje podpis, drugie otwiera profil. */
+function initTeamPhoto() {
+  const spots = document.querySelectorAll<HTMLAnchorElement>(".tp__spot");
+  if (!spots.length) return;
+  const touch = () => window.matchMedia("(hover: none)").matches;
+  spots.forEach((a) =>
+    a.addEventListener("click", (e) => {
+      if (!touch() || a.classList.contains("is-active")) return;
+      e.preventDefault();
+      spots.forEach((x) => x.classList.toggle("is-active", x === a));
+    }),
+  );
+  document.addEventListener("click", (e) => {
+    if (!(e.target as Element).closest(".tp__spot")) spots.forEach((x) => x.classList.remove("is-active"));
+  });
+}
+
+/* ── Przesuwanie palcem między zawodnikami (strona zawodnika) ── */
+function initSwipe() {
+  const pp = document.querySelector<HTMLElement>("[data-swipe]");
+  if (!pp) return;
+  const prev = pp.dataset.prev;
+  const next = pp.dataset.next;
+  let x0 = 0, y0 = 0, t0 = 0, dx = 0, active = false, horizontal: boolean | null = null;
+  const area = document.querySelector("main") ?? document.body;
+
+  area.addEventListener("touchstart", (e) => {
+    const te = e as TouchEvent;
+    if (te.touches.length !== 1) return;
+    x0 = te.touches[0].clientX; y0 = te.touches[0].clientY; t0 = Date.now();
+    dx = 0; active = true; horizontal = null;
+  }, { passive: true });
+
+  area.addEventListener("touchmove", (e) => {
+    if (!active) return;
+    const te = e as TouchEvent;
+    dx = te.touches[0].clientX - x0;
+    const dy = te.touches[0].clientY - y0;
+    if (horizontal === null && (Math.abs(dx) > 10 || Math.abs(dy) > 10)) horizontal = Math.abs(dx) > Math.abs(dy) * 1.5;
+    if (!horizontal || reduceMotion()) return;
+    pp.classList.add("is-swiping");
+    pp.style.setProperty("--sx", `${dx * 0.5}px`);
+    pp.style.setProperty("--so", String(Math.max(0.3, 1 - Math.abs(dx) / 500)));
+  }, { passive: true });
+
+  const reset = () => {
+    pp.classList.remove("is-swiping", "is-leaving");
+    pp.style.removeProperty("--sx");
+    pp.style.removeProperty("--so");
+  };
+
+  area.addEventListener("touchend", () => {
+    if (!active) return;
+    active = false;
+    const fast = Date.now() - t0 < 700;
+    const target = dx < 0 ? next : prev;
+    if (horizontal && Math.abs(dx) > 70 && fast && target) {
+      pp.classList.add("is-leaving");
+      pp.style.setProperty("--sx", `${dx < 0 ? -120 : 120}px`);
+      pp.style.setProperty("--so", "0");
+      window.setTimeout(() => (location.href = target), reduceMotion() ? 0 : 160);
+    } else {
+      pp.classList.add("is-leaving");
+      pp.style.setProperty("--sx", "0px");
+      pp.style.setProperty("--so", "1");
+      window.setTimeout(reset, 230);
+    }
+  });
+  window.addEventListener("pageshow", reset);
+}
+
 initTheme();
+initMatch();
+initSwipe();
+initTeamPhoto();
 initMenu();
 initReveal();
 initTilt();

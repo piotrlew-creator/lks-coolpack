@@ -4,8 +4,10 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Base from "../layouts/Base.astro";
 import Silhouette from "../components/Silhouette.astro";
+import PlayerStats from "../components/PlayerStats.astro";
 import { type Lang, dataUr, kraj, liga, playerUrl, pozycje, route, t } from "../i18n/ui";
 import { paragraphs, pick } from "../lib/data";
+import { u } from "../lib/url";
 
 interface Props {
   lang: Lang;
@@ -35,8 +37,16 @@ const stats = [
 const desc = `${name} — #${d.numer}, ${pozycje(d.pozycje, lang)}. ${lang === "pl" ? "ŁKS CoolPack Łódź, 1. liga." : "ŁKS CoolPack Łódź, Polish 1st League."}`;
 ---
 
-<Base lang={lang} title={name} description={desc} alt={{ pl: playerUrl(p.id, "pl"), en: playerUrl(p.id, "en") }} active="sklad">
-  <article class="pp">
+<Base
+  lang={lang}
+  title={name}
+  description={desc}
+  alt={{ pl: playerUrl(p.id, "pl"), en: playerUrl(p.id, "en") }}
+  active="sklad"
+  ogImage={u(`og/zawodnicy/${p.id}.jpg`)}
+  ogType="profile"
+>
+  <article class="pp" data-swipe data-prev={playerUrl(prev.id, lang)} data-next={playerUrl(next.id, lang)}>
     <div class="pp__flash" aria-hidden="true"></div>
     <div class="pp__stage">
       <svg class="pp__bolt" viewBox="0 0 200 600" preserveAspectRatio="none" aria-hidden="true">
@@ -58,6 +68,9 @@ const desc = `${name} — #${d.numer}, ${pozycje(d.pozycje, lang)}. ${lang === "
 
     <div class="pp__info wrap">
       <a class="pp__back" href={route("sklad", lang)}>← {t(lang, "team.back")}</a>
+      <p class="pp__swipe" aria-hidden="true">
+        <span>‹</span> {t(lang, "swipe.hint")} <span>›</span>
+      </p>
       <p class="pp__meta">
         <span class="pp__badge">#{d.numer}</span>
         <span>{pozycje(d.pozycje, lang)}</span>
@@ -80,6 +93,8 @@ const desc = `${name} — #${d.numer}, ${pozycje(d.pozycje, lang)}. ${lang === "
       </dl>
     </div>
   </article>
+
+  <PlayerStats slug={p.id} lang={lang} />
 
   <section class="section pp__bio-sec">
     <div class="wrap pp__bio">
@@ -248,6 +263,40 @@ const desc = `${name} — #${d.numer}, ${pozycje(d.pozycje, lang)}. ${lang === "
   }
   .pp__back:hover {
     color: var(--red-on-dark);
+  }
+  .pp__swipe {
+    display: none;
+    margin: 0 0 10px;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a0968c;
+  }
+  .pp__swipe span {
+    color: var(--red-on-dark);
+    font-size: 18px;
+  }
+  @media (hover: none) and (pointer: coarse) {
+    .pp__swipe {
+      display: block;
+    }
+  }
+  /* Na stronie zawodnika poziomy gest przełącza zawodników,
+     a nie cofa przeglądarki do poprzedniej strony */
+  :global(html) {
+    overscroll-behavior-x: none;
+  }
+  /* Podczas przesuwania palcem zdjęcie i dane lekko „odjeżdżają” */
+  .pp.is-swiping .pp__frame,
+  .pp.is-swiping .pp__info {
+    transform: translateX(var(--sx, 0px));
+    opacity: var(--so, 1);
+  }
+  .pp.is-leaving .pp__frame,
+  .pp.is-leaving .pp__info {
+    transition: transform 220ms var(--ease), opacity 220ms;
   }
   .pp__meta {
     display: flex;

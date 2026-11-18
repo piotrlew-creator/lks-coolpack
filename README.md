@@ -54,3 +54,28 @@ git push
 1. W `astro.config.mjs`: `SITE = "https://twojadomena.pl"` i `BASE = "/"`.
 2. Dodaj plik `public/CNAME` z nazwą domeny.
 3. W Cloudflare rekordy DNS jak przy lkskmjunior.pl; w GitHubie Settings → Pages → Custom domain.
+
+## Aktualności (własne wpisy)
+
+Każdy wpis to plik w `src/content/aktualnosci/`, np. `2026-11-25-wynik-z-kotwica.md`
+(nazwa pliku = adres wpisu). Skopiuj istniejący wpis i zmień pola:
+`tytul`/`tytulEn`, `data`, `lead`/`leadEn`, `tresc`/`trescEn` (akapity oddzielone pustą linią),
+opcjonalnie `zdjecie` i `mecz` (karta meczu). Trzy najnowsze wpisy pokazują się na stronie startowej.
+
+Najbliższy mecz na stronie startowej: `najblizszyMecz` w `src/data/klub.ts`.
+Trzy godziny po rozpoczęciu karta meczu sama się chowa.
+
+## Statystyki zawodników
+
+Dane sezonu są w `src/data/statystyki.json` (źródło: 1lm.pzkosz.pl).
+Po meczu Claude pobiera nowe liczby skryptem `narzedzia/statystyki-pzkosz.js` i podmienia ten plik.
+
+## Interaktywne zdjęcie drużyny
+
+Położenie zawodników na zdjęciu: `src/data/zdjecie-druzyny.ts` (numer koszulki → x, y w %).
+Przy nowym zdjęciu drużyny trzeba te punkty przeliczyć.
+
+## Obrazki podglądu linku (Facebook, WhatsApp)
+
+`public/og/zawodnicy/<zawodnik>.jpg` i `public/og-image.jpg` generuje
+`python narzedzia/og_zawodnicy.py` (Python + Pillow). Przy zmianie zdjęć lub składu — uruchomić ponownie.

@@ -25,6 +25,11 @@ export function route(key: RouteKey, lang: Lang): string {
 }
 
 /** Adres strony zawodnika — slug jest ten sam w obu językach. */
+/** Adres wpisu w Aktualnościach. */
+export function newsUrl(slug: string, lang: Lang): string {
+  return lang === "pl" ? u(`aktualnosci/${slug}/`) : u(`en/news/${slug}/`);
+}
+
 export function playerUrl(slug: string, lang: Lang): string {
   return lang === "pl" ? u(`sklad/${slug}/`) : u(`en/team/${slug}/`);
 }
@@ -89,6 +94,22 @@ export const ui = {
     "team.prev": "Poprzedni zawodnik",
     "team.next": "Następny zawodnik",
     "team.see": "Zobacz profil",
+    "stats.title": "Sezon 2026/2027 w ŁKS",
+    "stats.ppg": "Punkty na mecz",
+    "stats.rpg": "Zbiórki na mecz",
+    "stats.apg": "Asysty na mecz",
+    "stats.eff": "Eval na mecz",
+    "stats.games": "Mecze",
+    "stats.starts": "w pierwszej piątce",
+    "stats.min": "Minuty na mecz",
+    "stats.blk": "Bloki",
+    "stats.fg2": "Rzuty za 2",
+    "stats.fg3": "Rzuty za 3",
+    "stats.ft": "Rzuty wolne",
+    "stats.pm": "+/−",
+    "stats.source": "Źródło: Polski Związek Koszykówki (1lm.pzkosz.pl), stan na",
+    "stats.none": "Statystyki pojawią się po pierwszym meczu zawodnika w tym sezonie.",
+    "swipe.hint": "Przesuń palcem, aby zobaczyć kolejnego zawodnika",
 
     "staff.kicker": "Ludzie za drużyną",
     "staff.title": "Sztab",
@@ -108,7 +129,7 @@ export const ui = {
     "news.kicker": "Bądź na bieżąco",
     "news.title": "Aktualności",
     "news.lead":
-      "Zapowiedzi meczów, wyniki, zdjęcia i relacje publikujemy na Facebooku i Instagramie.",
+      "Zapowiedzi meczów, wyniki i komunikaty Klubu. Zdjęcia i relacje na żywo — na Facebooku i Instagramie.",
     "news.fb.title": "Posty z Facebooka",
     "news.fb.desc": "Wyniki, zapowiedzi meczów i relacje drużyny ŁKS CoolPack.",
     "news.fb.btn": "Pokaż posty",
@@ -118,6 +139,12 @@ export const ui = {
     "news.ig.open": "Otwórz profil na Instagramie",
     "news.ig.soon": "Instagram — adres wkrótce",
     "news.follow": "Obserwuj nas",
+    "news.latest": "Najnowsze wpisy",
+    "news.all": "Wszystkie aktualności",
+    "news.more": "Czytaj dalej",
+    "news.back": "Wróć do aktualności",
+    "news.social": "Na bieżąco w social mediach",
+    "news.match": "Mecz",
     "news.fb.card": "Wyniki, zapowiedzi meczów, zdjęcia i relacje z każdego spotkania.",
     "news.ig.card": "Zdjęcia, filmy i kulisy z życia drużyny.",
 
@@ -125,7 +152,7 @@ export const ui = {
     "academy.title": "Wychowujemy następców",
     "academy.text":
       "Stowarzyszenie ŁKS Koszykówka Męska szkoli chłopców od grup naborowych po zespół w 2. lidze. Wierzymy, że nasi wychowankowie zagrają kiedyś w barwach ŁKS CoolPack.",
-    "academy.cta": "Akademia ŁKS",
+    "academy.cta": "ŁKS KM Junior",
 
     "contact.kicker": "Jesteśmy do dyspozycji",
     "contact.title": "Kontakt",
@@ -141,7 +168,7 @@ export const ui = {
     "contact.mail": "e-mail:",
 
     "footer.rights": "Wszelkie prawa zastrzeżone.",
-    "footer.academy": "Akademia ŁKS Koszykówka Męska",
+    "footer.academy": "ŁKS KM Junior",
     "footer.league": "Terminarz i wyniki",
 
     "privacy.title": "Prywatność",
@@ -207,6 +234,22 @@ export const ui = {
     "team.prev": "Previous player",
     "team.next": "Next player",
     "team.see": "View profile",
+    "stats.title": "Season 2026/2027 at ŁKS",
+    "stats.ppg": "Points per game",
+    "stats.rpg": "Rebounds per game",
+    "stats.apg": "Assists per game",
+    "stats.eff": "Efficiency per game",
+    "stats.games": "Games",
+    "stats.starts": "starts",
+    "stats.min": "Minutes per game",
+    "stats.blk": "Blocks",
+    "stats.fg2": "2-point shots",
+    "stats.fg3": "3-point shots",
+    "stats.ft": "Free throws",
+    "stats.pm": "+/−",
+    "stats.source": "Source: Polish Basketball Federation (1lm.pzkosz.pl), as of",
+    "stats.none": "Stats will appear after the player's first game this season.",
+    "swipe.hint": "Swipe to see the next player",
 
     "staff.kicker": "The people behind the team",
     "staff.title": "Staff",
@@ -226,7 +269,7 @@ export const ui = {
     "news.kicker": "Stay up to date",
     "news.title": "News",
     "news.lead":
-      "Game previews, results, photos and match reports are published on our Facebook and Instagram.",
+      "Game previews, results and Club announcements. Photos and live updates on our Facebook and Instagram.",
     "news.fb.title": "Facebook posts",
     "news.fb.desc": "Results, game previews and reports from ŁKS CoolPack.",
     "news.fb.btn": "Show posts",
@@ -236,6 +279,12 @@ export const ui = {
     "news.ig.open": "Open our Instagram profile",
     "news.ig.soon": "Instagram — link coming soon",
     "news.follow": "Follow us",
+    "news.latest": "Latest news",
+    "news.all": "All news",
+    "news.more": "Read more",
+    "news.back": "Back to news",
+    "news.social": "Live on social media",
+    "news.match": "Game",
     "news.fb.card": "Results, game previews, photos and reports from every game.",
     "news.ig.card": "Photos, videos and behind-the-scenes moments.",
 
@@ -243,7 +292,7 @@ export const ui = {
     "academy.title": "Raising the next generation",
     "academy.text":
       "The ŁKS Koszykówka Męska association trains boys from beginner groups up to a team in the 2nd League. We believe our youth players will one day wear the ŁKS CoolPack jersey.",
-    "academy.cta": "ŁKS Academy",
+    "academy.cta": "ŁKS KM Junior",
 
     "contact.kicker": "Get in touch",
     "contact.title": "Contact",
@@ -259,7 +308,7 @@ export const ui = {
     "contact.mail": "email:",
 
     "footer.rights": "All rights reserved.",
-    "footer.academy": "ŁKS Koszykówka Męska Academy",
+    "footer.academy": "ŁKS KM Junior",
     "footer.league": "Schedule and results",
 
     "privacy.title": "Privacy",

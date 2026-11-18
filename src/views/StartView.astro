@@ -4,14 +4,15 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import PlayerCard from "../components/PlayerCard.astro";
 import Social from "../components/Social.astro";
+import MatchCard from "../components/MatchCard.astro";
+import NewsCard from "../components/NewsCard.astro";
+import TeamPhoto from "../components/TeamPhoto.astro";
 import herbBialy from "../assets/logo/herb-bialy.png";
+import herbCzerwony from "../assets/logo/herb-czerwony.png";
 import { klub, najblizszyMecz } from "../data/klub";
 import { type Lang, ROUTES, route, t } from "../i18n/ui";
-import { sponsorzy as getSponsorzy, zawodnicy as getZawodnicy } from "../lib/data";
+import { aktualnosci, sponsorzy as getSponsorzy, zawodnicy as getZawodnicy } from "../lib/data";
 import { u } from "../lib/url";
-import heroLight from "../assets/start/hero-light.jpg";
-import heroDark from "../assets/start/hero-dark.jpg";
-import { getImage } from "astro:assets";
 
 interface Props {
   lang: Lang;
@@ -22,18 +23,8 @@ const players = (await getZawodnicy()).slice(0, 8);
 const sponsors = (await getSponsorzy()).filter((s) => s.data.logo);
 
 
-// Pełna rozdzielczość do powiększenia (dotknięcie zdjęcia na telefonie)
-const fullLight = await getImage({ src: heroLight, width: 2400, format: "jpg" });
-const fullDark = await getImage({ src: heroDark, width: 2400, format: "jpg" });
-const zoomLabel = lang === "pl" ? "Powiększ zdjęcie drużyny" : "Enlarge the team photo";
+const wpisy = (await aktualnosci()).slice(0, 3);
 const mecz = najblizszyMecz;
-const meczData = mecz ? new Date(mecz.data) : null;
-const fmtDay = meczData
-  ? new Intl.DateTimeFormat(lang === "pl" ? "pl-PL" : "en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Warsaw" }).format(meczData)
-  : "";
-const fmtTime = meczData
-  ? new Intl.DateTimeFormat("pl-PL", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Warsaw" }).format(meczData)
-  : "";
 ---
 
 <Base lang={lang} alt={{ pl: u(ROUTES.start.pl), en: u(ROUTES.start.en) }} active="start">
@@ -41,50 +32,64 @@ const fmtTime = meczData
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero__year" aria-hidden="true">{klub.rokZalozenia}</div>
 
+    <!-- Nazwa drużyny „nachodzi” na górę zdjęcia (ciemna ściana nad głowami) -->
     <div class="hero__in wrap">
-      <div class="hero__text">
-        <p class="kicker hero__kicker">{t(lang, "hero.kicker")}</p>
-        <h1 id="hero-title" class="hero__title">
-          <span class="hero__t1">ŁKS</span>
-          <span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
-        </h1>
-        <p class="hero__sub">{t(lang, "hero.sub")}</p>
-        <div class="btn-row btn-row--equal">
-          <a class="btn" href={route("sklad", lang)}>{t(lang, "hero.cta.team")}</a>
-          <a class="btn btn--ghost" href={route("aktualnosci", lang)}>{t(lang, "hero.cta.news")}</a>
-        </div>
-      </div>
+      <h1 id="hero-title" class="hero__title">
+        <span class="hero__t1">ŁKS</span>
+        <span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
+      </h1>
       <div class="hero__crest" aria-hidden="true">
-        <Image src={herbBialy} alt="" width={320} height={321} loading="eager" />
+        <Image class="hero__crest-dark" src={herbBialy} alt="" width={320} height={321} loading="eager" />
+        <Image class="hero__crest-light" src={herbCzerwony} alt="" width={320} height={321} loading="eager" />
       </div>
     </div>
 
-    <!-- Zdjęcie drużyny (jasny / ciemny motyw) -->
-    <figure class="hero__team">
-      <a class="hero__zoom hero__zoom--light" href={fullLight.src} target="_blank" rel="noopener" aria-label={zoomLabel}>
-      <Image
-        class="hero__img hero__img--light"
-        src={heroLight}
-        alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź w białych strojach" : "ŁKS CoolPack Łódź players and staff in white kits"}
-        widths={[800, 1200, 1600, 2400]}
-        sizes="100vw"
-        loading="lazy"
-      />
-      </a>
-      <a class="hero__zoom hero__zoom--dark" href={fullDark.src} target="_blank" rel="noopener" aria-label={zoomLabel}>
-      <Image
-        class="hero__img hero__img--dark"
-        src={heroDark}
-        alt={lang === "pl" ? "Drużyna i sztab ŁKS CoolPack Łódź w czarnych strojach" : "ŁKS CoolPack Łódź players and staff in black kits"}
-        widths={[800, 1200, 1600, 2400]}
-        sizes="100vw"
-        loading="lazy"
-      />
-      </a>
-      <span class="hero__zoom-hint" aria-hidden="true">
-        <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21M10.5 7.5v6M7.5 10.5h6" /></svg>
-      </span>
-    </figure>
+    <!-- Interaktywne zdjęcie drużyny (jasny / ciemny motyw) -->
+    <div class="hero__team">
+      <TeamPhoto lang={lang} />
+    </div>
+
+    <div class="hero__foot wrap">
+      <p class="hero__sub">{t(lang, "hero.sub")}</p>
+      <div class="btn-row btn-row--equal">
+        <a class="btn" href={route("sklad", lang)}>{t(lang, "hero.cta.team")}</a>
+        <a class="btn btn--ghost" href={route("aktualnosci", lang)}>{t(lang, "hero.cta.news")}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ AKTUALNOŚCI: najbliższy mecz + najnowsze wpisy ══════════════ -->
+  <section class="section news-home" aria-labelledby="news-h">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">{t(lang, "news.kicker")}</p>
+          <h2 id="news-h" class="h-lg">{t(lang, "news.title")}</h2>
+        </div>
+        <a class="btn btn--ghost" href={route("aktualnosci", lang)}>{t(lang, "news.all")} →</a>
+      </div>
+      {
+        mecz && (
+          <div class="news-home__match reveal">
+            <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} />
+          </div>
+        )
+      }
+      <div class="news-home__league reveal" data-po-meczu hidden={mecz ? true : undefined}>
+        <div>
+          <p class="kicker">{t(lang, "match.none.title")}</p>
+          <p class="news-home__text">{t(lang, "match.none.text")}</p>
+        </div>
+        <a class="btn" href={klub.stronaLigi} target="_blank" rel="noopener">{t(lang, "match.none.cta")} ↗</a>
+      </div>
+      {
+        wpisy.length > 0 && (
+          <ul class="news-home__list" role="list">
+            {wpisy.map((w, i) => <li><NewsCard w={w} lang={lang} index={i} /></li>)}
+          </ul>
+        )
+      }
+    </div>
   </section>
 
   <!-- ══════════════ SKŁAD ══════════════ -->
@@ -102,44 +107,6 @@ const fmtTime = meczData
     <ul class="rail" role="list">
       {players.map((p, i) => <li><PlayerCard p={p} lang={lang} index={i} /></li>)}
     </ul>
-  </section>
-
-  <!-- ══════════════ NAJBLIŻSZY MECZ ══════════════ -->
-  <section id="mecz" class="match wrap" aria-label={t(lang, "match.kicker")}>
-    {
-      mecz && meczData ? (
-        <div class="match__card reveal">
-          <p class="kicker">{t(lang, "match.kicker")}</p>
-          <div class="match__row">
-            <div class="match__when">
-              <span class="match__day">{fmtDay}</span>
-              <span class="match__time">{fmtTime}</span>
-            </div>
-            <div class="match__teams">
-              <span>{mecz.dom ? klub.nazwaKrotka : mecz.rywal}</span>
-              <span class="match__vs">vs</span>
-              <span>{mecz.dom ? mecz.rywal : klub.nazwaKrotka}</span>
-            </div>
-            <div class="match__where">
-              <span class="match__tag">{t(lang, mecz.dom ? "match.home" : "match.away")}</span>
-              {mecz.hala}
-            </div>
-          </div>
-          <div class="btn-row">
-            {mecz.bilety && <a class="btn" href={mecz.bilety} target="_blank" rel="noopener">{t(lang, "match.tickets")}</a>}
-            {mecz.transmisja && <a class="btn btn--ghost" href={mecz.transmisja} target="_blank" rel="noopener">{t(lang, "match.stream")}</a>}
-          </div>
-        </div>
-      ) : (
-        <div class="match__card match__card--none reveal">
-          <div>
-            <p class="kicker">{t(lang, "match.none.title")}</p>
-            <p class="match__text">{t(lang, "match.none.text")}</p>
-          </div>
-          <a class="btn" href={klub.stronaLigi} target="_blank" rel="noopener">{t(lang, "match.none.cta")} ↗</a>
-        </div>
-      )
-    }
   </section>
 
   <!-- ══════════════ SZTAB + AKADEMIA ══════════════ -->
@@ -208,6 +175,7 @@ const fmtTime = meczData
      Tekst na ciemnym tle, pod nim pełna szerokość zdjęcia drużyny
      (cała drużyna zawsze widoczna — także na telefonie).            */
   .hero {
+    --hero-bg: #0f0c0a;
     position: relative;
     background:
       radial-gradient(70% 60% at 80% 10%, #3b0a0e 0%, transparent 60%),
@@ -234,11 +202,24 @@ const fmtTime = meczData
   }
   .hero__in {
     position: relative;
+    z-index: 2;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 24px;
-    padding-block: clamp(36px, 7vh, 80px) 0;
+    padding-block: clamp(28px, 5vh, 56px) 0;
+    pointer-events: none;
+  }
+  .hero__foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 40px;
+    padding-block: clamp(16px, 2vw, 28px) clamp(36px, 5vw, 56px);
+  }
+  .hero__foot .hero__sub {
+    margin: 0;
   }
   .hero__crest {
     flex: none;
@@ -255,7 +236,7 @@ const fmtTime = meczData
     background: var(--red);
   }
   .hero__title {
-    margin: 0 0 18px;
+    margin: 0;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -273,12 +254,13 @@ const fmtTime = meczData
     max-width: 60ch;
     font-size: clamp(16px, 1.5vw, 19px);
     color: #ddd4ca;
-    margin-bottom: 24px;
   }
+  /* Zdjęcie podjeżdża pod dolną część nazwy — tylko na pas ściany nad
+     głowami zawodników (ok. 15% wysokości zdjęcia), nikogo nie zasłania. */
   .hero__team {
     position: relative;
-    margin: clamp(-60px, -4vw, -20px) 0 0;
-    z-index: -1;
+    z-index: 1;
+    margin-top: calc(-1 * min(7vw, 130px));
   }
   .hero__team::after {
     content: "";
@@ -291,51 +273,44 @@ const fmtTime = meczData
     height: 8%;
     background: linear-gradient(transparent, var(--bg));
   }
-  .hero__team :global(img) {
+  .hero__team :global(.tp__img) {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 86svh;
-    object-fit: cover;
-    object-position: 50% 60%;
     /* górna krawędź zdjęcia płynnie przechodzi w tło */
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 12%);
-    mask-image: linear-gradient(to bottom, transparent 0%, #000 12%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, #000 14%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.35) 0%, #000 14%);
   }
-  :global([data-theme="dark"]) .hero__zoom--light,
-  :global([data-theme="light"]) .hero__zoom--dark {
+  /* Jasny motyw: białe tło pod tytułem, ciemne napisy, czerwony herb */
+  :global([data-theme="light"]) .hero {
+    --hero-bg: #ffffff;
+    background: #ffffff;
+    color: var(--black);
+  }
+  :global([data-theme="light"]) .hero__team :global(.tp__img) {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 12%, #000 18%);
+    mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 12%, #000 18%);
+  }
+  :global([data-theme="light"]) .hero__sub {
+    color: #4a423b;
+  }
+  :global([data-theme="light"]) .hero__t2 {
+    color: var(--red);
+  }
+  :global([data-theme="light"]) .hero__year {
+    -webkit-text-stroke-color: rgba(23, 20, 15, 0.07);
+  }
+  :global([data-theme="light"]) .hero .btn--ghost {
+    color: var(--black);
+  }
+  .hero__crest-light,
+  :global([data-theme="light"]) .hero__crest-dark {
     display: none;
   }
-  .hero__zoom {
+  :global([data-theme="light"]) .hero__crest-light {
     display: block;
-    cursor: zoom-in;
   }
-  .hero__zoom-hint {
-    display: none;
-    position: absolute;
-    z-index: 2;
-    right: 12px;
-    bottom: 14px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(14, 12, 9, 0.7);
-    pointer-events: none;
-  }
-  .hero__zoom-hint svg {
-    width: 22px;
-    height: 22px;
-    margin: 9px;
-    fill: none;
-    stroke: #fff;
-    stroke-width: 2;
-    stroke-linecap: round;
-  }
-  @media (max-width: 1023px) {
-    .hero__zoom-hint {
-      display: block;
-    }
-  }
+
   /* Telefon w pionie i w poziomie: najpierw zdjęcie drużyny, pod nim tekst */
   @media (max-width: 700px), (orientation: landscape) and (max-height: 500px) {
     .hero {
@@ -345,21 +320,26 @@ const fmtTime = meczData
     .hero__team {
       order: -1;
       margin: 0;
+      z-index: 0;
     }
     .hero__year {
       display: none;
     }
-    .hero__team :global(img) {
+    .hero__team :global(.tp__img) {
       -webkit-mask-image: none;
       mask-image: none;
     }
     .hero__team::after {
       height: 22%;
-      background: linear-gradient(transparent, #0f0c0a);
+      background: linear-gradient(transparent, var(--hero-bg));
     }
     .hero__in {
       align-items: flex-start;
-      padding-block: 4px 32px;
+      margin-top: -30px;
+      padding-block: 0;
+    }
+    .hero__foot {
+      padding-block: 14px 32px;
     }
     .hero__crest {
       display: none; /* herb jest już w pasku u góry */
@@ -370,9 +350,6 @@ const fmtTime = meczData
   }
 
   @media (orientation: landscape) and (max-height: 500px) {
-    .hero__team :global(img) {
-      max-height: calc(100svh - var(--header-h));
-    }
     .hero__t1 {
       font-size: 64px;
     }
@@ -402,7 +379,7 @@ const fmtTime = meczData
     .hero__crest {
       animation: hero-crest 1000ms 300ms var(--ease) both;
     }
-    .hero__team :global(img) {
+    .hero__team :global(.tp__img) {
       animation: hero-team 1400ms 200ms var(--ease) both;
     }
   }
@@ -497,6 +474,43 @@ const fmtTime = meczData
     color: #fff;
     font-size: 14px;
     letter-spacing: 0.08em;
+  }
+
+  /* -- Aktualności na starcie ------------------------------------ */
+  .news-home__match {
+    margin-bottom: 18px;
+  }
+  .news-home__league {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 32px;
+    margin-bottom: 18px;
+    padding: clamp(20px, 3vw, 28px);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--red);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  .news-home__league[hidden] {
+    display: none;
+  }
+  .news-home__league .kicker {
+    margin-bottom: 6px;
+  }
+  .news-home__text {
+    margin: 0;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+  .news-home__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   }
 
   /* -- Szyna zawodników: przewijana na telefonie, siatka na monitorze */

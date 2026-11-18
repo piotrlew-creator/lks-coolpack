@@ -20,7 +20,7 @@ export const klub = {
   // przez ograniczenia wieku/kraju w ustawieniach strony na Facebooku).
   // Gdy administrator profilu to zmieni — ustaw true.
   facebookWtyczka: false,
-  instagram: "", // np. "https://www.instagram.com/..." — do uzupełnienia
+  instagram: "https://www.instagram.com/lks_coolpack/",
 
   // Oficjalna strona drużyny w serwisie ligi (terminarz, wyniki, statystyki)
   stronaLigi: "https://1lm.pzkosz.pl/druzyny/d/14303/lks-coolpack-lodz.html",
@@ -55,7 +55,7 @@ export const klub = {
   wtedy w tym miejscu jest odnośnik do terminarza na stronie ligi.
 */
 export type Mecz = {
-  data: string; // "2026-11-22T18:00" (czas polski)
+  data: string; // "2026-11-22T18:00" (czas polski). Po meczu karta sama się chowa.
   rywal: string;
   dom: boolean; // true = gramy u siebie
   hala: string;
@@ -63,4 +63,9 @@ export type Mecz = {
   transmisja?: string; // link do transmisji
 };
 
-export const najblizszyMecz: Mecz | null = null;
+export const najblizszyMecz: Mecz | null = {
+  data: "2026-11-19T18:00",
+  rywal: "Kotwica Kołobrzeg",
+  dom: false,
+  hala: "Kołobrzeg",
+};

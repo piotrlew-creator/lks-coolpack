@@ -1,0 +1,12 @@
+---
+/* Strona każdego wpisu — z plików w src/content/aktualnosci. */
+import View from "../../views/WpisView.astro";
+import { aktualnosci } from "../../lib/data";
+
+export async function getStaticPaths() {
+  return (await aktualnosci()).map((w) => ({ params: { slug: w.id }, props: { w } }));
+}
+const { w } = Astro.props;
+---
+
+<View lang="pl" w={w} />

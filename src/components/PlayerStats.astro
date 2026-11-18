@@ -1,0 +1,273 @@
+---
+/*
+  Statystyki zawodnika w bieżącym sezonie (dane z src/data/statystyki.json,
+  pobierane z 1lm.pzkosz.pl i aktualizowane po meczach).
+*/
+import staty from "../data/statystyki.json";
+import { type Lang, t } from "../i18n/ui";
+
+interface Props {
+  slug: string;
+  lang: Lang;
+}
+const { slug, lang } = Astro.props;
+type Rzut = { c: number; w: number };
+const s = (staty.zawodnicy as Record<string, any>)[slug] as
+  | {
+      mecze: number;
+      wPiatce: number;
+      minutyNaMecz: string;
+      punktyNaMecz: number;
+      zbiorkiNaMecz: number;
+      asystyNaMecz: number;
+      evalNaMecz: number;
+      bloki: number;
+      za2: Rzut;
+      za3: Rzut;
+      za1: Rzut;
+      plusMinus: number;
+    }
+  | undefined;
+
+const nf = new Intl.NumberFormat(lang === "pl" ? "pl-PL" : "en-GB", { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const pct = (r: Rzut) => (r.w ? Math.round((r.c / r.w) * 1000) / 10 : null);
+const data = new Intl.DateTimeFormat(lang === "pl" ? "pl-PL" : "en-GB", { day: "numeric", month: "long", year: "numeric" }).format(
+  new Date(staty.aktualizacja),
+);
+const big = s
+  ? [
+      { k: t(lang, "stats.ppg"), v: s.punktyNaMecz, short: lang === "pl" ? "PKT" : "PTS" },
+      { k: t(lang, "stats.rpg"), v: s.zbiorkiNaMecz, short: lang === "pl" ? "ZB" : "REB" },
+      { k: t(lang, "stats.apg"), v: s.asystyNaMecz, short: lang === "pl" ? "AS" : "AST" },
+      { k: t(lang, "stats.eff"), v: s.evalNaMecz, short: "EVAL" },
+    ]
+  : [];
+const shots = s
+  ? [
+      { k: t(lang, "stats.fg2"), r: s.za2 },
+      { k: t(lang, "stats.fg3"), r: s.za3 },
+      { k: t(lang, "stats.ft"), r: s.za1 },
+    ]
+  : [];
+---
+
+<section class="stats" aria-labelledby="stats-h">
+  <div class="wrap">
+    <h2 id="stats-h" class="stats__h">{t(lang, "stats.title")}</h2>
+    {
+      s && s.mecze > 0 ? (
+        <>
+          <ul class="stats__big" role="list">
+            {big.map((b) => (
+              <li class="reveal">
+                <span class="stats__val">{nf.format(b.v)}</span>
+                <span class="stats__short" aria-hidden="true">{b.short}</span>
+                <span class="stats__lbl">{b.k}</span>
+              </li>
+            ))}
+          </ul>
+          <div class="stats__row">
+            <dl class="stats__small">
+              <div>
+                <dt>{t(lang, "stats.games")}</dt>
+                <dd>
+                  {s.mecze}
+                  {s.wPiatce > 0 && (
+                    <small>
+                      {" "}
+                      ({s.wPiatce} {t(lang, "stats.starts")})
+                    </small>
+                  )}
+                </dd>
+              </div>
+              <div>
+                <dt>{t(lang, "stats.min")}</dt>
+                <dd>{s.minutyNaMecz.replace(/^0/, "")}</dd>
+              </div>
+              <div>
+                <dt>{t(lang, "stats.blk")}</dt>
+                <dd>{s.bloki}</dd>
+              </div>
+              <div>
+                <dt>{t(lang, "stats.pm")}</dt>
+                <dd>{s.plusMinus > 0 ? `+${s.plusMinus}` : s.plusMinus}</dd>
+              </div>
+            </dl>
+            <ul class="stats__shots" role="list">
+              {shots.map((x) => {
+                const p = pct(x.r);
+                return (
+                  <li>
+                    <span class="stats__shot-k">{x.k}</span>
+                    <span class="stats__shot-v">
+                      {x.r.c}/{x.r.w}
+                      {p !== null && <b>{nf.format(p)}%</b>}
+                    </span>
+                    <span class="stats__bar" aria-hidden="true">
+                      <span style={`--p:${p ?? 0}%`} />
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+          <p class="stats__src">
+            {t(lang, "stats.source")} {data}.
+          </p>
+        </>
+      ) : (
+        <p class="stats__none">{t(lang, "stats.none")}</p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding-block: clamp(36px, 6vw, 64px) 0;
+  }
+  .stats__h {
+    font-size: clamp(26px, 3vw, 34px);
+    margin-bottom: 18px;
+  }
+  .stats__big {
+    list-style: none;
+    margin: 0 0 14px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  @media (min-width: 760px) {
+    .stats__big {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+  }
+  .stats__big li {
+    position: relative;
+    display: grid;
+    padding: 18px 18px 16px;
+    border-radius: var(--radius);
+    background: var(--black-deep);
+    color: #fff;
+    overflow: hidden;
+  }
+  .stats__big li:first-child {
+    background: var(--red);
+  }
+  .stats__val {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(44px, 6vw, 64px);
+    line-height: 0.95;
+  }
+  .stats__short {
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    opacity: 0.55;
+  }
+  .stats__lbl {
+    margin-top: 4px;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.8;
+  }
+  .stats__row {
+    display: grid;
+    gap: 14px;
+  }
+  @media (min-width: 900px) {
+    .stats__row {
+      grid-template-columns: 1fr 1.2fr;
+    }
+  }
+  .stats__small {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--border);
+  }
+  .stats__small div {
+    background: var(--surface);
+    padding: 12px 16px;
+  }
+  .stats__small dt,
+  .stats__shot-k {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .stats__small dd {
+    margin: 2px 0 0;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 26px;
+  }
+  .stats__small small {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+  .stats__shots {
+    list-style: none;
+    margin: 0;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: grid;
+    gap: 12px;
+    background: var(--surface);
+  }
+  .stats__shots li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+    align-items: baseline;
+  }
+  .stats__shot-v {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .stats__shot-v b {
+    margin-left: 10px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .stats__bar {
+    grid-column: 1 / -1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--bg-2);
+    overflow: hidden;
+  }
+  .stats__bar span {
+    display: block;
+    height: 100%;
+    width: var(--p);
+    background: var(--red);
+    border-radius: 3px;
+  }
+  .stats__src,
+  .stats__none {
+    margin: 12px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,150 @@
+---
+/* Kafel wpisu w Aktualnościach (lista i strona startowa). */
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { type Lang, newsUrl, t } from "../i18n/ui";
+import { dataWpisu, pick } from "../lib/data";
+
+interface Props {
+  w: CollectionEntry<"aktualnosci">;
+  lang: Lang;
+  index?: number;
+}
+const { w, lang, index = 0 } = Astro.props;
+const d = w.data;
+const tytul = pick(d.tytul, d.tytulEn, lang);
+const lead = pick(d.lead, d.leadEn, lang);
+const m = d.mecz;
+const md = m ? new Date(m.data + ":00") : null;
+---
+
+<a class="ncard reveal" href={newsUrl(w.id, lang)} style={`--d:${index * 80}ms`}>
+  <span class="ncard__media">
+    {
+      d.zdjecie ? (
+        <Image src={d.zdjecie} alt="" widths={[400, 600, 800]} sizes="(min-width: 900px) 400px, 92vw" loading="lazy" />
+      ) : m && md ? (
+        <span class="ncard__match" aria-hidden="true">
+          <span class="ncard__big">
+            {String(md.getDate()).padStart(2, "0")}.{String(md.getMonth() + 1).padStart(2, "0")}
+          </span>
+          <span class="ncard__hour">{m.data.slice(11, 16)}</span>
+          <span class="ncard__vs">
+            {m.dom ? "ŁKS — " + m.rywal : m.rywal + " — ŁKS"}
+          </span>
+        </span>
+      ) : (
+        <span class="ncard__match" aria-hidden="true">
+          <span class="ncard__big">ŁKS</span>
+        </span>
+      )
+    }
+  </span>
+  <span class="ncard__body">
+    <time class="ncard__date" datetime={d.data.toISOString().slice(0, 10)}>{dataWpisu(d.data, lang)}</time>
+    <span class="ncard__title">{tytul}</span>
+    <span class="ncard__lead">{lead}</span>
+    <span class="ncard__more">{t(lang, "news.more")} →</span>
+  </span>
+</a>
+
+<style>
+  .ncard {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 220ms var(--ease), border-color 220ms, box-shadow 220ms;
+  }
+  .ncard:hover {
+    transform: translateY(-4px);
+    border-color: var(--red);
+    box-shadow: var(--shadow);
+  }
+  .ncard__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    background:
+      radial-gradient(80% 90% at 85% 10%, #4a0b10 0%, transparent 60%),
+      linear-gradient(160deg, #1d1814 0%, #0b0907 100%);
+    overflow: hidden;
+  }
+  .ncard__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 500ms var(--ease);
+  }
+  .ncard:hover .ncard__media :global(img) {
+    transform: scale(1.05);
+  }
+  .ncard__match {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 18px 20px;
+    color: #fff;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.9;
+  }
+  .ncard__big {
+    font-size: clamp(56px, 9vw, 84px);
+    color: var(--red-on-dark);
+  }
+  .ncard__hour {
+    font-size: 28px;
+  }
+  .ncard__vs {
+    margin-top: 8px;
+    font-size: 17px;
+    letter-spacing: 0.04em;
+    color: #ddd4ca;
+  }
+  .ncard__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px 20px 20px;
+    flex: 1;
+  }
+  .ncard__date {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .ncard__title {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .ncard__lead {
+    color: var(--muted);
+    font-size: 16px;
+  }
+  .ncard__more {
+    margin-top: auto;
+    padding-top: 6px;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+</style>

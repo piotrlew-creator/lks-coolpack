@@ -63,4 +63,32 @@ const sponsorzy = defineCollection({
     }),
 });
 
-export const collections = { zawodnicy, sztab, sponsorzy };
+/*
+  Aktualności — własne wpisy Klubu. Jeden plik = jeden wpis w obu językach.
+  Nazwa pliku = adres wpisu, np. 2026-11-18-kotwica.md → /aktualnosci/2026-11-18-kotwica/
+*/
+const aktualnosci = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/aktualnosci" }),
+  schema: ({ image }) =>
+    z.object({
+      tytul: z.string(),
+      tytulEn: z.string().default(""),
+      data: z.coerce.date(), // data publikacji, RRRR-MM-DD
+      lead: z.string(), // 1–2 zdania na listę wpisów
+      leadEn: z.string().default(""),
+      tresc: z.string().default(""), // akapity rozdzielone pustą linią
+      trescEn: z.string().default(""),
+      zdjecie: image().optional(),
+      // Opcjonalnie: karta meczu we wpisie
+      mecz: z
+        .object({
+          data: z.string(), // "2026-11-19T18:00" (czas polski)
+          rywal: z.string(),
+          dom: z.boolean(), // true = u siebie
+          miejsce: z.string().default(""),
+        })
+        .optional(),
+    }),
+});
+
+export const collections = { zawodnicy, sztab, sponsorzy, aktualnosci };
