@@ -5,7 +5,7 @@ import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import Silhouette from "../components/Silhouette.astro";
 import { type Lang, ROUTES, t } from "../i18n/ui";
-import { paragraphs, pick, sztab } from "../lib/data";
+import { pick, sztab } from "../lib/data";
 import { u } from "../lib/url";
 
 interface Props {
@@ -38,7 +38,6 @@ const staff = await sztab();
                 <h2 class="member__name">
                   <span>{d.imie}</span> {d.nazwisko}
                 </h2>
-                {paragraphs(pick(d.opis, d.opisEn, lang)).map((para) => <p class="member__bio">{para}</p>)}
               </div>
             </li>
           );
@@ -129,14 +128,10 @@ const staff = await sztab();
   }
   .member__name {
     font-size: clamp(28px, 3vw, 36px);
-    margin: 0 0 12px;
+    margin: 0;
   }
   .member__name span {
     font-weight: 600;
-  }
-  .member__bio {
-    color: var(--muted);
-    margin: 0 0 0.8em;
   }
 
   /* Telefon: małe pionowe zdjęcie po lewej, funkcja, imię i opis obok */
@@ -153,6 +148,7 @@ const staff = await sztab();
     .member__body {
       flex: 1;
       min-width: 0;
+      align-self: center;
       padding: 14px 14px 14px 16px;
     }
     .member__role {
@@ -160,12 +156,7 @@ const staff = await sztab();
       letter-spacing: 0.08em;
     }
     .member__name {
-      font-size: 24px;
-      margin-bottom: 8px;
-    }
-    .member__bio {
-      font-size: 14px;
-      line-height: 1.45;
+      font-size: 26px;
     }
   }
 
