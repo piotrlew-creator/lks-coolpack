@@ -1,0 +1,17 @@
+# Zbudowana strona i pliki robocze Astro
+dist/
+.astro/
+
+# Zależności (instalowane poleceniem npm install)
+node_modules/
+
+# Oryginalne, nieobrobione zdjęcia trzymamy poza GitHubem
+zrodla-zdjec/
+
+# Pliki systemowe i edytora
+.DS_Store
+Thumbs.db
+desktop.ini
+.env
+.env.*
+npm-debug.log*

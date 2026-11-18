@@ -1,0 +1,202 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import herbBialy from "../assets/logo/herb-bialy.png";
+import { klub } from "../data/klub";
+import { type Lang, NAV, route, t } from "../i18n/ui";
+import { telHref } from "../lib/url";
+import Social from "./Social.astro";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const sponsorzy = (await getCollection("sponsorzy"))
+  .filter((s) => s.data.logoMono || s.data.logo)
+  .sort((a, b) => a.data.kolejnosc - b.data.kolejnosc);
+const biuro = klub.kontakt.biuro;
+const rok = new Date().getFullYear();
+---
+
+<footer class="ftr">
+  <div class="ftr__bolt" aria-hidden="true"></div>
+  <div class="wrap ftr__grid">
+    <div class="ftr__brand">
+      <Image src={herbBialy} alt={klub.nazwa} width={120} height={120} />
+      <p class="ftr__name">{klub.nazwa}</p>
+      <p class="ftr__since">{lang === "pl" ? "Koszykówka męska od" : "Men's basketball since"} {klub.rokZalozenia}</p>
+      <Social lang={lang} />
+    </div>
+
+    <nav aria-label={t(lang, "nav.menu")}>
+      <ul class="ftr__links">
+        {NAV.map((k) => <li><a href={route(k, lang)}>{t(lang, `nav.${k}`)}</a></li>)}
+        <li><a href={route("prywatnosc", lang)}>{t(lang, "nav.prywatnosc")}</a></li>
+      </ul>
+    </nav>
+
+    <div class="ftr__contact">
+      <p class="ftr__h">{t(lang, "contact.office")}</p>
+      {biuro.adres && <p>{biuro.adres}</p>}
+      {biuro.telefon && <p><a href={telHref(biuro.telefon)}>{t(lang, "contact.tel")} {biuro.telefon}</a></p>}
+      {biuro.email && <p><a href={`mailto:${biuro.email}`}>{biuro.email}</a></p>}
+      {!biuro.adres && !biuro.telefon && !biuro.email && <p class="ftr__muted">{t(lang, "contact.tbd")}</p>}
+      <p class="ftr__extra">
+        <a href={klub.stronaLigi} target="_blank" rel="noopener">{t(lang, "footer.league")} ↗</a><br />
+        <a href={klub.akademia.adres} target="_blank" rel="noopener">{t(lang, "footer.academy")} ↗</a>
+      </p>
+    </div>
+  </div>
+
+  {
+    sponsorzy.length > 0 && (
+      <div class="wrap ftr__sponsors">
+        <p class="ftr__h">{t(lang, "sponsors.strip")}</p>
+        <ul>
+          {sponsorzy.map((s) => (
+            <li>
+              <a href={s.data.link} target="_blank" rel="noopener" aria-label={s.data.nazwa}>
+                <Image src={(s.data.logoMono ?? s.data.logo)!} alt={s.data.nazwa} height={36} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+
+  <div class="wrap ftr__bottom">
+    <p>© {rok} {klub.nazwa}. {t(lang, "footer.rights")}</p>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    position: relative;
+    background: var(--black-deep);
+    color: #c9c0b6;
+    padding-top: clamp(48px, 7vw, 80px);
+    overflow: hidden;
+    font-size: 16px;
+  }
+  .ftr__bolt {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--red);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 62% 100%, 60% 0, 57% 100%, 0 100%);
+  }
+  .ftr a {
+    color: #f4f0ea;
+    text-decoration: none;
+  }
+  .ftr a:hover {
+    color: var(--red-on-dark);
+  }
+  .ftr__grid {
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 760px) {
+    .ftr__grid {
+      grid-template-columns: 1.4fr 1fr 1.2fr;
+    }
+  }
+  .ftr__brand :global(img) {
+    width: 84px;
+    height: 84px;
+    margin-bottom: 14px;
+  }
+  .ftr__name {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 28px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+    line-height: 1;
+  }
+  .ftr__since {
+    margin: 4px 0 18px;
+    color: var(--red-on-dark);
+    font-family: var(--font-cond);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 14px;
+  }
+  .ftr__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .ftr__links a {
+    display: inline-block;
+    padding: 8px 0;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .ftr__h {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #8f857b;
+    margin: 0 0 10px;
+  }
+  .ftr__contact p {
+    margin: 0 0 6px;
+  }
+  .ftr__contact a {
+    display: inline-block;
+    padding: 6px 0;
+  }
+  .ftr__muted {
+    color: #8f857b;
+  }
+  .ftr__extra {
+    margin-top: 18px !important;
+  }
+  .ftr__sponsors {
+    margin-top: 48px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .ftr__sponsors ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px 40px;
+    align-items: center;
+  }
+  .ftr__sponsors :global(img) {
+    height: 32px;
+    width: auto;
+    opacity: 0.85;
+    transition: opacity 160ms;
+  }
+  .ftr__sponsors a:hover :global(img) {
+    opacity: 1;
+  }
+  .ftr__bottom {
+    margin-top: 40px;
+    padding-block: 20px calc(20px + env(safe-area-inset-bottom));
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 14px;
+    color: #8f857b;
+  }
+  .ftr__bottom p {
+    margin: 0;
+  }
+</style>

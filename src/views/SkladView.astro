@@ -1,0 +1,115 @@
+---
+/* Skład — siatka wszystkich zawodników z filtrem pozycji. */
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import PlayerCard from "../components/PlayerCard.astro";
+import { POZYCJE } from "../lib/consts";
+import { type Lang, ROUTES, pozycja, t } from "../i18n/ui";
+import { zawodnicy } from "../lib/data";
+import { u } from "../lib/url";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const players = await zawodnicy();
+const used = POZYCJE.filter((p) => players.some((pl) => pl.data.pozycja === p));
+---
+
+<Base lang={lang} title={t(lang, "team.title")} description={t(lang, "team.lead")} alt={{ pl: u(ROUTES.sklad.pl), en: u(ROUTES.sklad.en) }} active="sklad">
+  <PageHero kicker={t(lang, "team.kicker")} title={t(lang, "team.title")} lead={t(lang, "team.lead")} />
+
+  <section class="section roster">
+    <div class="wrap">
+      {
+        used.length > 1 && (
+          <div class="filter" role="group" aria-label={t(lang, "team.filter")} data-filter>
+            <button type="button" data-pos="" aria-pressed="true">{t(lang, "team.filter.all")}</button>
+            {used.map((p) => (
+              <button type="button" data-pos={p} aria-pressed="false">{pozycja(p, lang)}</button>
+            ))}
+          </div>
+        )
+      }
+      <ul class="grid" role="list">
+        {players.map((p, i) => <li><PlayerCard p={p} lang={lang} index={i} /></li>)}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .roster {
+    padding-top: clamp(28px, 4vw, 48px);
+  }
+  .filter {
+    display: flex;
+    gap: 8px;
+    margin: 0 calc(-1 * var(--gutter)) 28px;
+    padding: 4px var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .filter::-webkit-scrollbar {
+    display: none;
+  }
+  .filter button {
+    flex: none;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 160ms, border-color 160ms, color 160ms;
+  }
+  .filter button:hover {
+    border-color: var(--red);
+  }
+  .filter button[aria-pressed="true"] {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+  @media (min-width: 700px) {
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+  }
+  @media (min-width: 1100px) {
+    .grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+    }
+  }
+  .grid > li[hidden] {
+    display: none;
+  }
+  @media (max-width: 420px) {
+    .grid :global(.pcard__last) {
+      font-size: 21px;
+    }
+    .grid :global(.pcard__meta) {
+      font-size: 11px;
+      gap: 6px;
+    }
+    .grid :global(.pcard__info) {
+      padding: 48px 10px 10px;
+    }
+  }
+</style>

@@ -1,0 +1,100 @@
+---
+/* Prywatność — krótka informacja w obu językach. */
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { klub } from "../data/klub";
+import { type Lang, ROUTES, t } from "../i18n/ui";
+import { u } from "../lib/url";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const email = klub.kontakt.biuro.email;
+---
+
+<Base lang={lang} title={t(lang, "privacy.title")} alt={{ pl: u(ROUTES.prywatnosc.pl), en: u(ROUTES.prywatnosc.en) }}>
+  <PageHero title={t(lang, "privacy.title")} />
+  <section class="section">
+    <div class="wrap prose">
+      {
+        lang === "pl" ? (
+          <>
+            <h2>Bez cookies</h2>
+            <p>Strona nie używa plików cookies i nie zbiera danych osobowych. Nie ma na niej formularzy.</p>
+            <h2>Statystyki odwiedzin</h2>
+            <p>
+              Liczymy odwiedziny anonimowo, za pomocą Cloudflare Web Analytics — bez plików cookies i bez
+              rozpoznawania poszczególnych osób. Widzimy tylko zbiorcze dane, np. liczbę odwiedzin i najczęściej
+              oglądane podstrony.
+            </p>
+            <h2>Posty z Facebooka</h2>
+            <p>
+              Posty z Facebooka wczytujemy dopiero po kliknięciu przycisku „Pokaż posty”. Wtedy przeglądarka łączy
+              się z serwerami Meta, które mogą zapisywać własne pliki cookies (zgodnie z polityką prywatności Meta).
+              Twoją decyzję zapamiętujemy w przeglądarce, żeby przy kolejnej wizycie nie pytać ponownie.
+            </p>
+            <h2>Ustawienia w przeglądarce</h2>
+            <p>
+              W pamięci przeglądarki (localStorage) zapisujemy tylko wybrany motyw (jasny lub ciemny) i zgodę na
+              wyświetlanie postów z Facebooka. Te informacje nie trafiają do nas. Możesz je usunąć, czyszcząc dane
+              strony w ustawieniach przeglądarki.
+            </p>
+            {email && (
+              <>
+                <h2>Kontakt</h2>
+                <p>
+                  Pytania dotyczące prywatności: <a href={`mailto:${email}`}>{email}</a>
+                </p>
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <h2>No cookies</h2>
+            <p>This website does not use cookies and does not collect personal data. There are no forms on it.</p>
+            <h2>Visitor statistics</h2>
+            <p>
+              We count visits anonymously with Cloudflare Web Analytics — without cookies and without identifying
+              individual visitors. We only see aggregated data, such as the number of visits and the most viewed
+              pages.
+            </p>
+            <h2>Facebook posts</h2>
+            <p>
+              Facebook posts are loaded only after you click “Show posts”. Your browser then connects to Meta's
+              servers, which may set their own cookies (under Meta's privacy policy). We remember your choice in your
+              browser so we don't ask again on your next visit.
+            </p>
+            <h2>Browser settings</h2>
+            <p>
+              We store only your theme choice (light or dark) and your consent to show Facebook posts in your
+              browser's local storage. This information is not sent to us. You can remove it by clearing this site's
+              data in your browser settings.
+            </p>
+            {email && (
+              <>
+                <h2>Contact</h2>
+                <p>
+                  Privacy questions: <a href={`mailto:${email}`}>{email}</a>
+                </p>
+              </>
+            )}
+          </>
+        )
+      }
+    </div>
+  </section>
+</Base>
+
+<style>
+  .prose {
+    max-width: 760px;
+  }
+  .prose h2 {
+    font-size: 28px;
+    margin-top: 1.6em;
+  }
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+</style>

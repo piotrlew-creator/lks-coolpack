@@ -1,0 +1,157 @@
+---
+/* Kontakt — dane biura, sponsoringu, mediów, bilety i hala. */
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Social from "../components/Social.astro";
+import { klub } from "../data/klub";
+import { type Lang, ROUTES, type UiKey, t } from "../i18n/ui";
+import { telHref, u } from "../lib/url";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const k = klub.kontakt;
+
+type Box = { title: UiKey; who?: string; lines: { label?: string; text: string; href?: string; ext?: boolean }[] };
+const boxes: Box[] = [
+  {
+    title: "contact.office",
+    lines: [
+      k.biuro.adres && { text: k.biuro.adres, href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(k.biuro.adres)}`, ext: true },
+      k.biuro.telefon && { label: t(lang, "contact.tel"), text: k.biuro.telefon, href: telHref(k.biuro.telefon) },
+      k.biuro.email && { label: t(lang, "contact.mail"), text: k.biuro.email, href: `mailto:${k.biuro.email}` },
+    ].filter(Boolean) as Box["lines"],
+  },
+  {
+    title: "contact.sponsoring",
+    who: k.sponsoring.osoba,
+    lines: [
+      k.sponsoring.telefon && { label: t(lang, "contact.tel"), text: k.sponsoring.telefon, href: telHref(k.sponsoring.telefon) },
+      k.sponsoring.email && { label: t(lang, "contact.mail"), text: k.sponsoring.email, href: `mailto:${k.sponsoring.email}` },
+    ].filter(Boolean) as Box["lines"],
+  },
+  {
+    title: "contact.media",
+    who: k.media.osoba,
+    lines: [
+      k.media.telefon && { label: t(lang, "contact.tel"), text: k.media.telefon, href: telHref(k.media.telefon) },
+      k.media.email && { label: t(lang, "contact.mail"), text: k.media.email, href: `mailto:${k.media.email}` },
+    ].filter(Boolean) as Box["lines"],
+  },
+  {
+    title: "contact.tickets",
+    lines: [
+      k.bilety.opis && { text: k.bilety.opis },
+      k.bilety.link && { text: k.bilety.link.replace(/^https?:\/\//, ""), href: k.bilety.link, ext: true },
+    ].filter(Boolean) as Box["lines"],
+  },
+  {
+    title: "contact.arena",
+    who: k.hala.nazwa,
+    lines: [
+      k.hala.adres && { text: k.hala.adres },
+      (k.hala.mapa || k.hala.adres) && {
+        text: t(lang, "contact.map"),
+        href: k.hala.mapa || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(k.hala.adres)}`,
+        ext: true,
+      },
+    ].filter(Boolean) as Box["lines"],
+  },
+];
+---
+
+<Base lang={lang} title={t(lang, "contact.title")} description={t(lang, "contact.lead")} alt={{ pl: u(ROUTES.kontakt.pl), en: u(ROUTES.kontakt.en) }} active="kontakt">
+  <PageHero kicker={t(lang, "contact.kicker")} title={t(lang, "contact.title")} lead={t(lang, "contact.lead")} />
+
+  <section class="section">
+    <ul class="wrap boxes" role="list">
+      {
+        boxes.map((b, i) => (
+          <li class="box reveal" style={`--d:${i * 60}ms`}>
+            <h2 class="box__h">{t(lang, b.title)}</h2>
+            {b.who && <p class="box__who">{b.who}</p>}
+            {b.lines.length ? (
+              b.lines.map((l) => (
+                <p class="box__line">
+                  {l.label && <span class="box__label">{l.label} </span>}
+                  {l.href ? (
+                    <a href={l.href} {...(l.ext ? { target: "_blank", rel: "noopener" } : {})}>
+                      {l.text}
+                    </a>
+                  ) : (
+                    l.text
+                  )}
+                </p>
+              ))
+            ) : (
+              <p class="box__tbd">{t(lang, "contact.tbd")}</p>
+            )}
+          </li>
+        ))
+      }
+      <li class="box box--social reveal">
+        <h2 class="box__h">{t(lang, "news.follow")}</h2>
+        <Social lang={lang} size="lg" />
+      </li>
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .boxes {
+    list-style: none;
+    margin: 0 auto;
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  }
+  .box {
+    position: relative;
+    padding: 26px 24px 22px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .box::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 56px;
+    height: 5px;
+    background: var(--red);
+    transform: skewX(-30deg) translateX(-6px);
+  }
+  .box__h {
+    font-size: 26px;
+    margin-bottom: 14px;
+  }
+  .box__who {
+    font-weight: 700;
+    margin: -6px 0 10px;
+  }
+  .box__line {
+    margin: 0 0 6px;
+    font-size: 17px;
+  }
+  .box__line a {
+    display: inline-block;
+    padding: 8px 0;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+  .box__label {
+    color: var(--muted);
+  }
+  .box__tbd {
+    color: var(--muted);
+    font-style: italic;
+  }
+  .box--social {
+    background: var(--black-deep);
+    color: #fff;
+    border-color: transparent;
+  }
+</style>

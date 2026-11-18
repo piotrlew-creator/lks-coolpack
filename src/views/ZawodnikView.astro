@@ -1,0 +1,382 @@
+---
+/* Strona zawodnika. Zdjęcie i numer „przylatują” z siatki składu. */
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Base from "../layouts/Base.astro";
+import Silhouette from "../components/Silhouette.astro";
+import { type Lang, kraj, playerUrl, pozycja, route, t } from "../i18n/ui";
+import { paragraphs, pick } from "../lib/data";
+
+interface Props {
+  lang: Lang;
+  p: CollectionEntry<"zawodnicy">;
+  prev: CollectionEntry<"zawodnicy">;
+  next: CollectionEntry<"zawodnicy">;
+}
+const { lang, p, prev, next } = Astro.props;
+const d = p.data;
+const name = `${d.imie} ${d.nazwisko}`;
+const bio = paragraphs(pick(d.opis, d.opisEn, lang));
+const stats = [
+  { k: t(lang, "team.position"), v: pozycja(d.pozycja, lang) },
+  { k: t(lang, "team.height"), v: d.wzrost ? `${d.wzrost} cm` : undefined },
+  { k: t(lang, "team.born"), v: d.rocznik ? String(d.rocznik) : undefined },
+  { k: t(lang, "team.nation"), v: kraj(d.narodowosc, lang) },
+  { k: t(lang, "team.prevClub"), v: d.poprzedniKlub || undefined },
+].filter((s) => s.v);
+const desc = `${name} — #${d.numer}, ${pozycja(d.pozycja, lang)}. ${lang === "pl" ? "ŁKS CoolPack Łódź, 1. liga." : "ŁKS CoolPack Łódź, Polish 1st League."}`;
+---
+
+<Base lang={lang} title={name} description={desc} alt={{ pl: playerUrl(p.id, "pl"), en: playerUrl(p.id, "en") }} active="sklad">
+  <article class="pp">
+    <div class="pp__flash" aria-hidden="true"></div>
+    <div class="pp__stage">
+      <span class="pp__num" aria-hidden="true">{d.numer}</span>
+      <svg class="pp__bolt" viewBox="0 0 200 600" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M128 0 L58 250 L104 250 L40 600 L168 196 L118 196 L176 0 Z"></path>
+      </svg>
+      <div class="pp__photo">
+        {
+          d.zdjecie ? (
+            <Image src={d.zdjecie} alt={name} widths={[480, 720, 960, 1200]} sizes="(min-width: 900px) 46vw, 92vw" loading="eager" fetchpriority="high" />
+          ) : (
+            <Silhouette />
+          )
+        }
+      </div>
+    </div>
+
+    <div class="pp__info wrap">
+      <a class="pp__back" href={route("sklad", lang)}>← {t(lang, "team.back")}</a>
+      <p class="pp__meta">
+        <span class="pp__badge">#{d.numer}</span>
+        <span>{pozycja(d.pozycja, lang)}</span>
+        {d.kapitan && <span class="pp__cap">{t(lang, "team.captain")}</span>}
+      </p>
+      <h1 class="pp__name">
+        <span class="pp__first">{d.imie}</span>
+        <span class="pp__last">{d.nazwisko}</span>
+      </h1>
+
+      <dl class="pp__stats">
+        {
+          stats.map((s) => (
+            <div>
+              <dt>{s.k}</dt>
+              <dd>{s.v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </article>
+
+  <section class="section pp__bio-sec">
+    <div class="wrap pp__bio">
+      {d.szkic && <p class="pp__draft">{t(lang, "team.draft")}</p>}
+      {bio.map((para) => <p>{para}</p>)}
+    </div>
+  </section>
+
+  <nav class="pp__nav wrap" aria-label={t(lang, "team.title")}>
+    <a href={playerUrl(prev.id, lang)} data-bolt class="pp__nav-a">
+      <span class="pp__nav-k">← {t(lang, "team.prev")}</span>
+      <span class="pp__nav-n">#{prev.data.numer} {prev.data.imie} {prev.data.nazwisko}</span>
+    </a>
+    <a href={playerUrl(next.id, lang)} data-bolt class="pp__nav-a pp__nav-a--next">
+      <span class="pp__nav-k">{t(lang, "team.next")} →</span>
+      <span class="pp__nav-n">#{next.data.numer} {next.data.imie} {next.data.nazwisko}</span>
+    </a>
+  </nav>
+</Base>
+
+<style>
+  .pp {
+    position: relative;
+    display: grid;
+    background:
+      radial-gradient(80% 70% at 70% 20%, #4a0b10 0%, transparent 60%),
+      linear-gradient(180deg, #120f0c 0%, #0b0907 100%);
+    color: #fff;
+    overflow: hidden;
+    isolation: isolate;
+    margin-top: calc(-1 * var(--header-h));
+    padding-top: var(--header-h);
+  }
+  @media (min-width: 900px) {
+    .pp {
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      min-height: min(88svh, 860px);
+    }
+    .pp__stage {
+      order: 2;
+    }
+  }
+
+  .pp__flash {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background: #fff;
+    opacity: 0;
+  }
+
+  .pp__stage {
+    position: relative;
+    height: clamp(380px, 62vh, 760px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .pp__num {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 46%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(260px, 46vw, 560px);
+    line-height: 0.8;
+    letter-spacing: -0.05em;
+    color: var(--red);
+    view-transition-name: player-number;
+    text-shadow: 0 0 60px rgba(212, 4, 20, 0.5);
+  }
+  .pp__bolt {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 0;
+    height: 100%;
+    width: clamp(110px, 16vw, 220px);
+    transform: translateX(-10%);
+    fill: #fff;
+    opacity: 0;
+    filter: drop-shadow(0 0 24px #fff) drop-shadow(0 0 60px var(--red));
+  }
+  .pp__photo {
+    position: relative;
+    width: min(92%, 640px);
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: #fff;
+    view-transition-name: player-photo;
+  }
+  .pp__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: 50% 100%;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+  }
+  .pp__photo :global(.silhouette) {
+    opacity: 0.22;
+  }
+
+  .pp__info {
+    position: relative;
+    padding-block: 8px clamp(32px, 6vw, 72px);
+  }
+  @media (min-width: 900px) {
+    .pp__info {
+      padding-block: 0 clamp(48px, 8vh, 96px);
+      max-width: none;
+      padding-left: max(var(--gutter), calc((100vw - var(--wrap)) / 2 + var(--gutter)));
+    }
+  }
+  .pp__back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-bottom: 10px;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #cfc6bc;
+    text-decoration: none;
+  }
+  .pp__back:hover {
+    color: var(--red-on-dark);
+  }
+  .pp__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 12px;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ddd4ca;
+  }
+  .pp__badge {
+    background: var(--red);
+    color: #fff;
+    padding: 4px 10px 3px;
+    border-radius: 8px;
+    font-weight: 800;
+  }
+  .pp__cap {
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    padding: 2px 10px;
+    font-size: 14px;
+  }
+  .pp__name {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 28px;
+    line-height: 0.86;
+  }
+  .pp__first {
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    color: #ddd4ca;
+  }
+  .pp__last {
+    font-size: clamp(56px, 10vw, 128px);
+    overflow-wrap: anywhere;
+  }
+  .pp__stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    overflow: hidden;
+    max-width: 640px;
+  }
+  @media (min-width: 600px) {
+    .pp__stats {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+  }
+  .pp__stats div {
+    background: rgba(14, 12, 9, 0.85);
+    padding: 14px 16px;
+    min-width: 0;
+  }
+  .pp__stats dt {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #a0968c;
+  }
+  .pp__stats dd {
+    margin: 4px 0 0;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(20px, 2.2vw, 24px);
+    text-transform: uppercase;
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+
+  .pp__bio-sec {
+    padding-block: clamp(40px, 6vw, 72px);
+  }
+  .pp__bio {
+    max-width: 760px;
+    font-size: clamp(17px, 1.5vw, 19px);
+  }
+  .pp__draft {
+    padding: 12px 16px;
+    border-left: 4px solid var(--red);
+    background: var(--bg-2);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    color: var(--muted);
+  }
+
+  .pp__nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding-bottom: clamp(48px, 7vw, 88px);
+  }
+  .pp__nav-a {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 160ms, transform 160ms;
+  }
+  .pp__nav-a:hover {
+    border-color: var(--red);
+    transform: translateY(-2px);
+  }
+  .pp__nav-a--next {
+    text-align: right;
+  }
+  .pp__nav-k {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .pp__nav-n {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(18px, 2.4vw, 26px);
+    text-transform: uppercase;
+    line-height: 1.05;
+  }
+
+  /* Wejście na stronę: uderzenie pioruna za zawodnikiem */
+  @media (prefers-reduced-motion: no-preference) {
+    .pp__flash {
+      animation: pp-flash 520ms ease-out both;
+    }
+    .pp__bolt {
+      animation: pp-bolt 1100ms 120ms ease-out both;
+    }
+    .pp__num {
+      animation: pp-glow 3.2s 1.2s ease-in-out infinite;
+    }
+    .pp__info > :global(*) {
+      animation: pp-in 700ms var(--ease) both;
+    }
+    .pp__info > :global(*:nth-child(2)) { animation-delay: 120ms; }
+    .pp__info > :global(*:nth-child(3)) { animation-delay: 200ms; }
+    .pp__info > :global(*:nth-child(4)) { animation-delay: 300ms; }
+  }
+  @keyframes pp-flash {
+    0% { opacity: 0.0; }
+    8% { opacity: 0.7; }
+    18% { opacity: 0; }
+    28% { opacity: 0.35; }
+    100% { opacity: 0; }
+  }
+  @keyframes pp-bolt {
+    0% { opacity: 0; clip-path: inset(0 0 100% 0); }
+    10% { opacity: 1; clip-path: inset(0 0 0 0); }
+    22% { opacity: 0.1; }
+    32% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+  @keyframes pp-glow {
+    0%, 100% { text-shadow: 0 0 60px rgba(212, 4, 20, 0.5); }
+    50% { text-shadow: 0 0 90px rgba(255, 75, 75, 0.85), 0 0 12px rgba(255, 255, 255, 0.25); }
+  }
+  @keyframes pp-in {
+    from { opacity: 0; transform: translateX(-30px); }
+  }
+</style>

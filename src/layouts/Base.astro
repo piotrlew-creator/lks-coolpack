@@ -1,0 +1,131 @@
+---
+/*
+  Wspólny szkielet każdej strony: nagłówek <head>, pasek nawigacji,
+  stopka, motyw jasny/ciemny i zabezpieczenia (CSP).
+*/
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { klub } from "../data/klub";
+import { type Lang, t } from "../i18n/ui";
+import { u } from "../lib/url";
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  /** Adresy tej samej strony w obu językach (do przełącznika i hreflang). */
+  alt: { pl: string; en: string };
+  /** Aktywna zakładka w menu. */
+  active?: string;
+  /** Obraz do podglądu linku na Facebooku (adres względny lub pełny). */
+  ogImage?: string;
+}
+
+const { lang, title, description = klub.opis, alt, active, ogImage } = Astro.props;
+const fullTitle = title ? `${title} · ${klub.nazwa}` : `${klub.nazwa} · ${klub.liga}`;
+const site = Astro.site ?? new URL("https://piotrlew-creator.github.io");
+const canonical = new URL(Astro.url.pathname, site).href;
+const altPl = new URL(alt.pl, site).href;
+const altEn = new URL(alt.en, site).href;
+const og = new URL(ogImage ?? u("og-image.png"), site).href;
+const token = klub.cfAnalyticsToken;
+
+const csp = [
+  "default-src 'self'",
+  `script-src 'self' 'unsafe-inline'${token ? " https://static.cloudflareinsights.com" : ""}`,
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data:",
+  "font-src 'self'",
+  `connect-src 'self'${token ? " https://cloudflareinsights.com" : ""}`,
+  "frame-src https://www.facebook.com",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SportsTeam",
+  name: klub.nazwa,
+  sport: "Basketball",
+  foundingDate: String(klub.rokZalozenia),
+  url: new URL(u(), site).href,
+  logo: new URL(u("icon-512.png"), site).href,
+  sameAs: [klub.facebook, klub.instagram].filter(Boolean),
+  location: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: "Łódź", addressCountry: "PL" } },
+};
+---
+
+<!doctype html>
+<html lang={lang} data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta http-equiv="Content-Security-Policy" content={csp} />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="pl" href={altPl} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="x-default" href={altPl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={klub.nazwa} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:locale" content={lang === "pl" ? "pl_PL" : "en_GB"} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" sizes="32x32" href={u("favicon-32.png")} />
+    <link rel="apple-touch-icon" href={u("apple-touch-icon.png")} />
+    <link rel="manifest" href={u("manifest.webmanifest")} />
+    <meta name="apple-mobile-web-app-title" content={klub.nazwaKrotka} />
+    <meta name="theme-color" content="#17140f" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Motyw ustawiamy przed narysowaniem strony, żeby nie mrugała. -->
+    <script is:inline>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem("lks-theme"); } catch (e) {}
+        if (t !== "light" && t !== "dark") {
+          t = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", t);
+        document.documentElement.classList.add("js");
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#tresc">{t(lang, "skip")}</a>
+    <Header lang={lang} alt={alt} active={active} />
+    <main id="tresc">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+
+    <!-- Warstwa efektu pioruna (używana przy przejściu do profilu zawodnika) -->
+    <div class="bolt-layer" aria-hidden="true"></div>
+
+    <script>
+      import "../scripts/site";
+    </script>
+
+    {
+      token && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token, spa: false })}
+        />
+      )
+    }
+  </body>
+</html>

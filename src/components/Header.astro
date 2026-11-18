@@ -1,0 +1,413 @@
+---
+import { Image } from "astro:assets";
+import herb from "../assets/logo/herb-czerwony.png";
+import { klub } from "../data/klub";
+import { type Lang, NAV, route, t } from "../i18n/ui";
+
+interface Props {
+  lang: Lang;
+  alt: { pl: string; en: string };
+  active?: string;
+}
+const { lang, alt, active } = Astro.props;
+---
+
+<header class="hdr" data-hdr>
+  <div class="hdr__in wrap">
+    <a class="hdr__brand" href={route("start", lang)} aria-label={`${klub.nazwa} — ${t(lang, "nav.start")}`}>
+      <span class="hdr__crest"><Image src={herb} alt="" width={96} height={96} loading="eager" /></span>
+      <span class="hdr__name">
+        <span class="hdr__name-1">ŁKS</span>
+        <span class="hdr__name-2">CoolPack Łódź</span>
+      </span>
+    </a>
+
+    <nav class="hdr__nav" aria-label={t(lang, "nav.menu")}>
+      <ul>
+        {
+          NAV.filter((k) => k !== "start").map((k) => (
+            <li>
+              <a href={route(k, lang)} aria-current={active === k ? "page" : undefined}>
+                {t(lang, `nav.${k}`)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="hdr__tools">
+      <div class="lang" role="group" aria-label={t(lang, "lang.switch")}>
+        <a href={alt.pl} lang="pl" hreflang="pl" aria-current={lang === "pl" ? "true" : undefined} title="Polski">PL</a>
+        <a href={alt.en} lang="en" hreflang="en" aria-current={lang === "en" ? "true" : undefined} title="English">EN</a>
+      </div>
+      <button class="icon-btn theme-btn" type="button" data-theme-toggle aria-label={t(lang, "theme.toggle")}>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5" /><path d="M12 1.5v3M12 19.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M1.5 12h3M19.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" /></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" /></svg>
+      </button>
+      <button class="icon-btn burger" type="button" data-menu-open aria-expanded="false" aria-controls="menu" aria-label={t(lang, "nav.open")}>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Menu na telefonie i tablecie: pełny ekran, duże pola dotyku -->
+<div class="menu" id="menu" data-menu hidden>
+  <div class="menu__bg" aria-hidden="true">
+    <svg viewBox="0 0 100 200" preserveAspectRatio="none"><path d="M62 0 L38 88 L56 88 L30 200 L80 70 L60 70 L78 0 Z" /></svg>
+  </div>
+  <div class="menu__top wrap">
+    <span class="menu__label">{t(lang, "nav.menu")}</span>
+    <button class="icon-btn menu__close" type="button" data-menu-close aria-label={t(lang, "nav.close")}>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>
+    </button>
+  </div>
+  <nav class="menu__nav wrap" aria-label={t(lang, "nav.menu")}>
+    <ol>
+      {
+        NAV.map((k, i) => (
+          <li style={`--i:${i}`}>
+            <a href={route(k, lang)} aria-current={active === k ? "page" : undefined}>
+              <span class="menu__num">{String(i + 1).padStart(2, "0")}</span>
+              {t(lang, `nav.${k}`)}
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+  <div class="menu__foot wrap">
+    <div class="lang lang--big" role="group" aria-label={t(lang, "lang.switch")}>
+      <a href={alt.pl} lang="pl" hreflang="pl" aria-current={lang === "pl" ? "true" : undefined}>Polski</a>
+      <a href={alt.en} lang="en" hreflang="en" aria-current={lang === "en" ? "true" : undefined}>English</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hdr {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    height: var(--header-h);
+    background: color-mix(in srgb, var(--black) 88%, transparent);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    color: var(--cream);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    transition: background-color 200ms;
+  }
+  .hdr__in {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .hdr__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: inherit;
+    text-decoration: none;
+    margin-right: auto;
+    min-height: 44px;
+  }
+  .hdr__crest {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #fff;
+    padding: 2px;
+    flex: none;
+    transition: transform 400ms var(--ease-snap);
+  }
+  .hdr__brand:hover .hdr__crest {
+    transform: rotate(-12deg) scale(1.06);
+  }
+  .hdr__crest :global(img) {
+    width: 100%;
+    height: 100%;
+  }
+  .hdr__name {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.95;
+  }
+  .hdr__name-1 {
+    font-size: 22px;
+    letter-spacing: 0.04em;
+  }
+  .hdr__name-2 {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--red-on-dark);
+  }
+
+  .hdr__nav ul {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .hdr__nav a {
+    position: relative;
+    display: block;
+    padding: 10px 12px;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .hdr__nav a::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 4px;
+    height: 3px;
+    background: var(--red);
+    transform: scaleX(0) skewX(-30deg);
+    transform-origin: left;
+    transition: transform 260ms var(--ease);
+  }
+  .hdr__nav a:hover::after,
+  .hdr__nav a[aria-current="page"]::after {
+    transform: scaleX(1) skewX(-30deg);
+  }
+
+  .hdr__tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Przełącznik języka — zawsze widoczny */
+  .lang {
+    display: inline-flex;
+    padding: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+  }
+  .lang a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 36px;
+    padding: 0 10px;
+    border-radius: 999px;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    text-decoration: none;
+    transition: background-color 160ms, color 160ms;
+  }
+  .lang a:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  .lang a[aria-current="true"] {
+    background: var(--red);
+    color: #fff;
+  }
+
+  .icon-btn {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+  .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .icon-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+  }
+  .i-moon {
+    fill: currentColor !important;
+    stroke: none !important;
+  }
+  :global([data-theme="dark"]) .i-moon,
+  :global([data-theme="light"]) .i-sun {
+    display: none;
+  }
+
+  .burger {
+    flex-direction: column;
+    display: none;
+    gap: 5px;
+  }
+  .burger span {
+    display: block;
+    width: 22px;
+    height: 2.5px;
+    background: currentColor;
+    border-radius: 2px;
+  }
+  .burger span:nth-child(2) {
+    width: 16px;
+    justify-self: end;
+  }
+
+  @media (max-width: 1023px) {
+    .hdr__nav {
+      display: none;
+    }
+    .burger {
+      display: inline-grid;
+      align-content: center;
+    }
+  }
+  @media (max-width: 420px) {
+    .hdr__name-2 {
+      font-size: 12px;
+    }
+    .hdr__in {
+      gap: 6px;
+    }
+    .theme-btn {
+      display: none;
+    }
+    .lang a {
+      min-width: 36px;
+      padding: 0 8px;
+    }
+  }
+
+  /* -- Menu pełnoekranowe ------------------------------------- */
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    background: var(--black-deep);
+    color: var(--cream);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .menu[hidden] {
+    display: none;
+  }
+  .menu__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .menu__bg svg {
+    position: absolute;
+    right: -10%;
+    top: 0;
+    height: 100%;
+    width: 70%;
+    fill: var(--red);
+    opacity: 0.12;
+  }
+  .menu__top {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-h);
+  }
+  .menu__label {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red-on-dark);
+  }
+  .menu__nav {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  .menu__nav ol {
+    list-style: none;
+    margin: 0;
+    padding: 12px 0;
+    width: 100%;
+  }
+  .menu__nav a {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    padding: 8px 0;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(40px, 11vw, 72px);
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .menu__nav a[aria-current="page"],
+  .menu__nav a:hover {
+    color: var(--red-on-dark);
+  }
+  .menu__num {
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    color: var(--muted, #a0968c);
+    width: 24px;
+  }
+  .menu__foot {
+    position: relative;
+    padding-block: 20px calc(24px + env(safe-area-inset-bottom));
+  }
+  .lang--big a {
+    min-height: 48px;
+    padding: 0 22px;
+    font-size: 18px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .menu.is-open .menu__nav li {
+      animation: menu-in 480ms var(--ease) both;
+      animation-delay: calc(60ms * var(--i));
+    }
+    .menu.is-open .menu__bg svg {
+      animation: menu-bolt 600ms var(--ease) both;
+    }
+  }
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateX(-40px) skewX(-8deg);
+    }
+  }
+  @keyframes menu-bolt {
+    0% {
+      opacity: 0;
+      transform: translateY(-30%);
+    }
+    40% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0.12;
+    }
+  }
+</style>

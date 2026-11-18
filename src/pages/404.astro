@@ -1,0 +1,51 @@
+---
+import Base from "../layouts/Base.astro";
+import { ROUTES, route, t } from "../i18n/ui";
+import { u } from "../lib/url";
+---
+
+<Base lang="pl" title="404" alt={{ pl: u(ROUTES.start.pl), en: u(ROUTES.start.en) }}>
+  <section class="e404">
+    <div class="e404__num" aria-hidden="true">404</div>
+    <div class="wrap e404__in">
+      <h1 class="h-lg">{t("pl", "404.title")}</h1>
+      <p class="lead">{t("pl", "404.text")}</p>
+      <p class="lead" lang="en">{t("en", "404.title")}. {t("en", "404.text")}</p>
+      <div class="btn-row">
+        <a class="btn" href={route("start", "pl")}>{t("pl", "404.cta")}</a>
+        <a class="btn btn--ghost" href={route("start", "en")} lang="en">{t("en", "404.cta")}</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .e404 {
+    position: relative;
+    min-height: 70svh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(180deg, #120f0c 0%, #0b0907 100%);
+    color: #fff;
+    margin-top: calc(-1 * var(--header-h));
+    padding-top: var(--header-h);
+  }
+  .e404__num {
+    position: absolute;
+    right: -2vw;
+    bottom: -4vw;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(200px, 40vw, 560px);
+    line-height: 0.8;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(212, 4, 20, 0.5);
+  }
+  .e404__in {
+    position: relative;
+  }
+  .e404 .lead {
+    color: #cfc6bc;
+  }
+</style>

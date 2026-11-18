@@ -1,0 +1,500 @@
+/* ═══════════════════════════════════════════════════════════════
+   ŁKS CoolPack Łódź — system wizualny
+   Barwy jak na stronie akademii (zatwierdzone 8.10.2026):
+   czerwień #D40414, czerń #17140F, biel #FFFFFF / #F4F0EA.
+   Typografia: Barlow Condensed (nagłówki) + Barlow (tekst),
+   czcionki hostowane lokalnie — strona nie łączy się z Google.
+   ═══════════════════════════════════════════════════════════════ */
+@import "./fonts.css";
+
+:root {
+  --red: #d40414;
+  --red-hover: #a8030f;
+  --red-on-dark: #ff4b4b;
+  --black: #17140f;
+  --black-deep: #0e0c09;
+  --white: #ffffff;
+  --cream: #f4f0ea;
+  --dark-surface: #211c18;
+
+  --font: "Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-cond: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+
+  --wrap: 1240px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --radius: 14px;
+  --radius-sm: 10px;
+  --header-h: 64px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-snap: cubic-bezier(0.3, 1.4, 0.5, 1);
+
+  color-scheme: light dark;
+}
+
+/* -- Motywy: jasny i ciemny ---------------------------------- */
+:root,
+[data-theme="light"] {
+  --bg: var(--white);
+  --bg-2: var(--cream);
+  --surface: var(--white);
+  --text: var(--black);
+  --muted: #6b6259;
+  --border: #e3dcd3;
+  --accent: var(--red);
+  --card-bg: #efe9e1;
+  --shadow: 0 10px 30px rgba(23, 20, 15, 0.12);
+}
+
+[data-theme="dark"] {
+  --bg: var(--black);
+  --bg-2: var(--dark-surface);
+  --surface: var(--dark-surface);
+  --text: var(--cream);
+  --muted: #a0968c;
+  --border: #3a322b;
+  --accent: var(--red-on-dark);
+  --card-bg: #2a231e;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* -- Podstawy ------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-cond);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 200;
+  background: var(--red);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+}
+.skip-link:focus {
+  top: 12px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.nw {
+  white-space: nowrap;
+}
+
+/* -- Sekcje i nagłówki --------------------------------------- */
+.section {
+  padding-block: clamp(56px, 9vw, 112px);
+}
+.section--alt {
+  background: var(--bg-2);
+}
+.section--dark {
+  background: var(--black-deep);
+  color: var(--cream);
+  --text: var(--cream);
+  --muted: #a0968c;
+  --border: #3a322b;
+  --accent: var(--red-on-dark);
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-cond);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 14px;
+}
+.kicker::before {
+  content: "";
+  width: 28px;
+  height: 3px;
+  background: currentColor;
+  transform: skewX(-30deg);
+}
+
+.h-xl {
+  font-size: clamp(44px, 9vw, 120px);
+  line-height: 0.88;
+}
+.h-lg {
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 0.92;
+}
+.h-md {
+  font-size: clamp(26px, 3.4vw, 40px);
+}
+
+.lead {
+  font-size: clamp(17px, 1.6vw, 20px);
+  color: var(--muted);
+  max-width: 60ch;
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px 32px;
+  margin-bottom: clamp(28px, 4vw, 48px);
+}
+.section-head > div {
+  max-width: 720px;
+}
+.section-head .lead {
+  margin: 0;
+}
+
+/* -- Przyciski ------------------------------------------------ */
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.btn {
+  --btn-bg: var(--red);
+  --btn-fg: #fff;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 26px;
+  font-family: var(--font-cond);
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border: 2px solid var(--btn-bg);
+  border-radius: 999px;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 160ms var(--ease), background-color 160ms, border-color 160ms, color 160ms;
+}
+.btn::after {
+  /* błysk przelatujący po przycisku przy najechaniu */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.45) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 500ms var(--ease);
+}
+.btn:hover {
+  --btn-bg: var(--red-hover);
+  transform: translateY(-2px);
+}
+.btn:hover::after {
+  transform: translateX(120%);
+}
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: currentColor;
+  border-color: currentColor;
+}
+.btn--ghost:hover {
+  --btn-bg: transparent;
+  color: var(--accent);
+}
+.btn svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+
+/* Równe przyciski obok siebie na telefonie */
+@media (max-width: 520px) {
+  .btn-row--equal .btn {
+    flex: 1 1 0;
+    padding-inline: 14px;
+  }
+}
+
+/* -- Karty ogólne --------------------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(20px, 3vw, 32px);
+}
+
+/* -- Pojawianie się przy przewijaniu -------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* Chowamy elementy tylko, gdy działa JavaScript — bez niego wszystko jest widoczne. */
+  .js .reveal:not(.is-in) {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  .js .reveal {
+    transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+    transition-delay: var(--d, 0ms);
+  }
+}
+
+/* -- Przejścia między stronami (View Transitions) -------------
+   Zdjęcie zawodnika „przelatuje” z siatki składu na jego stronę.
+   Przeglądarki bez tej funkcji po prostu otwierają stronę.        */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-group(*) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease);
+}
+::view-transition-old(root) {
+  animation: 220ms ease both vt-fade-out;
+}
+::view-transition-new(root) {
+  animation: 320ms ease 80ms both vt-fade-in;
+}
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ═══ PIORUN — warstwa efektu przy przejściu do zawodnika ═══════ */
+.bolt-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+  display: none;
+}
+.bolt-layer.is-on {
+  display: block;
+  animation: bolt-flash 430ms linear both;
+}
+.bolt-layer svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+@keyframes bolt-flash {
+  0% { background: rgba(255, 255, 255, 0); }
+  6% { background: rgba(255, 255, 255, 0.85); }
+  12% { background: rgba(255, 255, 255, 0.05); }
+  20% { background: rgba(255, 236, 236, 0.55); }
+  30% { background: rgba(212, 4, 20, 0.18); }
+  100% { background: rgba(212, 4, 20, 0); }
+}
+.bolt-glow,
+.bolt-core {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 2400;
+  stroke-dashoffset: 2400;
+  animation: bolt-draw 110ms ease-out forwards, bolt-fade 320ms 110ms ease-in forwards;
+}
+.bolt-glow {
+  stroke: var(--red);
+  stroke-width: 14;
+  filter: drop-shadow(0 0 10px #ff2a3a) drop-shadow(0 0 28px rgba(212, 4, 20, 0.9));
+}
+.bolt-core {
+  stroke: #fff;
+  stroke-width: 3.5;
+}
+.bolt-branch {
+  stroke-width: 2;
+  animation-delay: 40ms, 110ms;
+}
+.bolt-glow.bolt-branch {
+  stroke-width: 7;
+}
+.bolt-hit {
+  fill: #fff;
+  filter: drop-shadow(0 0 18px #fff) drop-shadow(0 0 40px var(--red));
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bolt-hit 360ms 90ms ease-out both;
+}
+@keyframes bolt-draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes bolt-fade {
+  0%, 30% { opacity: 1; }
+  40% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes bolt-hit {
+  0% { transform: scale(0); opacity: 1; }
+  25% { transform: scale(3.5); opacity: 0.85; }
+  100% { transform: scale(7); opacity: 0; }
+}
+.is-shaking main {
+  animation: page-shake 300ms 60ms steps(6) both;
+}
+@keyframes page-shake {
+  0%, 100% { transform: none; }
+  20% { transform: translate(-4px, 2px); }
+  40% { transform: translate(4px, -2px); }
+  60% { transform: translate(-2px, 1px); }
+  80% { transform: translate(2px, -1px); }
+}
+
+/* Zdjęcie i numer zawodnika „przelatują” na jego stronę */
+::view-transition-group(player-photo),
+::view-transition-group(player-number) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.2, 0.9, 0.1, 1);
+}
+::view-transition-old(player-photo),
+::view-transition-new(player-photo) {
+  height: 100%;
+  object-fit: contain;
+  object-position: 50% 100%;
+}
+
+/* -- Facebook: kafel zgody --------------------------------------- */
+.fb {
+  max-width: 520px;
+}
+.fb__slot {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.fb__icon {
+  width: 44px;
+  height: 44px;
+  fill: #1877f2;
+}
+.fb__title {
+  font-family: var(--font-cond);
+  font-weight: 800;
+  font-size: 26px;
+  text-transform: uppercase;
+  margin: 0;
+}
+.fb__desc {
+  margin: 0;
+  color: var(--muted);
+}
+.fb__note {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+.fb__frame {
+  display: block;
+  max-width: 100%;
+  border: 0;
+  border-radius: var(--radius);
+  background: #fff;
+}
+.fb__fallback {
+  margin-top: 12px;
+}

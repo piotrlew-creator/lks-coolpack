@@ -1,0 +1,586 @@
+---
+/* Strona startowa (wspólna dla PL i EN). */
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import PlayerCard from "../components/PlayerCard.astro";
+import Social from "../components/Social.astro";
+import herbBialy from "../assets/logo/herb-bialy.png";
+import { klub, najblizszyMecz } from "../data/klub";
+import { type Lang, ROUTES, route, t } from "../i18n/ui";
+import { sponsorzy as getSponsorzy, zawodnicy as getZawodnicy } from "../lib/data";
+import { u } from "../lib/url";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+
+const players = (await getZawodnicy()).slice(0, 8);
+const sponsors = (await getSponsorzy()).filter((s) => s.data.logo);
+
+// Zdjęcie w tle (opcjonalne): src/assets/start/hero.jpg|png|webp
+const heroes = import.meta.glob<{ default: ImageMetadata }>("../assets/start/hero.{jpg,jpeg,png,webp}", { eager: true });
+const hero = Object.values(heroes)[0]?.default;
+
+const mecz = najblizszyMecz;
+const meczData = mecz ? new Date(mecz.data) : null;
+const fmtDay = meczData
+  ? new Intl.DateTimeFormat(lang === "pl" ? "pl-PL" : "en-GB", { weekday: "long", day: "numeric", month: "long", timeZone: "Europe/Warsaw" }).format(meczData)
+  : "";
+const fmtTime = meczData
+  ? new Intl.DateTimeFormat("pl-PL", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Warsaw" }).format(meczData)
+  : "";
+---
+
+<Base lang={lang} alt={{ pl: u(ROUTES.start.pl), en: u(ROUTES.start.en) }} active="start">
+  <!-- ══════════════ HERO ══════════════ -->
+  <section class="hero" aria-labelledby="hero-title">
+    {
+      hero && (
+        <Image class="hero__img" src={hero} alt="" widths={[800, 1200, 1800, 2400]} sizes="100vw" loading="eager" fetchpriority="high" />
+      )
+    }
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__year" aria-hidden="true">{klub.rokZalozenia}</div>
+    <svg class="hero__bolt" viewBox="0 0 200 600" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M128 0 L58 250 L104 250 L40 600 L168 196 L118 196 L176 0 Z"></path>
+    </svg>
+    <div class="hero__crest" aria-hidden="true">
+      <Image src={herbBialy} alt="" width={320} height={321} loading="eager" />
+    </div>
+
+    <div class="hero__in wrap">
+      <p class="kicker hero__kicker">{t(lang, "hero.kicker")}</p>
+      <h1 id="hero-title" class="hero__title">
+        <span class="hero__t1">ŁKS</span>
+        <span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
+      </h1>
+      <p class="hero__sub">{t(lang, "hero.sub")}</p>
+      <div class="btn-row btn-row--equal">
+        <a class="btn" href={route("sklad", lang)}>{t(lang, "hero.cta.team")}</a>
+        <a class="btn btn--ghost" href={route("aktualnosci", lang)}>{t(lang, "hero.cta.news")}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ NAJBLIŻSZY MECZ ══════════════ -->
+  <section id="mecz" class="match wrap" aria-label={t(lang, "match.kicker")}>
+    {
+      mecz && meczData ? (
+        <div class="match__card reveal">
+          <p class="kicker">{t(lang, "match.kicker")}</p>
+          <div class="match__row">
+            <div class="match__when">
+              <span class="match__day">{fmtDay}</span>
+              <span class="match__time">{fmtTime}</span>
+            </div>
+            <div class="match__teams">
+              <span>{mecz.dom ? klub.nazwaKrotka : mecz.rywal}</span>
+              <span class="match__vs">vs</span>
+              <span>{mecz.dom ? mecz.rywal : klub.nazwaKrotka}</span>
+            </div>
+            <div class="match__where">
+              <span class="match__tag">{t(lang, mecz.dom ? "match.home" : "match.away")}</span>
+              {mecz.hala}
+            </div>
+          </div>
+          <div class="btn-row">
+            {mecz.bilety && <a class="btn" href={mecz.bilety} target="_blank" rel="noopener">{t(lang, "match.tickets")}</a>}
+            {mecz.transmisja && <a class="btn btn--ghost" href={mecz.transmisja} target="_blank" rel="noopener">{t(lang, "match.stream")}</a>}
+          </div>
+        </div>
+      ) : (
+        <div class="match__card match__card--none reveal">
+          <div>
+            <p class="kicker">{t(lang, "match.none.title")}</p>
+            <p class="match__text">{t(lang, "match.none.text")}</p>
+          </div>
+          <a class="btn" href={klub.stronaLigi} target="_blank" rel="noopener">{t(lang, "match.none.cta")} ↗</a>
+        </div>
+      )
+    }
+  </section>
+
+  <!-- ══════════════ SKŁAD ══════════════ -->
+  <section class="section" aria-labelledby="sklad-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">{t(lang, "team.kicker")}</p>
+          <h2 id="sklad-title" class="h-lg">{t(lang, "team.title")}</h2>
+          <p class="lead">{t(lang, "team.lead")}</p>
+        </div>
+        <a class="btn btn--ghost" href={route("sklad", lang)}>{t(lang, "team.all")} →</a>
+      </div>
+    </div>
+    <ul class="rail" role="list">
+      {players.map((p, i) => <li><PlayerCard p={p} lang={lang} index={i} /></li>)}
+    </ul>
+  </section>
+
+  <!-- ══════════════ SZTAB + AKADEMIA ══════════════ -->
+  <section class="section section--alt">
+    <div class="wrap duo">
+      <a class="panel panel--red reveal" href={route("sztab", lang)}>
+        <p class="kicker">{t(lang, "staff.kicker")}</p>
+        <h2 class="h-lg">{t(lang, "staff.title")}</h2>
+        <p>{t(lang, "staff.lead")}</p>
+        <span class="panel__cta">{t(lang, "staff.cta")} →</span>
+        <svg class="panel__bolt" viewBox="0 0 200 600" aria-hidden="true"><path d="M128 0 L58 250 L104 250 L40 600 L168 196 L118 196 L176 0 Z"></path></svg>
+      </a>
+      <a class="panel panel--dark reveal" style="--d:120ms" href={klub.akademia.adres} target="_blank" rel="noopener">
+        <p class="kicker">{t(lang, "academy.kicker")}</p>
+        <h2 class="h-lg">{t(lang, "academy.title")}</h2>
+        <p>{t(lang, "academy.text")}</p>
+        <span class="panel__cta">{t(lang, "academy.cta")} ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══════════════ AKTUALNOŚCI / SOCIAL ══════════════ -->
+  <section class="section section--dark social-band" aria-labelledby="news-title">
+    <div class="wrap social-band__in">
+      <div>
+        <p class="kicker">{t(lang, "news.kicker")}</p>
+        <h2 id="news-title" class="h-lg">{t(lang, "news.follow")}</h2>
+        <p class="lead">{t(lang, "news.lead")}</p>
+      </div>
+      <div class="social-band__cta">
+        <Social lang={lang} size="lg" />
+        <a class="btn" href={route("aktualnosci", lang)}>{t(lang, "news.title")} →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SPONSORZY ══════════════ -->
+  {
+    sponsors.length > 0 && (
+      <section class="section sponsors-band" aria-labelledby="sp-title">
+        <div class="wrap">
+          <div class="section-head">
+            <div>
+              <p class="kicker">{t(lang, "sponsors.kicker")}</p>
+              <h2 id="sp-title" class="h-md">{t(lang, "sponsors.title")}</h2>
+            </div>
+            <a class="btn btn--ghost" href={route("sponsorzy", lang)}>{t(lang, "sponsors.join.title")} →</a>
+          </div>
+          <ul class="logos" role="list">
+            {sponsors.map((s) => (
+              <li class="reveal">
+                <a class:list={[{ "has-mono": s.data.logoMono }]} href={s.data.link} target="_blank" rel="noopener" aria-label={s.data.nazwa}>
+                  <Image class="logo-light" src={s.data.logo!} alt={s.data.nazwa} height={56} />
+                  {s.data.logoMono && <Image class="logo-dark" src={s.data.logoMono} alt="" height={56} />}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  /* -- Hero ------------------------------------------------------ */
+  .hero {
+    position: relative;
+    min-height: min(92svh, 920px);
+    display: flex;
+    align-items: flex-end;
+    background:
+      radial-gradient(90% 70% at 75% 30%, #3b0a0e 0%, transparent 60%),
+      linear-gradient(180deg, #120f0c 0%, #0b0907 100%);
+    color: #fff;
+    overflow: hidden;
+    isolation: isolate;
+    margin-top: calc(-1 * var(--header-h));
+    padding-top: var(--header-h);
+  }
+  .hero__img {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .hero__veil {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      linear-gradient(0deg, rgba(10, 8, 6, 0.95) 0%, rgba(10, 8, 6, 0.55) 45%, rgba(10, 8, 6, 0.25) 100%),
+      linear-gradient(90deg, rgba(10, 8, 6, 0.7) 0%, transparent 70%);
+  }
+  .hero__year {
+    position: absolute;
+    z-index: -1;
+    right: -2vw;
+    bottom: -6vw;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(160px, 34vw, 520px);
+    line-height: 0.8;
+    letter-spacing: -0.04em;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.08);
+    user-select: none;
+  }
+  .hero__bolt {
+    position: absolute;
+    z-index: -1;
+    right: 18%;
+    top: 0;
+    height: 100%;
+    width: clamp(120px, 16vw, 240px);
+    fill: var(--red);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 30px rgba(212, 4, 20, 0.7));
+  }
+  .hero__crest {
+    position: absolute;
+    z-index: -1;
+    right: clamp(16px, 6vw, 96px);
+    top: calc(var(--header-h) + clamp(24px, 6vh, 80px));
+    width: clamp(110px, 18vw, 260px);
+    opacity: 0.95;
+  }
+  .hero__crest :global(img) {
+    width: 100%;
+    height: auto;
+  }
+  .hero__in {
+    padding-block: clamp(80px, 14vh, 140px) clamp(64px, 10vh, 110px);
+  }
+  .hero__kicker {
+    color: #fff;
+  }
+  .hero__kicker::before {
+    background: var(--red);
+  }
+  .hero__title {
+    margin: 0 0 22px;
+    display: flex;
+    flex-direction: column;
+    line-height: 0.82;
+  }
+  .hero__t1 {
+    font-size: clamp(96px, 22vw, 260px);
+    letter-spacing: -0.01em;
+  }
+  .hero__t2 {
+    font-size: clamp(40px, 8.5vw, 104px);
+    color: var(--red-on-dark);
+  }
+  .hero__sub {
+    max-width: 56ch;
+    font-size: clamp(17px, 1.6vw, 20px);
+    color: #ddd4ca;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 700px) {
+    .hero__bolt {
+      right: 4%;
+      opacity: 0.55;
+    }
+    .hero__crest {
+      opacity: 0.9;
+    }
+  }
+
+  /* Wejście hero: piorun uderza, tytuł wjeżdża */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__bolt {
+      animation: hero-bolt 900ms 150ms var(--ease) both;
+    }
+    .hero__t1,
+    .hero__t2,
+    .hero__sub,
+    .hero .btn-row,
+    .hero__kicker {
+      animation: hero-in 800ms var(--ease) both;
+    }
+    .hero__kicker { animation-delay: 250ms; }
+    .hero__t1 { animation-delay: 320ms; }
+    .hero__t2 { animation-delay: 420ms; }
+    .hero__sub { animation-delay: 520ms; }
+    .hero .btn-row { animation-delay: 620ms; }
+    .hero__crest {
+      animation: hero-crest 1000ms 300ms var(--ease) both;
+    }
+    .hero__year {
+      animation: hero-year 1600ms 100ms var(--ease) both;
+    }
+  }
+  @keyframes hero-bolt {
+    0% { clip-path: inset(0 0 100% 0); opacity: 1; filter: brightness(3) drop-shadow(0 0 40px #fff); }
+    25% { clip-path: inset(0 0 0 0); }
+    35% { opacity: 0.2; }
+    45% { opacity: 1; filter: brightness(2) drop-shadow(0 0 40px #fff); }
+    100% { opacity: 0.85; filter: drop-shadow(0 0 30px rgba(212, 4, 20, 0.7)); }
+  }
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(40px) skewY(3deg); }
+  }
+  @keyframes hero-crest {
+    from { opacity: 0; transform: scale(0.6) rotate(-25deg); }
+  }
+  @keyframes hero-year {
+    from { opacity: 0; transform: translateX(10%); }
+  }
+
+  /* -- Najbliższy mecz ---------------------------------------- */
+  .match {
+    position: relative;
+    z-index: 2;
+    margin-top: -40px;
+  }
+  .match__card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 6px solid var(--red);
+    border-radius: var(--radius);
+    padding: clamp(20px, 3vw, 32px);
+    box-shadow: var(--shadow);
+  }
+  .match__card--none {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 32px;
+  }
+  .match__card--none .kicker {
+    margin-bottom: 6px;
+  }
+  .match__text {
+    margin: 0;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+  .match__row {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 18px;
+    font-family: var(--font-cond);
+    text-transform: uppercase;
+  }
+  @media (min-width: 760px) {
+    .match__row {
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 32px;
+    }
+  }
+  .match__when {
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+  }
+  .match__day {
+    font-size: 18px;
+    color: var(--muted);
+  }
+  .match__time {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .match__teams {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 14px;
+    font-size: clamp(26px, 3.4vw, 40px);
+    font-weight: 800;
+    line-height: 1;
+  }
+  .match__vs {
+    font-size: 18px;
+    color: var(--accent);
+  }
+  .match__where {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .match__tag {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--red);
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+  }
+
+  /* -- Szyna zawodników: przewijana na telefonie, siatka na monitorze */
+  .rail {
+    list-style: none;
+    margin: 0;
+    padding: 6px var(--gutter) 18px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(220px, 62vw);
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail > li {
+    scroll-snap-align: start;
+  }
+  @media (min-width: 640px) {
+    .rail {
+      grid-auto-columns: minmax(240px, 38vw);
+    }
+  }
+  @media (min-width: 1024px) {
+    .rail {
+      max-width: var(--wrap);
+      margin-inline: auto;
+      grid-auto-flow: row;
+      grid-template-columns: repeat(4, 1fr);
+      overflow: visible;
+      gap: 20px;
+    }
+  }
+
+  /* -- Panele: sztab i akademia ----------------------------------- */
+  .duo {
+    display: grid;
+    gap: 18px;
+  }
+  @media (min-width: 860px) {
+    .duo {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .panel {
+    position: relative;
+    display: block;
+    min-height: 320px;
+    padding: clamp(26px, 4vw, 48px);
+    border-radius: var(--radius);
+    color: #fff;
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 300ms var(--ease), box-shadow 300ms var(--ease);
+  }
+  .panel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+  }
+  .panel p {
+    max-width: 46ch;
+    color: rgba(255, 255, 255, 0.86);
+  }
+  .panel .kicker {
+    color: #fff;
+  }
+  .panel--red {
+    background: linear-gradient(135deg, var(--red) 0%, #8e020d 100%);
+  }
+  .panel--dark {
+    background: linear-gradient(135deg, #2a231e 0%, #0e0c09 100%);
+  }
+  .panel--dark .kicker {
+    color: var(--red-on-dark);
+  }
+  .panel__cta {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 19px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-bottom: 3px solid currentColor;
+    padding-bottom: 2px;
+  }
+  .panel__bolt {
+    position: absolute;
+    z-index: -1;
+    right: -20px;
+    top: -10%;
+    height: 120%;
+    width: 160px;
+    fill: rgba(0, 0, 0, 0.18);
+    transition: transform 500ms var(--ease);
+  }
+  .panel:hover .panel__bolt {
+    transform: translateX(-20px) skewX(-6deg);
+  }
+
+  /* -- Pas social media ------------------------------------------ */
+  .social-band {
+    position: relative;
+    overflow: hidden;
+  }
+  .social-band::after {
+    content: "";
+    position: absolute;
+    inset: auto -10% -60% 40%;
+    height: 120%;
+    background: radial-gradient(closest-side, rgba(212, 4, 20, 0.35), transparent);
+    pointer-events: none;
+  }
+  .social-band__in {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 28px;
+    align-items: end;
+  }
+  @media (min-width: 900px) {
+    .social-band__in {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+  .social-band__cta {
+    display: grid;
+    gap: 14px;
+    justify-items: start;
+  }
+
+  /* -- Logotypy sponsorów -------------------------------------- */
+  .logos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .logos a {
+    display: grid;
+    place-items: center;
+    min-height: 120px;
+    padding: 24px;
+    border-radius: var(--radius);
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    transition: border-color 200ms, transform 200ms;
+  }
+  .logos a:hover {
+    border-color: var(--red);
+    transform: translateY(-3px);
+  }
+  .logos :global(img) {
+    max-height: 48px;
+    width: auto;
+  }
+  :global([data-theme="dark"]) .logos .has-mono :global(.logo-light) {
+    display: none;
+  }
+  :global([data-theme="light"]) .logos :global(.logo-dark) {
+    display: none;
+  }
+</style>

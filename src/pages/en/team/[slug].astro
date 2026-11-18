@@ -1,0 +1,16 @@
+---
+/* Strona każdego zawodnika — generowana z plików w src/content/zawodnicy. */
+import View from "../../../views/ZawodnikView.astro";
+import { zawodnicy } from "../../../lib/data";
+
+export async function getStaticPaths() {
+  const all = await zawodnicy();
+  return all.map((p, i) => ({
+    params: { slug: p.id },
+    props: { p, prev: all[(i - 1 + all.length) % all.length], next: all[(i + 1) % all.length] },
+  }));
+}
+const { p, prev, next } = Astro.props;
+---
+
+<View lang="en" p={p} prev={prev} next={next} />

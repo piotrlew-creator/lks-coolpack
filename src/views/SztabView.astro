@@ -1,0 +1,161 @@
+---
+/* Sztab — trenerzy i specjaliści. */
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import Silhouette from "../components/Silhouette.astro";
+import { type Lang, ROUTES, t } from "../i18n/ui";
+import { paragraphs, pick, sztab } from "../lib/data";
+import { u } from "../lib/url";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const staff = await sztab();
+---
+
+<Base lang={lang} title={t(lang, "staff.title")} description={t(lang, "staff.lead")} alt={{ pl: u(ROUTES.sztab.pl), en: u(ROUTES.sztab.en) }} active="sztab">
+  <PageHero kicker={t(lang, "staff.kicker")} title={t(lang, "staff.title")} lead={t(lang, "staff.lead")} />
+
+  <section class="section">
+    <ul class="wrap staff" role="list">
+      {
+        staff.map((s, i) => {
+          const d = s.data;
+          const funkcja = pick(d.funkcja, d.funkcjaEn, lang);
+          return (
+            <li class:list={["member reveal", { "member--lead": i === 0 }]} style={`--d:${Math.min(i, 6) * 70}ms`}>
+              <div class="member__photo">
+                {d.zdjecie ? (
+                  <Image src={d.zdjecie} alt={`${d.imie} ${d.nazwisko}`} widths={[320, 480, 640]} sizes="(min-width: 900px) 30vw, 90vw" loading="lazy" />
+                ) : (
+                  <Silhouette />
+                )}
+              </div>
+              <div class="member__body">
+                <p class="member__role">{funkcja}</p>
+                <h2 class="member__name">
+                  <span>{d.imie}</span> {d.nazwisko}
+                </h2>
+                {paragraphs(pick(d.opis, d.opisEn, lang)).map((para) => <p class="member__bio">{para}</p>)}
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .staff {
+    list-style: none;
+    margin: 0 auto;
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .staff {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .staff {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .member {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: transform 260ms var(--ease), border-color 260ms;
+  }
+  .member:hover {
+    transform: translateY(-4px);
+    border-color: var(--red);
+  }
+  .member__photo {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: #fff;
+    background:
+      radial-gradient(90% 80% at 50% 0%, #3a2f28 0%, transparent 60%),
+      linear-gradient(160deg, #2a231e 0%, #120f0c 100%);
+    overflow: hidden;
+  }
+  .member__photo::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 5px;
+    background: var(--red);
+    transform: scaleX(0.15);
+    transform-origin: left;
+    transition: transform 420ms var(--ease);
+  }
+  .member:hover .member__photo::after {
+    transform: scaleX(1);
+  }
+  .member__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 20%;
+  }
+  .member__photo :global(.silhouette) {
+    width: 70%;
+  }
+  .member__body {
+    padding: 20px 22px 24px;
+  }
+  .member__role {
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 6px;
+  }
+  .member__name {
+    font-size: clamp(28px, 3vw, 36px);
+    margin: 0 0 12px;
+  }
+  .member__name span {
+    font-weight: 600;
+  }
+  .member__bio {
+    color: var(--muted);
+    margin: 0 0 0.8em;
+  }
+
+  /* Trener główny — większa karta na szerokim ekranie */
+  @media (min-width: 1024px) {
+    .member--lead {
+      grid-column: span 2;
+      flex-direction: row;
+    }
+    .member--lead .member__photo {
+      flex: 0 0 50%;
+      aspect-ratio: auto;
+      min-height: 360px;
+    }
+    .member--lead .member__body {
+      align-self: center;
+      padding: 32px;
+    }
+    .member--lead .member__name {
+      font-size: 48px;
+    }
+  }
+</style>

@@ -1,0 +1,22 @@
+---
+/* Sylwetka zastępcza — dopóki nie ma zdjęcia zawodnika lub członka sztabu. */
+interface Props {
+  class?: string;
+}
+const { class: cls } = Astro.props;
+---
+
+<svg class:list={["silhouette", cls]} viewBox="0 0 300 400" aria-hidden="true" preserveAspectRatio="xMidYMax meet">
+  <path
+    d="M150 48c-33 0-56 25-56 62 0 24 9 44 22 56l-4 26c-52 10-88 30-103 54-7 12-9 30-9 54v100h300V300c0-24-2-42-9-54-15-24-51-44-103-54l-4-26c13-12 22-32 22-56 0-37-23-62-56-62Z"
+  ></path>
+</svg>
+
+<style>
+  .silhouette {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    opacity: 0.16;
+  }
+</style>
