@@ -36,7 +36,7 @@
 [data-theme="light"] {
   --bg: var(--white);
   --bg-2: var(--cream);
-  --surface: var(--white);
+  --surface: var(--cream); /* karty: kremowe na białej stronie */
   --text: var(--black);
   --muted: #6b6259;
   --border: #e3dcd3;
@@ -147,20 +147,9 @@ p {
 .section {
   padding-block: clamp(36px, 5vw, 64px);
 }
-/* Dwie sekcje z tym samym tłem jedna pod drugą: bez podwójnego odstępu */
-.section:not(.section--alt, .section--dark) + .section:not(.section--alt, .section--dark) {
+/* Sekcje jedna pod drugą na białym tle: bez podwójnego odstępu */
+.section + .section {
   padding-top: 0;
-}
-.section--alt {
-  background: var(--bg-2);
-}
-.section--dark {
-  background: var(--black-deep);
-  color: var(--cream);
-  --text: var(--cream);
-  --muted: #a0968c;
-  --border: #3a322b;
-  --accent: var(--red-on-dark);
 }
 
 .kicker {
@@ -305,6 +294,10 @@ p {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: clamp(20px, 3vw, 32px);
+}
+/* Karta wyróżniona: czerwony pasek z lewej (jak karta meczu) */
+.card--accent {
+  border-left: 5px solid var(--red);
 }
 
 /* -- Pojawianie się przy przewijaniu -------------------------- */

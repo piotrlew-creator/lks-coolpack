@@ -156,7 +156,7 @@ export const ui = {
     "stats.none": "Statystyki pojawią się po pierwszym meczu zawodnika w sezonie.",
     "swipe.hint": "Przesuń palcem — kolejny zawodnik",
 
-    "staff.kicker": "Sezon 2026/2027",
+    "staff.kicker": "Za kulisami",
     "staff.title": "Sztab",
     "staff.lead": "Trenerzy i specjaliści, którzy na co dzień pracują z drużyną.",
     "staff.cta": "Poznaj sztab",
@@ -164,6 +164,7 @@ export const ui = {
     "sponsors.kicker": "Partnerzy Klubu",
     "sponsors.title": "Sponsorzy",
     "sponsors.lead": "Dziękujemy firmom, które wspierają ŁKS CoolPack Łódź.",
+    "sponsors.join.kicker": "Dla firm",
     "sponsors.join.title": "Zostań sponsorem",
     "sponsors.join.text":
       "Chcesz, żeby Twoja firma wspierała ŁKS? Napisz albo zadzwoń — wspólnie ustalimy formę współpracy korzystną dla obu stron.",
@@ -338,7 +339,7 @@ export const ui = {
     "stats.none": "Stats will appear after the player's first game of the season.",
     "swipe.hint": "Swipe for the next player",
 
-    "staff.kicker": "Season 2026/2027",
+    "staff.kicker": "Behind the scenes",
     "staff.title": "Staff",
     "staff.lead": "The coaches and specialists who work with the team every day.",
     "staff.cta": "Meet the staff",
@@ -346,6 +347,7 @@ export const ui = {
     "sponsors.kicker": "Club partners",
     "sponsors.title": "Sponsors",
     "sponsors.lead": "Thank you to the companies that support ŁKS CoolPack Łódź.",
+    "sponsors.join.kicker": "For businesses",
     "sponsors.join.title": "Become a sponsor",
     "sponsors.join.text":
       "Would your company like to support ŁKS? Email or call us and we'll work out a partnership that suits both sides.",

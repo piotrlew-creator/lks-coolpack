@@ -55,10 +55,11 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
     </div>
   </section>
 
-  <section class="section section--dark join" id="dla-firm">
-    <div class="wrap join__in">
+  <section class="section join" id="dla-firm">
+    <div class="wrap">
+    <div class="card join__in">
       <div>
-        <p class="kicker">{t(lang, "sponsors.kicker")}</p>
+        <p class="kicker">{t(lang, "sponsors.join.kicker")}</p>
         <h2 class="h-lg">{t(lang, "sponsors.join.title")}</h2>
         <p class="lead">{t(lang, "sponsors.join.text")}</p>
       </div>
@@ -70,6 +71,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
           {!sp.telefon && !sp.email && <a class="btn" href={route("kontakt", lang)}>{t(lang, "sponsors.join.cta")} →</a>}
         </div>
       </div>
+    </div>
     </div>
   </section>
 </Base>
@@ -144,6 +146,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
   }
 
   .join__in {
+    border-left: 5px solid var(--red);
     display: grid;
     gap: 28px;
     align-items: end;

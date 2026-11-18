@@ -1,5 +1,5 @@
 ---
-/* Nagłówek podstrony: ciemny pas z tytułem. */
+/* Nagłówek podstrony: jasny pas z tytułem (jak na stronie głównej). */
 interface Props {
   kicker?: string;
   title: string;
@@ -22,21 +22,16 @@ const { kicker, title, lead } = Astro.props;
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    background:
-      radial-gradient(70% 90% at 85% 0%, #3b0a0e 0%, transparent 60%),
-      linear-gradient(180deg, #120f0c 0%, #0b0907 100%);
-    color: #fff;
+    background: var(--bg);
+    color: var(--text);
     margin-top: calc(-1 * var(--header-h));
     padding: calc(var(--header-h) + clamp(32px, 6vw, 72px)) 0 clamp(28px, 4vw, 48px);
-  }
-  .phero .kicker {
-    color: var(--red-on-dark);
   }
   .phero h1 {
     margin-bottom: 18px;
   }
   .phero .lead {
-    color: #cfc6bc;
+    color: var(--muted);
     margin: 0;
   }
   /* Telefon poziomo (niski ekran): niższy pas, żeby treść była od razu widać */

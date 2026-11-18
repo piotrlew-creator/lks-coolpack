@@ -125,34 +125,33 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
   </section>
 
   <!-- ══════════════ SZTAB + AKADEMIA ══════════════ -->
-  <section class="section section--alt">
+  <section class="section">
     <div class="wrap duo">
-      <a class="panel panel--red reveal" href={route("sztab", lang)}>
+      <a class="panel reveal" href={route("sztab", lang)}>
         <p class="kicker">{t(lang, "staff.kicker")}</p>
         <h2 class="h-lg">{t(lang, "staff.title")}</h2>
         <p>{t(lang, "staff.lead")}</p>
-        <span class="panel__cta">{t(lang, "staff.cta")} →</span>
+        <span class="btn btn--ghost panel__cta">{t(lang, "staff.cta")} →</span>
       </a>
-      <a class="panel panel--dark reveal" style="--d:120ms" href={klub.akademia.adres} target="_blank" rel="noopener">
+      <a class="panel reveal" style="--d:120ms" href={klub.akademia.adres} target="_blank" rel="noopener">
         <p class="kicker">{t(lang, "academy.kicker")}</p>
         <h2 class="h-lg">{t(lang, "academy.title")}</h2>
         <p>{t(lang, "academy.text")}</p>
-        <span class="panel__cta">{t(lang, "academy.cta")} ↗</span>
+        <span class="btn btn--ghost panel__cta">{t(lang, "academy.cta")} ↗</span>
       </a>
     </div>
   </section>
 
   <!-- ══════════════ AKTUALNOŚCI / SOCIAL ══════════════ -->
-  <section class="section section--dark social-band" aria-labelledby="news-title">
-    <div class="wrap social-band__in">
-      <div>
-        <p class="kicker">{t(lang, "news.kicker")}</p>
-        <h2 id="news-title" class="h-lg">{t(lang, "news.follow")}</h2>
-        <p class="lead">{t(lang, "news.lead")}</p>
-      </div>
-      <div class="social-band__cta">
+  <section class="section social-band" aria-labelledby="news-title">
+    <div class="wrap">
+      <div class="card social-band__in reveal">
+        <div>
+          <p class="kicker">{t(lang, "news.social")}</p>
+          <h2 id="news-title" class="h-lg">{t(lang, "news.follow")}</h2>
+          <p class="social-band__lead">{t(lang, "news.lead")}</p>
+        </div>
         <Social lang={lang} size="lg" />
-        <a class="btn" href={route("aktualnosci", lang)}>{t(lang, "news.title")} →</a>
       </div>
     </div>
   </section>
@@ -165,7 +164,7 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
           <div class="section-head">
             <div>
               <p class="kicker">{t(lang, "sponsors.kicker")}</p>
-              <h2 id="sp-title" class="h-md">{t(lang, "sponsors.title")}</h2>
+              <h2 id="sp-title" class="h-lg">{t(lang, "sponsors.title")}</h2>
             </div>
             <a class="btn btn--ghost" href={route("sponsorzy", lang)}>{t(lang, "sponsors.join.title")} →</a>
           </div>
@@ -558,7 +557,7 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     margin-bottom: 18px;
     padding: clamp(20px, 3vw, 28px);
     border: 1px solid var(--border);
-    border-left: 6px solid var(--red);
+    border-left: 5px solid var(--red);
     border-radius: var(--radius);
     background: var(--surface);
   }
@@ -619,10 +618,10 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     }
   }
 
-  /* -- Panele: sztab i akademia ----------------------------------- */
+  /* -- Karty: sztab i akademia (jak pozostałe karty na stronie) -- */
   .duo {
     display: grid;
-    gap: 18px;
+    gap: 16px;
   }
   @media (min-width: 860px) {
     .duo {
@@ -630,78 +629,52 @@ const wpisy = wszystkie.filter((w) => w !== zapowiedz).slice(0, 3);
     }
   }
   .panel {
-    position: relative;
-    display: block;
-    min-height: 320px;
-    padding: clamp(26px, 4vw, 48px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(22px, 4vw, 36px);
     border-radius: var(--radius);
-    color: #fff;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--red);
+    color: var(--text);
     text-decoration: none;
-    overflow: hidden;
-    isolation: isolate;
-    transition: transform 300ms var(--ease), box-shadow 300ms var(--ease);
+    transition: transform 200ms var(--ease), border-color 200ms var(--ease);
   }
   .panel:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+    border-color: var(--red);
   }
   .panel p {
     max-width: 46ch;
-    color: rgba(255, 255, 255, 0.86);
+    color: var(--muted);
   }
   .panel .kicker {
-    color: #fff;
-  }
-  .panel--red {
-    background: linear-gradient(135deg, var(--red) 0%, #8e020d 100%);
-  }
-  .panel--dark {
-    background: linear-gradient(135deg, #2a231e 0%, #0e0c09 100%);
-  }
-  .panel--dark .kicker {
-    color: var(--red-on-dark);
+    color: var(--accent);
   }
   .panel__cta {
-    display: inline-block;
-    margin-top: 10px;
-    font-family: var(--font-cond);
-    font-weight: 800;
-    font-size: 19px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border-bottom: 3px solid currentColor;
-    padding-bottom: 2px;
+    margin-top: auto;
+  }
+  .panel:hover .panel__cta {
+    color: var(--accent);
   }
 
-  /* -- Pas social media ------------------------------------------ */
-  .social-band {
-    position: relative;
-    overflow: hidden;
-  }
-  .social-band::after {
-    content: "";
-    position: absolute;
-    inset: auto -10% -60% 40%;
-    height: 120%;
-    background: radial-gradient(closest-side, rgba(212, 4, 20, 0.35), transparent);
-    pointer-events: none;
-  }
+  /* -- Karta social media ---------------------------------------- */
   .social-band__in {
-    position: relative;
-    z-index: 1;
     display: grid;
-    gap: 28px;
-    align-items: end;
+    gap: 20px;
+    align-items: center;
+    border-left: 5px solid var(--red);
   }
   @media (min-width: 900px) {
     .social-band__in {
-      grid-template-columns: 1.4fr 1fr;
+      grid-template-columns: 1.4fr auto;
     }
   }
-  .social-band__cta {
-    display: grid;
-    gap: 14px;
-    justify-items: start;
+  .social-band__lead {
+    margin: 0;
+    max-width: 52ch;
+    color: var(--muted);
   }
 
   /* -- Logotypy sponsorów -------------------------------------- */

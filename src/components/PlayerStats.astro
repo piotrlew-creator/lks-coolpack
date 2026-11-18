@@ -156,12 +156,13 @@ const shots = s
     display: grid;
     padding: 18px 18px 16px;
     border-radius: var(--radius);
-    background: var(--black-deep);
-    color: #fff;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
     overflow: hidden;
   }
-  .stats__big li:first-child {
-    background: var(--red);
+  .stats__big li:first-child .stats__val {
+    color: var(--red);
   }
   .stats__val {
     font-family: var(--font-cond);
@@ -279,7 +280,7 @@ const shots = s
     grid-column: 1 / -1;
     height: 6px;
     border-radius: 3px;
-    background: var(--bg-2);
+    background: var(--border);
     overflow: hidden;
   }
   .stats__bar span {

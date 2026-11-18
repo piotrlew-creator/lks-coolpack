@@ -116,17 +116,8 @@ const boxes = allBoxes.filter((b) => b.lines.length || b.who);
     border-radius: var(--radius);
     background: var(--surface);
     border: 1px solid var(--border);
+    border-left: 5px solid var(--red);
     overflow: hidden;
-  }
-  .box::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 56px;
-    height: 5px;
-    background: var(--red);
-    transform: skewX(-30deg) translateX(-6px);
   }
   .box__h {
     font-size: 26px;
@@ -152,10 +143,5 @@ const boxes = allBoxes.filter((b) => b.lines.length || b.who);
   .box__tbd {
     color: var(--muted);
     font-style: italic;
-  }
-  .box--social {
-    background: var(--black-deep);
-    color: #fff;
-    border-color: transparent;
   }
 </style>

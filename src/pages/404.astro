@@ -26,8 +26,8 @@ import { u } from "../lib/url";
     display: flex;
     align-items: center;
     overflow: hidden;
-    background: linear-gradient(180deg, #120f0c 0%, #0b0907 100%);
-    color: #fff;
+    background: var(--bg);
+    color: var(--text);
     margin-top: calc(-1 * var(--header-h));
     padding-top: var(--header-h);
   }
@@ -40,12 +40,12 @@ import { u } from "../lib/url";
     font-size: clamp(200px, 40vw, 560px);
     line-height: 0.8;
     color: transparent;
-    -webkit-text-stroke: 2px rgba(212, 4, 20, 0.5);
+    -webkit-text-stroke: 2px rgba(212, 4, 20, 0.22);
   }
   .e404__in {
     position: relative;
   }
   .e404 .lead {
-    color: #cfc6bc;
+    color: var(--muted);
   }
 </style>
