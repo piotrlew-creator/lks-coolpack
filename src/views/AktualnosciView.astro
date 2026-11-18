@@ -7,13 +7,16 @@ import { klub } from "../data/klub";
 import { aktualnosci } from "../lib/data";
 import { type Lang, ROUTES, route, t } from "../i18n/ui";
 import { u } from "../lib/url";
-import { miejsceLks } from "../lib/terminarz";
+import { kolejnyMecz, miejsceLks, najblizszyMecz } from "../lib/terminarz";
+import MatchCard from "../components/MatchCard.astro";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
-const wpisy = await aktualnosci();
+const mecz = najblizszyMecz;
+// Zapowiedź najbliższego meczu zastępuje karta meczu (z biletami, gdy jest link w src/data/klub.ts)
+const wpisy = (await aktualnosci()).filter((w) => !(mecz && w.data.mecz?.data === mecz.data));
 ---
 
 <Base lang={lang} title={t(lang, "news.title")} description={t(lang, "news.lead")} alt={{ pl: u(ROUTES.aktualnosci.pl), en: u(ROUTES.aktualnosci.en) }} active="aktualnosci">
@@ -21,13 +24,25 @@ const wpisy = await aktualnosci();
 
   {
     /* Ogłoszenia Klubu — pokazują się tylko, gdy w src/content/aktualnosci/ jest jakiś wpis */
-    wpisy.length > 0 && (
+    (mecz || wpisy.length > 0) && (
       <section class="section news-list-sec" aria-labelledby="ogl-h">
         <div class="wrap">
           <h2 id="ogl-h" class="h-md social-h">{t(lang, "news.notices")}</h2>
-          <ul class="news-list" role="list">
-            {wpisy.map((w, i) => <li><NewsCard w={w} lang={lang} index={i} /></li>)}
-          </ul>
+          {mecz && (
+            <div class="news-home__match ogl-match">
+              <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} />
+            </div>
+          )}
+          {mecz && kolejnyMecz && (
+            <div class="news-home__match ogl-match" data-zapas hidden>
+              <MatchCard lang={lang} data={kolejnyMecz.data} rywal={kolejnyMecz.rywal} dom={kolejnyMecz.dom} miejsce={kolejnyMecz.hala} bilety={kolejnyMecz.bilety} transmisja={kolejnyMecz.transmisja} />
+            </div>
+          )}
+          {wpisy.length > 0 && (
+            <ul class="news-list" role="list">
+              {wpisy.map((w, i) => <li><NewsCard w={w} lang={lang} index={i} /></li>)}
+            </ul>
+          )}
         </div>
       </section>
     )
@@ -98,6 +113,9 @@ const wpisy = await aktualnosci();
 </Base>
 
 <style>
+  .ogl-match {
+    margin-bottom: 18px;
+  }
   .news-list-sec {
     padding-top: clamp(32px, 5vw, 56px);
   }
