@@ -24,7 +24,7 @@ import LeagueLogos from "./LeagueLogos.astro";
     <div class="ftr__brand">
       <Image class="ftr__crest" src={herbBialy} alt={klub.nazwa} width={120} height={120} />
       <div class="ftr__id">
-        <p class="ftr__name">{klub.nazwa}</p>
+        <p class="ftr__name"><span>{klub.nazwa.split(" ")[0]}</span> <span class="ftr__name2">{klub.nazwa.split(" ").slice(1).join(" ")}</span></p>
         <p class="ftr__since">{lang === "pl" ? `ŁKS od ${klub.rokZalozenia} roku` : `ŁKS since ${klub.rokZalozenia}`}</p>
       </div>
       <div class="ftr__social"><Social lang={lang} /></div>
@@ -143,6 +143,21 @@ import LeagueLogos from "./LeagueLogos.astro";
     color: #fff;
     margin: 0;
     line-height: 1;
+  }
+  /* nazwa zawsze w 2 wierszach: „ŁKS” / „CoolPack Łódź”; druga linia dopasowuje się do szerokości */
+  .ftr__id {
+    container-type: inline-size;
+    min-width: 0;
+  }
+  .ftr__name {
+    font-size: min(28px, 14.5cqi);
+  }
+  .ftr__name span {
+    display: block;
+  }
+  .ftr__name2,
+  .ftr__since {
+    white-space: nowrap;
   }
   .ftr__since {
     margin: 4px 0 0;
@@ -291,7 +306,7 @@ import LeagueLogos from "./LeagueLogos.astro";
       grid-row: auto;
     }
     .ftr__name {
-      font-size: 22px;
+      font-size: min(22px, 14.5cqi);
     }
     .ftr__since {
       font-size: 12px;
