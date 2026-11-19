@@ -74,6 +74,7 @@ function doKarty(m: MeczLks | undefined): Mecz | null {
         dom: m.dom,
         hala: m.dom ? klub.kontakt.hala.nazwa || m.miasto : m.miasto,
         bilety: m.dom ? klub.kontakt.bilety.link || undefined : undefined,
+        transmisja: klub.transmisja.link || undefined,
       }
     : null;
 }

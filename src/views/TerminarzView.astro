@@ -6,6 +6,7 @@
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import LeagueLogos from "../components/LeagueLogos.astro";
+import { klub } from "../data/klub";
 import { type Lang, ROUTES, t } from "../i18n/ui";
 import { aktualizacjaTabeli, aktualizacjaTerminarza, bilans, nastepny, sezon, tabela, terminarz, zrodloTabeli, zrodloTerminarza, type MeczLks } from "../lib/terminarz";
 import { u } from "../lib/url";
@@ -64,6 +65,22 @@ const filtry = [
   <PageHero kicker={`${t(lang, "sched.kicker")} ${sezon}`} title={t(lang, "sched.title")} lead={t(lang, "sched.lead")}>
     <div class="sched-liga"><LeagueLogos height={52} /></div>
   </PageHero>
+
+  {
+    klub.transmisja.link && (
+      <section class="section sched-tv-sec">
+        <div class="wrap">
+          <div class="card card--accent sched-tv">
+            <div>
+              <p class="kicker">{t(lang, "sched.tvTitle")}</p>
+              <p class="sched-tv__text">{t(lang, "sched.tvText")}</p>
+            </div>
+            <a class="btn" href={klub.transmisja.link} target="_blank" rel="noopener">{t(lang, "sched.tvCta")} ↗</a>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <section class="section sched">
     <div class="wrap">
@@ -218,6 +235,21 @@ const filtry = [
 </Base>
 
 <style>
+  .sched-tv {
+    display: grid;
+    gap: 16px;
+    align-items: center;
+  }
+  @media (min-width: 860px) {
+    .sched-tv {
+      grid-template-columns: 1fr auto;
+    }
+  }
+  .sched-tv__text {
+    margin: 0;
+    max-width: 62ch;
+    color: var(--muted);
+  }
   .sched-liga {
     margin-top: clamp(16px, 2.4vw, 24px);
   }

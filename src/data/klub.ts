@@ -40,6 +40,13 @@ export const klub = {
     hala: { nazwa: "", adres: "", mapa: "" },
   },
 
+  // Transmisje na żywo — wszystkie mecze PZKosz 1 Ligi Mężczyzn (płatna subskrypcja).
+  // Link pojawia się przy każdej karcie meczu i na stronie Terminarz.
+  transmisja: {
+    nazwa: "Emocje.TV",
+    link: "https://emocje.tv/transmisje?dayOffset=0",
+  },
+
   // Statystyki bez cookies (Cloudflare Web Analytics) — token z panelu
   // Cloudflare. Pusty = skrypt statystyk nie jest dołączany.
   cfAnalyticsToken: "",
