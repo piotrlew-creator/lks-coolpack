@@ -6,12 +6,21 @@
 import { type Lang, route, t } from "../i18n/ui";
 import { miejsceLks, ostatni } from "../lib/terminarz";
 import logo1lm from "../assets/liga/1lm.svg?url";
+import podsumowanie from "../data/ostatni-mecz.json";
+import { zawodnicy } from "../lib/data";
+import { playerUrl } from "../i18n/ui";
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const m = ostatni;
+// Podsumowanie i trzech najlepszych — tylko gdy dotyczą ostatniego meczu z terminarza
+const pods = m && podsumowanie.link === m.link ? podsumowanie : null;
+const kadra = await zawodnicy();
+const najlepsi = (pods?.najlepsi ?? [])
+  .map((n) => ({ ...n, z: kadra.find((z) => z.id === n.zawodnik) }))
+  .filter((n) => n.z);
 const loc = lang === "pl" ? "pl-PL" : "en-GB";
 const dzien = m
   ? new Intl.DateTimeFormat(loc, { weekday: "long", day: "numeric", month: "long", timeZone: "UTC" }).format(
@@ -43,6 +52,25 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
           <span class:list={["last__wl", { "is-w": m.wygrana }]}>{t(lang, m.wygrana ? "sched.winLong" : "sched.lossLong")}</span>
           <a class="last__link" href={m.link} target="_blank" rel="noopener">{t(lang, "sched.stats")} ↗</a>
         </p>
+        {pods && <p class="last__sum">{pods.podsumowanie[lang]}</p>}
+        {najlepsi.length > 0 && (
+          <div class="last__top">
+            <p class="last__topH">{t(lang, "last.top")}</p>
+            <ol class="last__topList" role="list">
+              {najlepsi.map((n, i) => (
+                <li>
+                  <span class="last__rank">{i + 1}</span>
+                  <a class="last__player" href={playerUrl(n.zawodnik, lang)}>
+                    <span class="last__num">#{n.z!.data.numer}</span> {n.z!.data.imie} <strong>{n.z!.data.nazwisko}</strong>
+                  </a>
+                  <span class="last__line">
+                    {n.pkt} {t(lang, "last.pts")} · {n.zb} {t(lang, "last.reb")} · {n.as} {t(lang, "last.ast")}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
         <a class="btn btn--ghost last__sched" href={route("terminarz", lang)}>{t(lang, "match.none.cta")} →</a>
       </div>
       {miejsceLks && (
@@ -97,6 +125,74 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
   .last > a:hover {
     border-color: var(--red);
     transform: translateY(-2px);
+  }
+  .last__sum {
+    margin: 14px 0 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .last__top {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .last__topH {
+    margin: 0 0 8px;
+    font-family: var(--font-cond);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .last__topList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .last__topList li {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr);
+    column-gap: 10px;
+    align-items: center;
+  }
+  .last__rank {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .last__player {
+    font-family: var(--font-cond);
+    font-weight: 600;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .last__player strong {
+    font-weight: 800;
+  }
+  .last__player:hover {
+    color: var(--red);
+  }
+  .last__num {
+    color: var(--red);
+    font-weight: 800;
+  }
+  .last__line {
+    font-size: 14px;
+    color: var(--muted);
   }
   .last__kicker {
     margin-bottom: 6px;

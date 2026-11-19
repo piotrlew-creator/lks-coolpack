@@ -8,7 +8,7 @@ import PageHero from "../components/PageHero.astro";
 import LeagueLogos from "../components/LeagueLogos.astro";
 import { klub } from "../data/klub";
 import { type Lang, ROUTES, t } from "../i18n/ui";
-import { aktualizacjaTabeli, aktualizacjaTerminarza, bilans, nastepny, sezon, tabela, terminarz, zrodloTabeli, zrodloTerminarza, type MeczLks } from "../lib/terminarz";
+import { aktualizacjaTabeli, aktualizacjaTerminarza, bilans, idMeczu, nastepny, sezon, tabela, terminarz, zrodloTabeli, zrodloTerminarza, type MeczLks } from "../lib/terminarz";
 import { u } from "../lib/url";
 
 interface Props {
@@ -149,13 +149,27 @@ const filtry = [
                       <p class="game__opp">{m.rywal}</p>
                       <p class="game__meta">
                         <span class:list={["game__tag", { "game__tag--home": m.dom }]}>{t(lang, m.dom ? "sched.vsHome" : "sched.vsAway")}</span>
-                        {m.miasto && <span>{m.miasto}</span>}
+                        {m.dom ? <a class="game__hall" href={klub.kontakt.hala.mapa} target="_blank" rel="noopener">{klub.kontakt.hala.nazwaKrotka}</a> : m.miasto && <span>{m.miasto}</span>}
                         <span>{m.godzina ? m.data.slice(11, 16) : t(lang, "sched.tbd")}</span>
                       </p>
                     </div>
                     <div class="game__res">
                       {m.wygrana === null ? (
-                        <span class="game__pending" aria-hidden="true">– : –</span>
+                        <span class="game__acts">
+                          {m.dom && m.bilety && (
+                            <a class="game__tix" href={m.bilety} target="_blank" rel="noopener">
+                              {t(lang, "match.tickets")}
+                            </a>
+                          )}
+                          <a
+                            class="game__cal"
+                            href={u(lang === "pl" ? `kalendarz/${idMeczu(m)}.ics` : `en/calendar/${idMeczu(m)}.ics`)}
+                            aria-label={`${t(lang, "match.calendar")}: ${m.rywal}`}
+                            title={t(lang, "match.calendar")}
+                          >
+                            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M7 2h2v2h6V2h2v2h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V2Zm12 8H5v9h14v-9ZM5 6v2h14V6H5Zm6 5h2v2.5h2.5v2H13V18h-2v-2.5H8.5v-2H11V11Z"/></svg>
+                          </a>
+                        </span>
                       ) : (
                         <a class="game__score" href={m.link} target="_blank" rel="noopener" title={t(lang, "sched.stats")}>
                           <span class="game__wl" aria-label={t(lang, m.wygrana ? "sched.winLong" : "sched.lossLong")}>
@@ -459,6 +473,50 @@ const filtry = [
   }
   .game__res {
     text-align: right;
+  }
+  .game__acts {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .game__cal,
+  .game__tix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    min-width: 44px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 200ms, color 200ms;
+  }
+  .game__cal:hover,
+  .game__tix:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+  .game__tix {
+    padding-inline: 12px;
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .game__tix:hover {
+    color: #fff;
+    background: var(--red-hover, #a8030f);
+  }
+  .game__hall {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .game__score {
     display: inline-flex;

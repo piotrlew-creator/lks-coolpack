@@ -1,0 +1,174 @@
+---
+/* Historia — sekcja koszykówki mężczyzn ŁKS: sukcesy, kalendarium, ciekawostki. */
+import Base from "../layouts/Base.astro";
+import PageHero from "../components/PageHero.astro";
+import { type Lang, ROUTES, t } from "../i18n/ui";
+import { ciekawostki, kalendarium, sukcesy, wstep, zrodlo } from "../data/historia";
+import { u } from "../lib/url";
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+---
+
+<Base lang={lang} title={t(lang, "history.title")} description={t(lang, "history.meta")} alt={{ pl: u(ROUTES.historia.pl), en: u(ROUTES.historia.en) }} active="historia">
+  <PageHero kicker={t(lang, "history.kicker")} title={t(lang, "history.title")} lead={wstep[lang]} />
+
+  <section class="section" aria-labelledby="succ-h">
+    <div class="wrap">
+      <h2 id="succ-h" class="h-lg">{t(lang, "history.success")}</h2>
+      <ul class="succ" role="list">
+        {
+          sukcesy.map((s, i) => (
+            <li class:list={["succ__item reveal", { "succ__item--gold": i === 0 }]} style={`--d:${i * 70}ms`}>
+              <span class="succ__year">{s.rok}</span>
+              <h3 class="succ__h">{s.tytul[lang]}</h3>
+              <p class="succ__t">{s.opis[lang]}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="time-h">
+    <div class="wrap">
+      <h2 id="time-h" class="h-lg">{t(lang, "history.timeline")}</h2>
+      <ol class="line" role="list">
+        {
+          kalendarium.map((k) => (
+            <li class="line__item">
+              <span class="line__year">{k.rok}</span>
+              <p class="line__t">{k.tekst[lang]}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="fun-h">
+    <div class="wrap">
+      <h2 id="fun-h" class="h-lg">{t(lang, "history.facts")}</h2>
+      <ul class="facts" role="list">
+        {ciekawostki.map((c) => <li class="facts__item reveal">{c[lang]}</li>)}
+      </ul>
+      <p class="src">
+        {t(lang, "history.source")}{" "}
+        <a href={zrodlo.link} target="_blank" rel="noopener">{zrodlo.nazwa} ↗</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .h-lg {
+    margin: 0 0 clamp(20px, 3vw, 32px);
+  }
+  .succ {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  }
+  .succ__item {
+    padding: 22px 20px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .succ__item--gold {
+    border-left: 5px solid var(--red);
+  }
+  .succ__year {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(40px, 5vw, 56px);
+    line-height: 1;
+    color: var(--red);
+  }
+  .succ__h {
+    margin: 8px 0 8px;
+    font-size: clamp(20px, 2vw, 24px);
+    line-height: 1.1;
+  }
+  .succ__t {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  /* Kalendarium: oś czasu z czerwoną linią */
+  .line {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+  .line::before {
+    content: "";
+    position: absolute;
+    left: 58px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--border);
+  }
+  .line__item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 24px;
+    padding: 10px 0;
+  }
+  .line__item::before {
+    content: "";
+    position: absolute;
+    left: 53px;
+    top: 17px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 0 4px var(--bg);
+  }
+  .line__year {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 1.4;
+  }
+  .line__t {
+    margin: 0;
+    line-height: 1.55;
+  }
+
+  .facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  }
+  .facts__item {
+    padding: 20px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--red);
+    line-height: 1.55;
+  }
+  .src {
+    margin: 24px 0 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .src a {
+    color: inherit;
+  }
+</style>

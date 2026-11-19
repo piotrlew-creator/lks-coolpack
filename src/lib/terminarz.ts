@@ -12,7 +12,13 @@ export type MeczT = {
   gosc: string;
   wynik: [number, number] | null; // [gospodarz, gość]
   link: string; // strona meczu na 1lm.pzkosz.pl
+  bilety?: string; // link do biletów — dodawany ręcznie ok. tydzień przed meczem domowym
 };
+
+/** Stały identyfikator meczu (numer meczu z adresu PZKosz) — m.in. dla plików kalendarza. */
+export function idMeczu(m: { link: string; data: string }): string {
+  return m.link.match(/\/mecz\/(\d+)\//)?.[1] ?? m.data.slice(0, 10);
+}
 
 export type MeczLks = MeczT & {
   dom: boolean; // ŁKS gospodarzem
@@ -72,8 +78,10 @@ function doKarty(m: MeczLks | undefined): Mecz | null {
         data: m.godzina ? m.data : `${m.data}T00:00`,
         rywal: m.rywal,
         dom: m.dom,
-        hala: m.dom ? klub.kontakt.hala.nazwa || m.miasto : m.miasto,
-        bilety: m.dom ? klub.kontakt.bilety.link || undefined : undefined,
+        hala: m.dom ? klub.kontakt.hala.nazwaKrotka || m.miasto : m.miasto,
+        mapa: m.dom ? klub.kontakt.hala.mapa || undefined : undefined,
+        bilety: m.dom ? m.bilety || klub.kontakt.bilety.link || undefined : undefined,
+        ics: idMeczu(m),
         transmisja: klub.transmisja.link || undefined,
       }
     : null;

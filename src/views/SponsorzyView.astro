@@ -3,6 +3,8 @@
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
+import FeatureIcon from "../components/FeatureIcon.astro";
+import { sponsorom } from "../data/marketing";
 import { klub } from "../data/klub";
 import { type Lang, ROUTES, poziomGrupa, route, t } from "../i18n/ui";
 import { POZIOMY_SPONSORA } from "../lib/consts";
@@ -23,8 +25,44 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
 <Base lang={lang} title={t(lang, "sponsors.title")} description={t(lang, "sponsors.meta")} alt={{ pl: u(ROUTES.sponsorzy.pl), en: u(ROUTES.sponsorzy.en) }} active="sponsorzy">
   <PageHero kicker={t(lang, "sponsors.kicker")} title={t(lang, "sponsors.title")} lead={t(lang, "sponsors.lead")} />
 
-  <section class="section">
+  <!-- Dlaczego warto wspierać ŁKS — liczby i argumenty dla firm -->
+  <section class="section" aria-labelledby="why-h">
     <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">{sponsorom.kicker[lang]}</p>
+          <h2 id="why-h" class="h-lg">{sponsorom.tytul[lang]}</h2>
+          <p class="lead">{sponsorom.lead[lang]}</p>
+        </div>
+      </div>
+      <dl class="nums">
+        {
+          sponsorom.liczby.map((n) => (
+            <div class="reveal">
+              <dt>{n.wartosc}</dt>
+              <dd>{n.opis[lang]}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <ul class="why" role="list">
+        {
+          sponsorom.kafle.map((k, i) => (
+            <li class="why__item reveal" style={`--d:${i * 60}ms`}>
+              <FeatureIcon name={k.ikona} />
+              <h3 class="why__h">{k.tytul[lang]}</h3>
+              <p class="why__t">{k.tekst[lang]}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <a class="btn why__cta" href="#dla-firm">{sponsorom.cta[lang]} ↓</a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tiers-h">
+    <div class="wrap">
+      <h2 id="tiers-h" class="h-lg tiers-h">{t(lang, "sponsors.ours")}</h2>
       {
         groups.map((g) => (
           <div class="tier">
@@ -77,6 +115,68 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
 </Base>
 
 <style>
+  .nums {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 0 0 16px;
+  }
+  @media (min-width: 900px) {
+    .nums {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+  .nums > div {
+    padding: 18px 16px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .nums dt {
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(30px, 4.4vw, 48px);
+    line-height: 1;
+    color: var(--red);
+    white-space: nowrap;
+  }
+  .nums dd {
+    margin: 8px 0 0;
+    font-size: 15px;
+    line-height: 1.35;
+    color: var(--muted);
+  }
+  .why {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  }
+  .why__item {
+    padding: 20px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .why__h {
+    margin: 12px 0 6px;
+    font-size: clamp(20px, 2vw, 24px);
+    line-height: 1.1;
+  }
+  .why__t {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .why__cta {
+    margin-top: 20px;
+  }
+  .tiers-h {
+    margin: 0 0 clamp(20px, 3vw, 32px);
+  }
   .tier + .tier {
     margin-top: clamp(40px, 6vw, 64px);
   }

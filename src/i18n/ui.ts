@@ -15,6 +15,7 @@ export const ROUTES = {
   terminarz: { pl: "terminarz/", en: "en/fixtures/" },
   sztab: { pl: "sztab/", en: "en/staff/" },
   mlodziez: { pl: "grupy-mlodziezowe/", en: "en/youth/" },
+  historia: { pl: "historia/", en: "en/history/" },
   sponsorzy: { pl: "sponsorzy/", en: "en/sponsors/" },
   aktualnosci: { pl: "aktualnosci/", en: "en/news/" },
   kontakt: { pl: "kontakt/", en: "en/contact/" },
@@ -36,7 +37,7 @@ export function playerUrl(slug: string, lang: Lang): string {
   return lang === "pl" ? u(`sklad/${slug}/`) : u(`en/roster/${slug}/`);
 }
 
-export const NAV: RouteKey[] = ["start", "aktualnosci", "sklad", "terminarz", "sztab", "mlodziez", "sponsorzy", "kontakt"];
+export const NAV: RouteKey[] = ["start", "aktualnosci", "sklad", "terminarz", "sztab", "mlodziez", "historia", "sponsorzy", "kontakt"];
 
 export const ui = {
   pl: {
@@ -47,6 +48,7 @@ export const ui = {
     "nav.terminarz": "Terminarz",
     "nav.sztab": "Sztab",
     "nav.mlodziez": "Grupy młodzieżowe",
+    "nav.historia": "Historia",
     "nav.sponsorzy": "Sponsorzy",
     "nav.aktualnosci": "Aktualności",
     "nav.kontakt": "Kontakt",
@@ -63,6 +65,7 @@ export const ui = {
     "match.tickets": "Bilety",
     "match.preview": "Czytaj zapowiedź",
     "match.stream": "Oglądaj na Emocje.TV",
+    "match.calendar": "Dodaj do kalendarza",
     "match.streamNote": "Wszystkie mecze 1 Ligi na żywo w Emocje.TV (po wykupieniu subskrypcji).",
     "sched.tvTitle": "Transmisje na żywo",
     "sched.tvText": "Wszystkie mecze PZKosz 1 Ligi Mężczyzn, także ŁKS CoolPack Łódź, transmituje na żywo Emocje.TV — po wykupieniu subskrypcji.",
@@ -116,6 +119,10 @@ export const ui = {
     "table.releg": "Strefa spadkowa (15–16)",
     "table.source": "Źródło: Polski Związek Koszykówki (1lm.pzkosz.pl). Stan na",
     "last.kicker": "Ostatni mecz",
+    "last.top": "Najlepsi w meczu",
+    "last.pts": "pkt",
+    "last.reb": "zb.",
+    "last.ast": "as.",
     "last.place": "miejsce w tabeli",
     "last.table": "Zobacz tabelę",
     "sched.game": "mecz",
@@ -163,6 +170,13 @@ export const ui = {
     "stats.none": "Statystyki pojawią się po pierwszym meczu zawodnika w sezonie.",
     "swipe.hint": "Przesuń palcem — kolejny zawodnik",
 
+    "history.kicker": "ŁKS od 1908 roku",
+    "history.title": "Historia",
+    "history.meta": "Historia koszykówki mężczyzn w ŁKS Łódź od 1929 roku: mistrzostwo Polski 1953, brąz 1978, awans do ekstraklasy 2011 i powrót do 1. ligi.",
+    "history.success": "Największe sukcesy",
+    "history.timeline": "Kalendarium",
+    "history.facts": "Ciekawostki",
+    "history.source": "Źródło:",
     "youth.kicker": "ŁKS Koszykówka Męska",
     "youth.title": "Grupy młodzieżowe",
     "youth.lead": "Stowarzyszenie ŁKS Koszykówka Męska prowadzi drużyny chłopców od grup naborowych po 2. ligę. To pełna piramida szkoleniowa — chcemy, żeby nasi wychowankowie grali kiedyś w ŁKS CoolPack.",
@@ -188,6 +202,10 @@ export const ui = {
       "Chcesz, żeby Twoja firma wspierała ŁKS? Napisz albo zadzwoń — wspólnie ustalimy formę współpracy korzystną dla obu stron.",
     "sponsors.join.cta": "Skontaktuj się",
     "sponsors.strip": "Wspierają nas",
+    "sponsors.ours": "Nasi sponsorzy i partnerzy",
+    "venue.kicker": "Gdzie gramy u siebie",
+    "venue.map": "Jak dojechać",
+    "venue.fixtures": "Terminarz i bilety",
 
     "news.kicker": "Bądź na bieżąco",
     "news.title": "Aktualności",
@@ -242,6 +260,7 @@ export const ui = {
     "nav.terminarz": "Fixtures",
     "nav.sztab": "Staff",
     "nav.mlodziez": "Youth teams",
+    "nav.historia": "History",
     "nav.sponsorzy": "Sponsors",
     "nav.aktualnosci": "News",
     "nav.kontakt": "Contact",
@@ -258,6 +277,7 @@ export const ui = {
     "match.tickets": "Tickets",
     "match.preview": "Read the preview",
     "match.stream": "Watch on Emocje.TV",
+    "match.calendar": "Add to calendar",
     "match.streamNote": "Every 1st League game is streamed live on Emocje.TV (subscription required).",
     "sched.tvTitle": "Live streams",
     "sched.tvText": "Every PZKosz 1st League game, including ŁKS CoolPack Łódź, is streamed live on Emocje.TV — subscription required.",
@@ -311,6 +331,10 @@ export const ui = {
     "table.releg": "Relegation zone (15th–16th)",
     "table.source": "Source: Polish Basketball Federation (1lm.pzkosz.pl). Updated",
     "last.kicker": "Last game",
+    "last.top": "Top performers",
+    "last.pts": "pts",
+    "last.reb": "reb",
+    "last.ast": "ast",
     "last.place": "in the table",
     "last.table": "View table",
     "sched.game": "game",
@@ -358,6 +382,13 @@ export const ui = {
     "stats.none": "Stats will appear after the player's first game of the season.",
     "swipe.hint": "Swipe for the next player",
 
+    "history.kicker": "ŁKS since 1908",
+    "history.title": "History",
+    "history.meta": "The history of ŁKS Łódź men’s basketball since 1929: Polish champions in 1953, bronze in 1978, top-flight promotion in 2011 and a return to the 1st League.",
+    "history.success": "Greatest achievements",
+    "history.timeline": "Timeline",
+    "history.facts": "Did you know?",
+    "history.source": "Source:",
     "youth.kicker": "ŁKS Koszykówka Męska",
     "youth.title": "Youth teams",
     "youth.lead": "The ŁKS Koszykówka Męska association runs boys’ teams from beginner groups up to the 2nd League. It is a complete development pathway — we want our players to wear the ŁKS CoolPack shirt one day.",
@@ -383,6 +414,10 @@ export const ui = {
       "Would your company like to support ŁKS? Email or call us and we'll work out a partnership that suits both sides.",
     "sponsors.join.cta": "Get in touch",
     "sponsors.strip": "Our sponsors",
+    "sponsors.ours": "Our sponsors and partners",
+    "venue.kicker": "Our home arena",
+    "venue.map": "Directions",
+    "venue.fixtures": "Fixtures and tickets",
 
     "news.kicker": "Stay up to date",
     "news.title": "News",

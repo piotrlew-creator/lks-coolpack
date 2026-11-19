@@ -4,6 +4,8 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import PlayerCard from "../components/PlayerCard.astro";
 import StaffCard from "../components/StaffCard.astro";
+import FeatureIcon from "../components/FeatureIcon.astro";
+import { kibice } from "../data/marketing";
 import Social from "../components/Social.astro";
 import MatchCard from "../components/MatchCard.astro";
 import NewsCard from "../components/NewsCard.astro";
@@ -81,7 +83,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
       {
         mecz && (
           <div class="news-home__match reveal">
-            <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} />
+            <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} ics={mecz.ics} mapa={mecz.mapa} />
           </div>
         )
       }
@@ -89,7 +91,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
         /* Zapas: gdy najbliższy mecz już się skończył, a terminarz nie jest jeszcze zaktualizowany */
         mecz && kolejnyMecz && (
           <div class="news-home__match" data-zapas hidden>
-            <MatchCard lang={lang} data={kolejnyMecz.data} rywal={kolejnyMecz.rywal} dom={kolejnyMecz.dom} miejsce={kolejnyMecz.hala} bilety={kolejnyMecz.bilety} transmisja={kolejnyMecz.transmisja} />
+            <MatchCard lang={lang} data={kolejnyMecz.data} rywal={kolejnyMecz.rywal} dom={kolejnyMecz.dom} miejsce={kolejnyMecz.hala} bilety={kolejnyMecz.bilety} transmisja={kolejnyMecz.transmisja} ics={kolejnyMecz.ics} mapa={kolejnyMecz.mapa} />
           </div>
         )
       }
@@ -140,6 +142,42 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
     <ul class="rail rail--staff" role="list" aria-labelledby="sztab-title">
       {staff.map((s, i) => <li><StaffCard s={s} lang={lang} index={i} /></li>)}
     </ul>
+  </section>
+
+  <!-- ══════════════ PRZYJDŹ NA MECZ (dla kibiców) ══════════════ -->
+  <section class="section" aria-labelledby="mecz-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">{kibice.kicker[lang]}</p>
+          <h2 id="mecz-title" class="h-lg">{kibice.tytul[lang]}</h2>
+          <p class="lead">{kibice.lead[lang]}</p>
+        </div>
+      </div>
+      <ul class="feats" role="list">
+        {
+          kibice.kafle.map((k, i) => (
+            <li class="feat reveal" style={`--d:${i * 70}ms`}>
+              <FeatureIcon name={k.ikona} />
+              <h3 class="feat__h">{k.tytul[lang]}</h3>
+              <p class="feat__t">{k.tekst[lang]}</p>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="card card--accent venue reveal">
+        <div>
+          <p class="kicker">{t(lang, "venue.kicker")}</p>
+          <p class="venue__name">{klub.kontakt.hala.nazwa}</p>
+          <p class="venue__addr">{klub.kontakt.hala.adres}</p>
+          <p class="venue__note">{kibice.bilety[lang]}</p>
+        </div>
+        <div class="btn-row venue__btns">
+          <a class="btn" href={klub.kontakt.hala.mapa} target="_blank" rel="noopener">{t(lang, "venue.map")} ↗</a>
+          <a class="btn btn--ghost" href={route("terminarz", lang)}>{t(lang, "venue.fixtures")} →</a>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ══════════════ AKTUALNOŚCI / SOCIAL ══════════════ -->
@@ -462,6 +500,60 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
     .rail--staff {
       grid-template-columns: repeat(3, 1fr);
     }
+  }
+
+  /* -- Przyjdź na mecz: kafle z argumentami + hala ---------------- */
+  .feats {
+    list-style: none;
+    margin: 0 0 16px;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+  }
+  .feat {
+    padding: 20px;
+    border-radius: var(--radius);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .feat__h {
+    margin: 12px 0 6px;
+    font-size: clamp(20px, 2vw, 24px);
+    line-height: 1.1;
+  }
+  .feat__t {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .venue {
+    display: grid;
+    gap: 16px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .venue {
+      grid-template-columns: 1fr auto;
+    }
+  }
+  .venue__name {
+    margin: 0;
+    font-family: var(--font-cond);
+    font-weight: 800;
+    font-size: clamp(22px, 2.6vw, 30px);
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+  .venue__addr {
+    margin: 6px 0 0;
+    font-weight: 600;
+  }
+  .venue__note {
+    margin: 10px 0 0;
+    font-size: 15px;
+    color: var(--muted);
   }
 
   /* -- Logotypy sponsorów -------------------------------------- */

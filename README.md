@@ -87,3 +87,11 @@ Po meczu Claude pobiera nowe liczby skryptem `narzedzia/statystyki-pzkosz.js` i 
 
 `public/og/zawodnicy/<zawodnik>.jpg` i `public/og-image.jpg` generuje
 `python narzedzia/og_zawodnicy.py` (Python + Pillow). Przy zmianie zdjęć lub składu — uruchomić ponownie.
+
+## Po każdym meczu i przed meczem domowym
+
+- **Bilety** — ok. tydzień przed meczem domowym dopisz w `src/data/terminarz.json` do tego meczu pole `"bilety": "https://…"`. Przycisk „Bilety” pojawi się na karcie meczu i w terminarzu.
+- **Ostatni mecz** — `src/data/ostatni-mecz.json`: link do meczu (jak w terminarzu), krótkie podsumowanie PL/EN i trzech najlepszych zawodników (slug zawodnika, pkt, zbiórki, asysty). Pokazuje się tylko, gdy link zgadza się z ostatnim rozegranym meczem.
+- **Kalendarz** — pliki `.ics` dla każdego meczu budują się same z terminarza (`/kalendarz/<nr meczu>.ics`).
+- **Liczby dla kibiców i sponsorów** (obserwujący, frekwencja) — `src/data/marketing.ts`.
+- **Historia** — `src/data/historia.ts`.

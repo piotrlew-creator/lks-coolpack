@@ -26,7 +26,8 @@ export const klub = {
   // Oficjalna strona drużyny w serwisie ligi (terminarz, wyniki, statystyki)
   stronaLigi: "https://1lm.pzkosz.pl/druzyny/d/14303/lks-coolpack-lodz.html",
 
-  // Kontakt — biuro (uzupełnione); hala, bilety, sponsoring i media do uzupełnienia
+  // Kontakt — biuro i hala (uzupełnione); sponsoring i media do uzupełnienia.
+  // Bilety: link do konkretnego meczu wpisujemy w src/data/terminarz.json (pole "bilety").
   kontakt: {
     biuro: {
       // te same dane co na lkskmjunior.pl (biuro Stowarzyszenia ŁKS Koszykówka Męska)
@@ -37,7 +38,13 @@ export const klub = {
     sponsoring: { osoba: "", telefon: "", email: "" },
     media: { osoba: "", telefon: "", email: "" },
     bilety: { opis: "", link: "" },
-    hala: { nazwa: "", adres: "", mapa: "" },
+    // Hala — wszystkie mecze domowe ŁKS CoolPack
+    hala: {
+      nazwa: "Sport Arena Łódź im. Józefa „Ziuny” Żylińskiego",
+      nazwaKrotka: "Sport Arena Łódź",
+      adres: "al. Unii Lubelskiej 2, 94-020 Łódź",
+      mapa: "https://maps.app.goo.gl/MKyc4p7NLWHGsACMA",
+    },
   },
 
   // Transmisje na żywo — wszystkie mecze PZKosz 1 Ligi Mężczyzn (płatna subskrypcja).
@@ -60,6 +67,8 @@ export const klub = {
 export type Mecz = {
   data: string; // "2026-11-22T18:00" (czas polski). Po meczu karta sama się chowa.
   rywal: string;
+  ics?: string; // plik kalendarza dla tego meczu
+  mapa?: string; // mapa dojazdu (mecze domowe)
   dom: boolean; // true = gramy u siebie
   hala: string;
   bilety?: string; // link do biletów
