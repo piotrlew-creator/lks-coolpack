@@ -1,360 +1,246 @@
 {
   "sezon": "2026/2027",
   "zrodlo": "1lm.pzkosz.pl",
-  "aktualizacja": "2026-11-18",
+  "aktualizacja": "2026-11-19",
   "zawodnicy": {
-    "maciej-bender": {
-      "mecze": 8,
-      "wPiatce": 6,
-      "minuty": "140:49",
-      "minutyNaMecz": "17:36",
-      "punkty": 59,
-      "punktyNaMecz": 7.4,
-      "za2": {
-        "c": 20,
-        "w": 32
-      },
-      "za3": {
-        "c": 4,
-        "w": 6
-      },
-      "zGry": {
-        "c": 24,
-        "w": 38
-      },
-      "za1": {
-        "c": 7,
-        "w": 18
-      },
-      "zbiorki": 54,
-      "zbiorkiNaMecz": 6.8,
-      "asysty": 8,
-      "asystyNaMecz": 1.0,
-      "bloki": 2,
-      "blokiNaMecz": 0.3,
-      "eval": 92,
-      "evalNaMecz": 11.5,
-      "plusMinus": 67,
-      "straty": 10,
-      "stratyNaMecz": 1.3,
-      "przechwyty": 4,
-      "przechwytyNaMecz": 0.5,
-      "plusMinusNaMecz": 8.4
-    },
-    "igor-urban": {
-      "mecze": 5,
-      "wPiatce": 3,
-      "minuty": "32:05",
-      "minutyNaMecz": "06:25",
-      "punkty": 4,
-      "punktyNaMecz": 0.8,
-      "za2": {
-        "c": 2,
-        "w": 6
-      },
-      "za3": {
-        "c": 0,
-        "w": 2
-      },
-      "zGry": {
-        "c": 2,
-        "w": 8
-      },
-      "za1": {
-        "c": 0,
-        "w": 2
-      },
-      "zbiorki": 6,
-      "zbiorkiNaMecz": 1.2,
-      "asysty": 2,
-      "asystyNaMecz": 0.4,
-      "bloki": 0,
-      "blokiNaMecz": 0.0,
-      "eval": 1,
-      "evalNaMecz": 0.2,
-      "plusMinus": -21,
-      "straty": 4,
-      "stratyNaMecz": 0.8,
-      "przechwyty": 1,
-      "przechwytyNaMecz": 0.2,
-      "plusMinusNaMecz": -4.2
-    },
-    "marcin-tomaszewski": {
-      "mecze": 9,
-      "wPiatce": 6,
-      "minuty": "149:54",
-      "minutyNaMecz": "16:39",
-      "punkty": 68,
-      "punktyNaMecz": 7.6,
-      "za2": {
-        "c": 10,
-        "w": 15
-      },
-      "za3": {
-        "c": 12,
-        "w": 28
-      },
-      "zGry": {
-        "c": 22,
-        "w": 43
-      },
-      "za1": {
-        "c": 12,
-        "w": 14
-      },
-      "zbiorki": 13,
-      "zbiorkiNaMecz": 1.4,
-      "asysty": 10,
-      "asystyNaMecz": 1.1,
-      "bloki": 1,
-      "blokiNaMecz": 0.1,
-      "eval": 68,
-      "evalNaMecz": 7.6,
-      "plusMinus": 62,
-      "straty": 5,
-      "stratyNaMecz": 0.6,
-      "przechwyty": 4,
-      "przechwytyNaMecz": 0.4,
-      "plusMinusNaMecz": 6.9
-    },
-    "jalen-sullinger": {
-      "mecze": 9,
-      "wPiatce": 7,
-      "minuty": "239:04",
-      "minutyNaMecz": "26:33",
-      "punkty": 131,
-      "punktyNaMecz": 14.6,
-      "za2": {
-        "c": 33,
-        "w": 60
-      },
-      "za3": {
-        "c": 16,
-        "w": 44
-      },
-      "zGry": {
-        "c": 49,
-        "w": 104
-      },
-      "za1": {
-        "c": 17,
-        "w": 20
-      },
-      "zbiorki": 9,
-      "zbiorkiNaMecz": 1.0,
-      "asysty": 45,
-      "asystyNaMecz": 5.0,
-      "bloki": 0,
-      "blokiNaMecz": 0.0,
-      "eval": 113,
-      "evalNaMecz": 12.6,
-      "plusMinus": 86,
-      "straty": 23,
-      "stratyNaMecz": 2.6,
-      "przechwyty": 9,
-      "przechwytyNaMecz": 1.0,
-      "plusMinusNaMecz": 9.6
-    },
-    "marcel-ponitka": {
-      "mecze": 9,
-      "wPiatce": 9,
-      "minuty": "243:34",
-      "minutyNaMecz": "27:03",
-      "punkty": 111,
-      "punktyNaMecz": 12.3,
-      "za2": {
-        "c": 25,
-        "w": 52
-      },
-      "za3": {
-        "c": 8,
-        "w": 25
-      },
-      "zGry": {
-        "c": 33,
-        "w": 77
-      },
-      "za1": {
-        "c": 37,
-        "w": 55
-      },
-      "zbiorki": 46,
-      "zbiorkiNaMecz": 5.1,
-      "asysty": 43,
-      "asystyNaMecz": 4.8,
-      "bloki": 1,
-      "blokiNaMecz": 0.1,
-      "eval": 130,
-      "evalNaMecz": 14.4,
-      "plusMinus": 60,
-      "straty": 18,
-      "stratyNaMecz": 2.0,
-      "przechwyty": 9,
-      "przechwytyNaMecz": 1.0,
-      "plusMinusNaMecz": 6.7
-    },
-    "jakub-motylewski": {
-      "mecze": 6,
-      "wPiatce": 1,
-      "minuty": "49:56",
-      "minutyNaMecz": "08:19",
-      "punkty": 11,
-      "punktyNaMecz": 1.8,
-      "za2": {
-        "c": 1,
-        "w": 4
-      },
-      "za3": {
-        "c": 0,
-        "w": 0
-      },
-      "zGry": {
-        "c": 1,
-        "w": 4
-      },
-      "za1": {
-        "c": 9,
-        "w": 10
-      },
-      "zbiorki": 8,
-      "zbiorkiNaMecz": 1.3,
-      "asysty": 0,
-      "asystyNaMecz": 0.0,
-      "bloki": 1,
-      "blokiNaMecz": 0.2,
-      "eval": 14,
-      "evalNaMecz": 2.3,
-      "plusMinus": -8,
-      "straty": 3,
-      "stratyNaMecz": 0.5,
-      "przechwyty": 1,
-      "przechwytyNaMecz": 0.2,
-      "plusMinusNaMecz": -1.3
-    },
-    "iwo-mackowiak": {
-      "mecze": 8,
-      "wPiatce": 0,
-      "minuty": "75:08",
-      "minutyNaMecz": "09:23",
-      "punkty": 26,
-      "punktyNaMecz": 3.3,
-      "za2": {
-        "c": 0,
-        "w": 2
-      },
-      "za3": {
-        "c": 8,
-        "w": 23
-      },
-      "zGry": {
-        "c": 8,
-        "w": 25
-      },
-      "za1": {
-        "c": 2,
-        "w": 2
-      },
-      "zbiorki": 7,
-      "zbiorkiNaMecz": 0.9,
-      "asysty": 1,
-      "asystyNaMecz": 0.1,
-      "bloki": 1,
-      "blokiNaMecz": 0.1,
-      "eval": 16,
-      "evalNaMecz": 2.0,
-      "plusMinus": 11,
-      "straty": 3,
-      "stratyNaMecz": 0.4,
-      "przechwyty": 1,
-      "przechwytyNaMecz": 0.1,
-      "plusMinusNaMecz": 1.4
-    },
-    "adam-lapeta": {
-      "mecze": 9,
-      "wPiatce": 2,
-      "minuty": "164:38",
-      "minutyNaMecz": "18:17",
-      "punkty": 64,
-      "punktyNaMecz": 7.1,
-      "za2": {
-        "c": 21,
-        "w": 33
-      },
-      "za3": {
-        "c": 0,
-        "w": 0
-      },
-      "zGry": {
-        "c": 21,
-        "w": 33
-      },
-      "za1": {
-        "c": 22,
-        "w": 34
-      },
-      "zbiorki": 44,
-      "zbiorkiNaMecz": 4.9,
-      "asysty": 7,
-      "asystyNaMecz": 0.8,
-      "bloki": 12,
-      "blokiNaMecz": 1.3,
-      "eval": 99,
-      "evalNaMecz": 11.0,
-      "plusMinus": 27,
-      "straty": 9,
-      "stratyNaMecz": 1.0,
-      "przechwyty": 5,
-      "przechwytyNaMecz": 0.6,
-      "plusMinusNaMecz": 3.0
-    },
     "artur-labinowicz": {
-      "mecze": 9,
-      "wPiatce": 2,
-      "minuty": "219:44",
-      "minutyNaMecz": "24:24",
-      "punkty": 134,
-      "punktyNaMecz": 14.9,
+      "mecze": 10,
+      "wPiatce": 3,
+      "minuty": "246:51",
+      "minutyNaMecz": "24:41",
+      "punkty": 147,
+      "punktyNaMecz": 14.7,
       "za2": {
-        "c": 35,
-        "w": 60
+        "c": 39,
+        "w": 69
       },
       "za3": {
         "c": 15,
         "w": 40
       },
       "zGry": {
-        "c": 50,
-        "w": 100
+        "c": 54,
+        "w": 109
       },
       "za1": {
-        "c": 19,
-        "w": 28
+        "c": 24,
+        "w": 36
       },
-      "zbiorki": 46,
-      "zbiorkiNaMecz": 5.1,
+      "zbiorki": 52,
+      "zbiorkiNaMecz": 5.2,
       "asysty": 15,
-      "asystyNaMecz": 1.7,
+      "asystyNaMecz": 1.5,
       "bloki": 7,
-      "blokiNaMecz": 0.8,
-      "eval": 145,
-      "evalNaMecz": 16.1,
-      "plusMinus": 5,
-      "straty": 12,
-      "stratyNaMecz": 1.3,
+      "blokiNaMecz": 0.7,
+      "eval": 151,
+      "evalNaMecz": 15.1,
+      "plusMinus": 12,
+      "straty": 17,
+      "stratyNaMecz": 1.7,
       "przechwyty": 14,
-      "przechwytyNaMecz": 1.6,
-      "plusMinusNaMecz": 0.6
+      "przechwytyNaMecz": 1.4,
+      "plusMinusNaMecz": 1.2
+    },
+    "jalen-sullinger": {
+      "mecze": 10,
+      "wPiatce": 8,
+      "minuty": "265:23",
+      "minutyNaMecz": "26:32",
+      "punkty": 147,
+      "punktyNaMecz": 14.7,
+      "za2": {
+        "c": 37,
+        "w": 69
+      },
+      "za3": {
+        "c": 17,
+        "w": 47
+      },
+      "zGry": {
+        "c": 54,
+        "w": 116
+      },
+      "za1": {
+        "c": 22,
+        "w": 25
+      },
+      "zbiorki": 11,
+      "zbiorkiNaMecz": 1.1,
+      "asysty": 48,
+      "asystyNaMecz": 4.8,
+      "bloki": 0,
+      "blokiNaMecz": 0.0,
+      "eval": 125,
+      "evalNaMecz": 12.5,
+      "plusMinus": 105,
+      "straty": 25,
+      "stratyNaMecz": 2.5,
+      "przechwyty": 9,
+      "przechwytyNaMecz": 0.9,
+      "plusMinusNaMecz": 10.5
+    },
+    "marcel-ponitka": {
+      "mecze": 10,
+      "wPiatce": 10,
+      "minuty": "270:11",
+      "minutyNaMecz": "27:01",
+      "punkty": 136,
+      "punktyNaMecz": 13.6,
+      "za2": {
+        "c": 34,
+        "w": 65
+      },
+      "za3": {
+        "c": 8,
+        "w": 26
+      },
+      "zGry": {
+        "c": 42,
+        "w": 91
+      },
+      "za1": {
+        "c": 44,
+        "w": 63
+      },
+      "zbiorki": 52,
+      "zbiorkiNaMecz": 5.2,
+      "asysty": 48,
+      "asystyNaMecz": 4.8,
+      "bloki": 1,
+      "blokiNaMecz": 0.1,
+      "eval": 161,
+      "evalNaMecz": 16.1,
+      "plusMinus": 75,
+      "straty": 19,
+      "stratyNaMecz": 1.9,
+      "przechwyty": 11,
+      "przechwytyNaMecz": 1.1,
+      "plusMinusNaMecz": 7.5
+    },
+    "michal-kolodziej": {
+      "mecze": 10,
+      "wPiatce": 10,
+      "minuty": "277:13",
+      "minutyNaMecz": "27:43",
+      "punkty": 114,
+      "punktyNaMecz": 11.4,
+      "za2": {
+        "c": 33,
+        "w": 55
+      },
+      "za3": {
+        "c": 13,
+        "w": 34
+      },
+      "zGry": {
+        "c": 46,
+        "w": 89
+      },
+      "za1": {
+        "c": 9,
+        "w": 17
+      },
+      "zbiorki": 55,
+      "zbiorkiNaMecz": 5.5,
+      "asysty": 12,
+      "asystyNaMecz": 1.2,
+      "bloki": 2,
+      "blokiNaMecz": 0.2,
+      "eval": 128,
+      "evalNaMecz": 12.8,
+      "plusMinus": 64,
+      "straty": 15,
+      "stratyNaMecz": 1.5,
+      "przechwyty": 11,
+      "przechwytyNaMecz": 1.1,
+      "plusMinusNaMecz": 6.4
+    },
+    "marcin-tomaszewski": {
+      "mecze": 10,
+      "wPiatce": 6,
+      "minuty": "169:05",
+      "minutyNaMecz": "16:54",
+      "punkty": 74,
+      "punktyNaMecz": 7.4,
+      "za2": {
+        "c": 12,
+        "w": 20
+      },
+      "za3": {
+        "c": 12,
+        "w": 29
+      },
+      "zGry": {
+        "c": 24,
+        "w": 49
+      },
+      "za1": {
+        "c": 14,
+        "w": 16
+      },
+      "zbiorki": 17,
+      "zbiorkiNaMecz": 1.7,
+      "asysty": 12,
+      "asystyNaMecz": 1.2,
+      "bloki": 2,
+      "blokiNaMecz": 0.2,
+      "eval": 78,
+      "evalNaMecz": 7.8,
+      "plusMinus": 86,
+      "straty": 5,
+      "stratyNaMecz": 0.5,
+      "przechwyty": 5,
+      "przechwytyNaMecz": 0.5,
+      "plusMinusNaMecz": 8.6
+    },
+    "adam-lapeta": {
+      "mecze": 10,
+      "wPiatce": 3,
+      "minuty": "186:57",
+      "minutyNaMecz": "18:41",
+      "punkty": 69,
+      "punktyNaMecz": 6.9,
+      "za2": {
+        "c": 23,
+        "w": 40
+      },
+      "za3": {
+        "c": 0,
+        "w": 0
+      },
+      "zGry": {
+        "c": 23,
+        "w": 40
+      },
+      "za1": {
+        "c": 23,
+        "w": 36
+      },
+      "zbiorki": 52,
+      "zbiorkiNaMecz": 5.2,
+      "asysty": 7,
+      "asystyNaMecz": 0.7,
+      "bloki": 12,
+      "blokiNaMecz": 1.2,
+      "eval": 107,
+      "evalNaMecz": 10.7,
+      "plusMinus": 35,
+      "straty": 10,
+      "stratyNaMecz": 1.0,
+      "przechwyty": 7,
+      "przechwytyNaMecz": 0.7,
+      "plusMinusNaMecz": 3.5
     },
     "aleksander-lewandowski": {
-      "mecze": 7,
+      "mecze": 8,
       "wPiatce": 0,
-      "minuty": "143:13",
-      "minutyNaMecz": "20:27",
-      "punkty": 61,
-      "punktyNaMecz": 8.7,
+      "minuty": "155:51",
+      "minutyNaMecz": "19:28",
+      "punkty": 65,
+      "punktyNaMecz": 8.1,
       "za2": {
         "c": 13,
-        "w": 18
+        "w": 20
       },
       "za3": {
         "c": 9,
@@ -362,26 +248,64 @@
       },
       "zGry": {
         "c": 22,
-        "w": 35
+        "w": 37
       },
       "za1": {
-        "c": 8,
-        "w": 11
+        "c": 12,
+        "w": 17
       },
-      "zbiorki": 21,
-      "zbiorkiNaMecz": 3.0,
-      "asysty": 19,
-      "asystyNaMecz": 2.7,
+      "zbiorki": 23,
+      "zbiorkiNaMecz": 2.9,
+      "asysty": 20,
+      "asystyNaMecz": 2.5,
       "bloki": 2,
       "blokiNaMecz": 0.3,
-      "eval": 85,
-      "evalNaMecz": 12.1,
-      "plusMinus": 26,
-      "straty": 4,
+      "eval": 89,
+      "evalNaMecz": 11.1,
+      "plusMinus": 35,
+      "straty": 5,
       "stratyNaMecz": 0.6,
-      "przechwyty": 2,
-      "przechwytyNaMecz": 0.3,
-      "plusMinusNaMecz": 3.7
+      "przechwyty": 4,
+      "przechwytyNaMecz": 0.5,
+      "plusMinusNaMecz": 4.4
+    },
+    "maciej-bender": {
+      "mecze": 9,
+      "wPiatce": 6,
+      "minuty": "154:51",
+      "minutyNaMecz": "17:12",
+      "punkty": 64,
+      "punktyNaMecz": 7.1,
+      "za2": {
+        "c": 21,
+        "w": 35
+      },
+      "za3": {
+        "c": 5,
+        "w": 9
+      },
+      "zGry": {
+        "c": 26,
+        "w": 44
+      },
+      "za1": {
+        "c": 7,
+        "w": 19
+      },
+      "zbiorki": 61,
+      "zbiorkiNaMecz": 6.8,
+      "asysty": 8,
+      "asystyNaMecz": 0.9,
+      "bloki": 2,
+      "blokiNaMecz": 0.2,
+      "eval": 98,
+      "evalNaMecz": 10.9,
+      "plusMinus": 80,
+      "straty": 11,
+      "stratyNaMecz": 1.2,
+      "przechwyty": 4,
+      "przechwytyNaMecz": 0.4,
+      "plusMinusNaMecz": 8.9
     },
     "norbert-kulon": {
       "mecze": 7,
@@ -421,43 +345,119 @@
       "przechwytyNaMecz": 0.3,
       "plusMinusNaMecz": 0.1
     },
-    "michal-kolodziej": {
+    "iwo-mackowiak": {
       "mecze": 9,
-      "wPiatce": 9,
-      "minuty": "249:12",
-      "minutyNaMecz": "27:41",
-      "punkty": 108,
-      "punktyNaMecz": 12.0,
+      "wPiatce": 0,
+      "minuty": "80:00",
+      "minutyNaMecz": "08:53",
+      "punkty": 26,
+      "punktyNaMecz": 2.9,
       "za2": {
-        "c": 31,
-        "w": 52
+        "c": 0,
+        "w": 2
       },
       "za3": {
-        "c": 13,
-        "w": 34
+        "c": 8,
+        "w": 23
       },
       "zGry": {
-        "c": 44,
-        "w": 86
+        "c": 8,
+        "w": 25
       },
       "za1": {
-        "c": 7,
-        "w": 14
+        "c": 2,
+        "w": 2
       },
-      "zbiorki": 52,
-      "zbiorkiNaMecz": 5.8,
-      "asysty": 11,
-      "asystyNaMecz": 1.2,
-      "bloki": 2,
-      "blokiNaMecz": 0.2,
-      "eval": 115,
-      "evalNaMecz": 12.8,
-      "plusMinus": 49,
-      "straty": 15,
-      "stratyNaMecz": 1.7,
-      "przechwyty": 6,
-      "przechwytyNaMecz": 0.7,
-      "plusMinusNaMecz": 5.4
+      "zbiorki": 7,
+      "zbiorkiNaMecz": 0.8,
+      "asysty": 1,
+      "asystyNaMecz": 0.1,
+      "bloki": 1,
+      "blokiNaMecz": 0.1,
+      "eval": 16,
+      "evalNaMecz": 1.8,
+      "plusMinus": 17,
+      "straty": 3,
+      "stratyNaMecz": 0.3,
+      "przechwyty": 1,
+      "przechwytyNaMecz": 0.1,
+      "plusMinusNaMecz": 1.9
+    },
+    "jakub-motylewski": {
+      "mecze": 7,
+      "wPiatce": 1,
+      "minuty": "60:35",
+      "minutyNaMecz": "08:39",
+      "punkty": 14,
+      "punktyNaMecz": 2.0,
+      "za2": {
+        "c": 2,
+        "w": 5
+      },
+      "za3": {
+        "c": 0,
+        "w": 0
+      },
+      "zGry": {
+        "c": 2,
+        "w": 5
+      },
+      "za1": {
+        "c": 10,
+        "w": 12
+      },
+      "zbiorki": 13,
+      "zbiorkiNaMecz": 1.9,
+      "asysty": 2,
+      "asystyNaMecz": 0.3,
+      "bloki": 1,
+      "blokiNaMecz": 0.1,
+      "eval": 22,
+      "evalNaMecz": 3.1,
+      "plusMinus": -2,
+      "straty": 4,
+      "stratyNaMecz": 0.6,
+      "przechwyty": 1,
+      "przechwytyNaMecz": 0.1,
+      "plusMinusNaMecz": -0.3
+    },
+    "igor-urban": {
+      "mecze": 6,
+      "wPiatce": 3,
+      "minuty": "40:20",
+      "minutyNaMecz": "06:43",
+      "punkty": 7,
+      "punktyNaMecz": 1.2,
+      "za2": {
+        "c": 2,
+        "w": 6
+      },
+      "za3": {
+        "c": 1,
+        "w": 3
+      },
+      "zGry": {
+        "c": 3,
+        "w": 9
+      },
+      "za1": {
+        "c": 0,
+        "w": 2
+      },
+      "zbiorki": 7,
+      "zbiorkiNaMecz": 1.2,
+      "asysty": 2,
+      "asystyNaMecz": 0.3,
+      "bloki": 0,
+      "blokiNaMecz": 0.0,
+      "eval": 5,
+      "evalNaMecz": 0.8,
+      "plusMinus": -18,
+      "straty": 4,
+      "stratyNaMecz": 0.7,
+      "przechwyty": 1,
+      "przechwytyNaMecz": 0.2,
+      "plusMinusNaMecz": -3.0
     }
   }
 }

@@ -1,13 +1,31 @@
 {
   "_opis": "Podsumowanie ostatniego meczu na stronie startowej. Aktualizowane po każdym meczu. Pokazuje się tylko, gdy 'link' = link ostatniego rozegranego meczu w terminarz.json.",
-  "link": "https://1lm.pzkosz.pl/mecz/223955/lks-coolpack-lodz---solvera-sokol-lancut.html",
+  "link": "https://1lm.pzkosz.pl/mecz/223957/datzzy-kotwica-port-kolobrzeg---lks-coolpack-lodz.html",
   "podsumowanie": {
-    "pl": "Zacięty mecz z 10 remisami. Po trzech kwartach był remis 67:67, w czwartej ŁKS prowadził już 81:74, ale Sokół odwrócił wynik w końcówce. Na trybunach 1047 kibiców.",
-    "en": "A tight game with 10 ties. It was 67–67 after three quarters and ŁKS led 81–74 in the fourth, but Sokół turned it around late on. 1,047 fans in the stands."
+    "pl": "Pewna wygrana na wyjeździe. ŁKS prowadził przez prawie cały mecz, po trzech kwartach wygrywał 61:52, a czwartą kwartę rozstrzygnął 25:9. Wyraźna przewaga pod koszami: 47 zbiórek wobec 33 rywali. W Kołobrzegu 780 widzów.",
+    "en": "A comfortable away win. ŁKS led for almost the entire game, were 61–52 up after three quarters and won the fourth 25–9. Dominant on the boards too: 47 rebounds to 33. Attendance in Kołobrzeg: 780."
   },
   "najlepsi": [
-    { "zawodnik": "artur-labinowicz", "pkt": 19, "zb": 5, "as": 3, "eval": 20 },
-    { "zawodnik": "jalen-sullinger", "pkt": 23, "zb": 3, "as": 6, "eval": 19 },
-    { "zawodnik": "adam-lapeta", "pkt": 15, "zb": 4, "as": 0, "eval": 18 }
+    {
+      "zawodnik": "marcel-ponitka",
+      "pkt": 25,
+      "zb": 6,
+      "as": 5,
+      "eval": 31
+    },
+    {
+      "zawodnik": "michal-kolodziej",
+      "pkt": 6,
+      "zb": 3,
+      "as": 1,
+      "eval": 13
+    },
+    {
+      "zawodnik": "jalen-sullinger",
+      "pkt": 16,
+      "zb": 2,
+      "as": 3,
+      "eval": 12
+    }
   ]
 }

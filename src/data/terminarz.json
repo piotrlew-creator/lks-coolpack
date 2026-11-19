@@ -2,7 +2,7 @@
   "sezon": "2026/2027",
   "rozgrywki": "1. Liga Mężczyzn",
   "zrodlo": "https://1lm.pzkosz.pl/druzyny/d/14303/lks-coolpack-lodz/1.html",
-  "aktualizacja": "2026-11-18",
+  "aktualizacja": "2026-11-19",
   "miasta": {
     "SKS Fulimpex Starogard Gdański": "Starogard Gdański",
     "GKS Tychy": "Tychy",
@@ -115,7 +115,10 @@
       "data": "2026-11-19T18:00",
       "gospodarz": "Datzzy Kotwica Port Kołobrzeg",
       "gosc": "ŁKS Coolpack Łódź",
-      "wynik": null,
+      "wynik": [
+        61,
+        86
+      ],
       "link": "https://1lm.pzkosz.pl/mecz/223957/datzzy-kotwica-port-kolobrzeg---lks-coolpack-lodz.html"
     },
     {

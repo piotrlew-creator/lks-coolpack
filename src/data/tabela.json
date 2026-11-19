@@ -1,7 +1,7 @@
 {
   "sezon": "2026/2027",
   "zrodlo": "https://1lm.pzkosz.pl/tabele.html",
-  "aktualizacja": "2026-11-18",
+  "aktualizacja": "2026-11-19",
   "druzyny": [
     {
       "miejsce": 1,
@@ -30,6 +30,31 @@
     },
     {
       "miejsce": 2,
+      "druzyna": "ŁKS Coolpack Łódź",
+      "pkt": 17,
+      "mecze": 10,
+      "bilans": [
+        7,
+        3
+      ],
+      "dom": [
+        3,
+        1
+      ],
+      "wyjazd": [
+        4,
+        2
+      ],
+      "kosze": [
+        890,
+        792
+      ],
+      "roznica": 98,
+      "strefa": "playoff",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/14303/lks-coolpack-lodz.html"
+    },
+    {
+      "miejsce": 3,
       "druzyna": "PGE Spójnia Stargard",
       "pkt": 16,
       "mecze": 9,
@@ -54,7 +79,7 @@
       "link": "https://1lm.pzkosz.pl/druzyny/d/3022/pge-spojnia-stargard.html"
     },
     {
-      "miejsce": 3,
+      "miejsce": 4,
       "druzyna": "Enea Basket Poznań",
       "pkt": 15,
       "mecze": 9,
@@ -77,31 +102,6 @@
       "roznica": 60,
       "strefa": "playoff",
       "link": "https://1lm.pzkosz.pl/druzyny/d/7641/enea-basket-poznan.html"
-    },
-    {
-      "miejsce": 4,
-      "druzyna": "ŁKS Coolpack Łódź",
-      "pkt": 15,
-      "mecze": 9,
-      "bilans": [
-        6,
-        3
-      ],
-      "dom": [
-        3,
-        1
-      ],
-      "wyjazd": [
-        3,
-        2
-      ],
-      "kosze": [
-        804,
-        731
-      ],
-      "roznica": 73,
-      "strefa": "playoff",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/14303/lks-coolpack-lodz.html"
     },
     {
       "miejsce": 5,
@@ -205,6 +205,31 @@
     },
     {
       "miejsce": 9,
+      "druzyna": "Datzzy Kotwica Port Kołobrzeg",
+      "pkt": 14,
+      "mecze": 10,
+      "bilans": [
+        4,
+        6
+      ],
+      "dom": [
+        1,
+        4
+      ],
+      "wyjazd": [
+        3,
+        2
+      ],
+      "kosze": [
+        867,
+        888
+      ],
+      "roznica": -21,
+      "strefa": "",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/14306/datzzy-kotwica-port-kolobrzeg.html"
+    },
+    {
+      "miejsce": 10,
       "druzyna": "Solvera Sokół Łańcut",
       "pkt": 14,
       "mecze": 9,
@@ -229,7 +254,7 @@
       "link": "https://1lm.pzkosz.pl/druzyny/d/12772/solvera-sokol-lancut.html"
     },
     {
-      "miejsce": 10,
+      "miejsce": 11,
       "druzyna": "GKS Tychy",
       "pkt": 13,
       "mecze": 9,
@@ -252,31 +277,6 @@
       "roznica": 4,
       "strefa": "",
       "link": "https://1lm.pzkosz.pl/druzyny/d/785/gks-tychy.html"
-    },
-    {
-      "miejsce": 11,
-      "druzyna": "Datzzy Kotwica Port Kołobrzeg",
-      "pkt": 13,
-      "mecze": 9,
-      "bilans": [
-        4,
-        5
-      ],
-      "dom": [
-        1,
-        3
-      ],
-      "wyjazd": [
-        3,
-        2
-      ],
-      "kosze": [
-        806,
-        802
-      ],
-      "roznica": 4,
-      "strefa": "",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/14306/datzzy-kotwica-port-kolobrzeg.html"
     },
     {
       "miejsce": 12,

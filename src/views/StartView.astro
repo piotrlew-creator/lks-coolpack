@@ -39,7 +39,9 @@ const wszystkie = await aktualnosci();
 // Zapowiedź najbliższego meczu nie dubluje karty meczu powyżej
 // Grafika meczowa = zdjęcie we wpisie o danym meczu
 const plakat = (d?: string) => (d ? wszystkie.find((w) => w.data.mecz?.data === d)?.data.zdjecie : undefined);
-const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)).slice(0, 3);
+// Zapowiedź meczu, który już się odbył, znika z listy (wpis zostaje pod swoim adresem)
+const polskaTeraz = new Date().toLocaleString("sv-SE", { timeZone: "Europe/Warsaw" }).replace(" ", "T").slice(0, 16);
+const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data) && !(w.data.mecz && w.data.mecz.data < polskaTeraz)).slice(0, 3);
 ---
 
 <Base lang={lang} alt={{ pl: u(ROUTES.start.pl), en: u(ROUTES.start.en) }} active="start">
