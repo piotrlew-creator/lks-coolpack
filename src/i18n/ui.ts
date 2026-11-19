@@ -37,7 +37,7 @@ export function playerUrl(slug: string, lang: Lang): string {
   return lang === "pl" ? u(`sklad/${slug}/`) : u(`en/roster/${slug}/`);
 }
 
-export const NAV: RouteKey[] = ["start", "aktualnosci", "sklad", "terminarz", "sztab", "mlodziez", "historia", "sponsorzy", "kontakt"];
+export const NAV: RouteKey[] = ["start", "aktualnosci", "sklad", "sztab", "terminarz", "mlodziez", "historia", "sponsorzy", "kontakt"];
 
 export const ui = {
   pl: {

@@ -25,6 +25,40 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
 <Base lang={lang} title={t(lang, "sponsors.title")} description={t(lang, "sponsors.meta")} alt={{ pl: u(ROUTES.sponsorzy.pl), en: u(ROUTES.sponsorzy.en) }} active="sponsorzy">
   <PageHero kicker={t(lang, "sponsors.kicker")} title={t(lang, "sponsors.title")} lead={t(lang, "sponsors.lead")} />
 
+  <!-- Nasi sponsorzy i partnerzy — na samej górze -->
+  <section class="section" aria-labelledby="tiers-h">
+    <div class="wrap">
+      <h2 id="tiers-h" class="h-lg tiers-h">{t(lang, "sponsors.ours")}</h2>
+      {
+        groups.map((g) => (
+          <div class="tier">
+            <h2 class="tier__h">{poziomGrupa(g.lvl, g.items.length, lang)}</h2>
+            <ul class:list={["tier__list", { "tier__list--top": g.lvl === "Sponsor tytularny", "tier__list--mid": g.lvl === "Sponsor strategiczny" }]} role="list">
+              {g.items.map((s) => {
+                // sponsor bez strony www: kafel bez linku
+                const Tag = s.data.link ? "a" : "div";
+                const linkProps = s.data.link ? { href: s.data.link, target: "_blank", rel: "noopener" } : {};
+                return (
+                  <li class="reveal">
+                    <Tag class:list={["sp", { "sp--nolink": !s.data.link }]} {...linkProps}>
+                      {s.data.logo ? (
+                        <>
+                          <Image src={s.data.logo} alt={s.data.nazwa} height={g.lvl === "Sponsor tytularny" ? 96 : g.lvl === "Sponsor strategiczny" ? 80 : 64} />
+                        </>
+                      ) : (
+                        <span class="sp__name">{s.data.nazwa}</span>
+                      )}
+                    </Tag>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
   <!-- Dlaczego warto wspierać ŁKS — liczby i argumenty dla firm -->
   <section class="section" aria-labelledby="why-h">
     <div class="wrap">
@@ -57,39 +91,6 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
         }
       </ul>
       <a class="btn why__cta" href="#dla-firm">{sponsorom.cta[lang]}</a>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="tiers-h">
-    <div class="wrap">
-      <h2 id="tiers-h" class="h-lg tiers-h">{t(lang, "sponsors.ours")}</h2>
-      {
-        groups.map((g) => (
-          <div class="tier">
-            <h2 class="tier__h">{poziomGrupa(g.lvl, g.items.length, lang)}</h2>
-            <ul class:list={["tier__list", { "tier__list--top": g.lvl === "Sponsor tytularny", "tier__list--mid": g.lvl === "Sponsor strategiczny" }]} role="list">
-              {g.items.map((s) => {
-                // sponsor bez strony www: kafel bez linku
-                const Tag = s.data.link ? "a" : "div";
-                const linkProps = s.data.link ? { href: s.data.link, target: "_blank", rel: "noopener" } : {};
-                return (
-                  <li class="reveal">
-                    <Tag class:list={["sp", { "sp--nolink": !s.data.link }]} {...linkProps}>
-                      {s.data.logo ? (
-                        <>
-                          <Image src={s.data.logo} alt={s.data.nazwa} height={g.lvl === "Sponsor tytularny" ? 96 : g.lvl === "Sponsor strategiczny" ? 80 : 64} />
-                        </>
-                      ) : (
-                        <span class="sp__name">{s.data.nazwa}</span>
-                      )}
-                    </Tag>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))
-      }
     </div>
   </section>
 
