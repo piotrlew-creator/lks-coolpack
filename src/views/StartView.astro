@@ -51,9 +51,6 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
           <span class="hero__t1">ŁKS</span>{" "}<span class="hero__t2">CoolPack <span class="nw">Łódź</span></span>
         </h1>
         <p class="hero__sub">{t(lang, "hero.sub")}</p>
-        <div class="btn-row">
-          <a class="btn" href={route("sklad", lang)}>{t(lang, "hero.cta.team")}</a>
-        </div>
       </div>
     </div>
     {
@@ -288,8 +285,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
     .hero__t2 {
       font-size: 34px;
     }
-    .hero__sub,
-    .hero .btn-row {
+    .hero__sub {
       grid-column: 1 / -1;
     }
     .hero__sub {
@@ -301,14 +297,12 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
   @media (prefers-reduced-motion: no-preference) {
     .hero__t1,
     .hero__t2,
-    .hero__sub,
-    .hero .btn-row {
+    .hero__sub {
       animation: hero-in 800ms var(--ease) both;
     }
     .hero__t1 { animation-delay: 200ms; }
     .hero__t2 { animation-delay: 300ms; }
     .hero__sub { animation-delay: 400ms; }
-    .hero .btn-row { animation-delay: 480ms; }
     .hero__crest {
       animation: hero-crest 900ms 100ms var(--ease) both;
     }

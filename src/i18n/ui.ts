@@ -57,7 +57,6 @@ export const ui = {
 
     "hero.sub":
       "ŁKS to klub z tradycją sięgającą 1908 roku. Nasi koszykarze grają w 1. lidze i walczą o awans do ekstraklasy.",
-    "hero.cta.team": "Poznaj skład",
     "match.kicker": "Najbliższy mecz",
     "match.home": "U siebie",
     "match.away": "Na wyjeździe",
@@ -249,7 +248,6 @@ export const ui = {
 
     "hero.sub":
       "ŁKS is a club with a history going back to 1908. Our basketball team plays in the Polish 1st League and is pushing for promotion to the top flight.",
-    "hero.cta.team": "See the roster",
     "match.kicker": "Next game",
     "match.home": "Home",
     "match.away": "Away",
