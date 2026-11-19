@@ -22,7 +22,7 @@ export const sukcesy: { rok: string; tytul: T; opis: T }[] = [
     rok: "1978",
     tytul: { pl: "Brązowy medal mistrzostw Polski", en: "Bronze medal in the Polish league" },
     opis: {
-      pl: "Pod wodzą Bolesława Kwiatkowskiego ŁKS stanął na podium, a Wojciech Fiedorczuk został uznany najlepszym koszykarzem sezonu. Medal dał jedyny w historii start w europejskim Pucharze Koracia.",
+      pl: "Pod wodzą Bolesława Kwiatkowskiego ŁKS stanął na podium, a Wojciech Fiedorczuk został uznany najlepszym koszykarzem sezonu. Dzięki medalowi klub jedyny raz w historii zagrał w europejskim Pucharze Koracia.",
       en: "Under coach Bolesław Kwiatkowski ŁKS made the podium, and Wojciech Fiedorczuk was named the player of the season. The medal earned the club its only appearance in Europe’s Korać Cup.",
     },
   },
@@ -46,18 +46,18 @@ export const sukcesy: { rok: string; tytul: T; opis: T }[] = [
 
 export const kalendarium: { rok: string; tekst: T }[] = [
   { rok: "1908", tekst: { pl: "Powstaje Łódzki Klub Sportowy.", en: "Łódzki Klub Sportowy is founded." } },
-  { rok: "1924", tekst: { pl: "Pierwszy mecz koszykarzy ŁKS — wygrana z AZS Warszawa 20:4.", en: "First ŁKS basketball game — a 20:4 win over AZS Warszawa." } },
-  { rok: "1929", tekst: { pl: "Założenie sekcji koszykówki i pierwsze mistrzostwo Łodzi (19:12 z IKP w finale).", en: "The basketball section is founded and wins its first Łódź championship (19:12 against IKP in the final)." } },
+  { rok: "1924", tekst: { pl: "Pierwszy mecz koszykarzy ŁKS — wygrana z AZS Warszawa 20:4.", en: "First ŁKS basketball game — a 20–4 win over AZS Warszawa." } },
+  { rok: "1929", tekst: { pl: "Założenie sekcji koszykówki i pierwsze mistrzostwo Łodzi (19:12 z IKP w finale).", en: "The basketball section is founded and wins its first Łódź championship (19–12 against IKP in the final)." } },
   { rok: "1945", tekst: { pl: "Po wojnie sekcję reaktywują Witold Bujnowicz, Wacław Kowalczyk, Czesław Raczyński i Eugeniusz Zemełka.", en: "After the war the section is revived by Witold Bujnowicz, Wacław Kowalczyk, Czesław Raczyński and Eugeniusz Zemełka." } },
   { rok: "1953", tekst: { pl: "Mistrzostwo Polski z trenerem Andrzejem Kuleszą.", en: "Polish champions under coach Andrzej Kulesza." } },
   { rok: "1957", tekst: { pl: "ŁKS pokonuje mistrza Polski, Legię Warszawa, po pięciu dogrywkach — to jeden z najdłuższych meczów w historii polskiej koszykówki mężczyzn.", en: "ŁKS beats the Polish champions Legia Warszawa after five overtimes — one of the longest games in the history of Polish men’s basketball." } },
   { rok: "1978", tekst: { pl: "Brązowy medal mistrzostw Polski i start w Pucharze Koracia (rywal: Inter Bratysława).", en: "Bronze medal in the Polish league and a Korać Cup campaign (against Inter Bratislava)." } },
-  { rok: "1999", tekst: { pl: "Pierwszy w historii spadek do III ligi.", en: "First-ever relegation to the third division." } },
+  { rok: "1999", tekst: { pl: "Pierwszy w historii spadek do 3. ligi.", en: "First-ever relegation to the third division." } },
   { rok: "2002", tekst: { pl: "W drużynie juniorów ŁKS zaczyna trenować Marcin Gortat — później gracz NBA.", en: "Marcin Gortat — later an NBA player — starts training with the ŁKS juniors." } },
-  { rok: "2008", tekst: { pl: "Awans do I ligi pod wodzą Piotra Zycha.", en: "Promotion to the 1st League under Piotr Zych." } },
+  { rok: "2008", tekst: { pl: "Awans do 1. ligi pod wodzą Piotra Zycha.", en: "Promotion to the 1st League under Piotr Zych." } },
   { rok: "2011", tekst: { pl: "Awans do ekstraklasy, również z trenerem Zychem.", en: "Promotion to the top flight, again with coach Zych." } },
-  { rok: "2012", tekst: { pl: "Wycofanie z ekstraklasy i nowy start od III ligi.", en: "Withdrawal from the top flight and a fresh start in the third division." } },
-  { rok: "2024", tekst: { pl: "Awans do I ligi — drugiego poziomu rozgrywek.", en: "Promotion to the 1st League — the second tier." } },
+  { rok: "2012", tekst: { pl: "Wycofanie z ekstraklasy i nowy start od 3. ligi.", en: "Withdrawal from the top flight and a fresh start in the third division." } },
+  { rok: "2024", tekst: { pl: "Awans do 1. ligi — drugiego poziomu rozgrywek.", en: "Promotion to the 1st League — the second tier." } },
 ];
 
 export const ciekawostki: T[] = [

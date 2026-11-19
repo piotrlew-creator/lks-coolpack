@@ -12,7 +12,7 @@ kafel: "../../assets/zawodnicy/maciej-bender-kafel.jpg" # kafel w składzie i na
 opis: |
   Przyszedł do ŁKS przed sezonem 2026/2027 z Tauron GTK Gliwice.
 
-  Ma duże doświadczenie z ekstraklasy — grał w niej też w Dzikach Warszawa i Śląsku Wrocław.
+  Ma duże doświadczenie w ekstraklasie — grał w niej też w Dzikach Warszawa i Śląsku Wrocław.
 opisEn: |
   Joined ŁKS before the 2026/2027 season from Tauron GTK Gliwice.
 

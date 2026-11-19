@@ -19,23 +19,23 @@ export const kibice = {
   tytul: { pl: "Przyjdź na mecz!", en: "Come to a game!" },
   lead: {
     pl: "Każdy mecz ŁKS CoolPack w Sport Arenie to sportowe emocje i wydarzenie dla całej rodziny — coś dla siebie znajdą dorośli, nastolatki i dzieciaki.",
-    en: "Every ŁKS CoolPack game at Sport Arena is a night of sporting drama and a day out for the whole family — something for adults, teenagers and kids alike.",
+    en: "Every ŁKS CoolPack game at Sport Arena is packed with sporting drama and fun for the whole family — adults, teenagers and kids alike.",
   },
   kafle: [
     {
       ikona: "fans",
       tytul: { pl: `${liczby.kibice} kibiców`, en: `${liczby.kibice} fans` },
       tekst: {
-        pl: "Średnio tylu kibiców dopinguje ŁKS na każdym meczu w Łodzi. Głośno, biało-czerwono, z tradycją od 1908 roku.",
-        en: "That is the average crowd backing ŁKS at every home game in Łódź. Loud, red and white, with a tradition going back to 1908.",
+        pl: "Tylu kibiców średnio dopinguje ŁKS na meczach w Łodzi. Głośno, biało-czerwono, z tradycją od 1908 roku.",
+        en: "That's the average crowd backing ŁKS at home games in Łódź. Loud, red and white, with a tradition going back to 1908.",
       },
     },
     {
       ikona: "prize",
-      tytul: { pl: "Konkursy z nagrodami", en: "Contests and prizes" },
+      tytul: { pl: "Konkursy z nagrodami", en: "Competitions with prizes" },
       tekst: {
         pl: "Na każdym meczu domowym organizujemy konkursy dla kibiców z nagrodami od naszych sponsorów.",
-        en: "At every home game we run contests for fans, with prizes from our sponsors.",
+        en: "At every home game we run competitions for fans, with prizes from our sponsors.",
       },
     },
     {
@@ -56,7 +56,7 @@ export const kibice = {
     },
   ] satisfies Kafel[],
   bilety: {
-    pl: "Bilety na mecz domowy pojawiają się około tydzień wcześniej — przy meczu w terminarzu.",
+    pl: "Bilety na każdy mecz domowy pojawiają się około tygodnia przed meczem. Link znajdziesz przy meczu w terminarzu.",
     en: "Tickets for each home game go on sale about a week before — look for them in the fixtures list.",
   },
 };
@@ -66,12 +66,12 @@ export const sponsorom = {
   kicker: { pl: "Dla firm", en: "For businesses" },
   tytul: { pl: "Dlaczego warto wspierać ŁKS", en: "Why partner with ŁKS" },
   lead: {
-    pl: "Wspierając ŁKS CoolPack, łączysz swoją markę z drużyną, która walczy o ekstraklasę, z pełnymi trybunami, z dużą społecznością w sieci i z setkami młodych koszykarzy z Łodzi.",
+    pl: "Wspierając ŁKS CoolPack, łączysz swoją markę z drużyną walczącą o ekstraklasę, pełnymi trybunami, dużą społecznością w sieci i setkami młodych koszykarzy z Łodzi.",
     en: "Backing ŁKS CoolPack links your brand with a team chasing promotion to the top flight, packed stands, a big online community and hundreds of young players from Łódź.",
   },
   liczby: [
     { wartosc: liczby.facebook, opis: { pl: "obserwujących na Facebooku", en: "Facebook followers" } },
-    { wartosc: liczby.kibice, opis: { pl: "kibiców na każdym meczu w Łodzi", en: "fans at every home game" } },
+    { wartosc: liczby.kibice, opis: { pl: "kibiców średnio na meczu w Łodzi", en: "average home crowd" } },
     { wartosc: "100%", opis: { pl: "meczów na żywo w Emocje.TV", en: "of games live on Emocje.TV" } },
     { wartosc: liczby.mlodziez, opis: { pl: "młodych zawodników w grupach ŁKS", en: "young players in ŁKS youth teams" } },
   ],
@@ -89,7 +89,7 @@ export const sponsorom = {
       tytul: { pl: "Pełne trybuny i rodzinne wydarzenie", en: "Packed stands, family events" },
       tekst: {
         pl: `Na każdy mecz w Sport Arenie przychodzi średnio ${liczby.kibice} kibiców. Konkursy z nagrodami od sponsorów i atrakcje dla dzieci sprawiają, że Twoja marka jest częścią wydarzenia dla całych rodzin.`,
-        en: `Every game at Sport Arena draws ${liczby.kibice} fans on average. Contests with sponsor prizes and activities for kids put your brand at the heart of a family event.`,
+        en: `Every game at Sport Arena draws ${liczby.kibice} fans on average. Competitions with sponsor prizes and activities for kids put your brand at the heart of a family event.`,
       },
     },
     {
@@ -104,8 +104,8 @@ export const sponsorom = {
       ikona: "youth",
       tytul: { pl: "Młodzież i lokalna społeczność", en: "Youth and the local community" },
       tekst: {
-        pl: "Seniorzy to szczyt piramidy szkoleniowej: w 15 drużynach i grupach młodzieżowych ŁKS trenuje ok. 250 chłopców z Łodzi i okolic. Wspierając ŁKS, wspierasz łódzki sport i dzieci.",
-        en: "The senior team sits at the top of a full development pathway: around 250 boys from Łódź and the area train in 15 ŁKS youth teams. Supporting ŁKS means supporting local sport and kids.",
+        pl: "Seniorzy to szczyt piramidy szkoleniowej: w 15 drużynach i grupach młodzieżowych ŁKS trenuje ok. 250 chłopców z Łodzi i okolic. Wspierając ŁKS, wspierasz łódzki sport i młodzież.",
+        en: "The senior team sits at the top of a full development pathway: around 250 boys from Łódź and the area train in 15 ŁKS youth teams. Supporting ŁKS means supporting local sport and young people.",
       },
     },
     {

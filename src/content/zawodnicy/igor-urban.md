@@ -14,7 +14,7 @@ opis: |
 
   Koszykówki uczył się w Suchym Lesie i Poznaniu.
 opisEn: |
-  The youngest player on the roster. With ŁKS since 2023/2024, he also plays for ŁKS II Politechnika Łódzka in the 2nd League.
+  The youngest player on the roster. With ŁKS since 2023/2024. Alongside the 1st League team, he also plays for ŁKS II Politechnika Łódzka in the 2nd League.
 
   He learned the game in Suchy Las and Poznań.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L
