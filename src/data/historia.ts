@@ -73,7 +73,7 @@ export const kalendarium: { rok: string; tekst: T }[] = [
 
 export const ciekawostki: T[] = [
   {
-    pl: "W decydującym meczu o mistrzostwo Polski w 1953 roku Wiesław Jańczyk zdobył **28 z 56 punktów** ŁKS. To jedyny zawodnik, który z ŁKS wywalczył mistrzostwo Polski w koszykówce (1953) i w piłce nożnej (1958).",
+    pl: "W decydującym meczu o mistrzostwo Polski w 1953 roku Wiesław Jańczyk zdobył **28 z 56 punktów** ŁKS. To jedyny zawodnik, który z ŁKS wywalczył mistrzostwo Polski w koszykówce (1953) i w piłce nożnej (1958).",
     en: "In the decisive game for the 1953 Polish title Wiesław Jańczyk scored **28 of ŁKS’s 56 points**. He is the only player to win the Polish title with ŁKS in both basketball (1953) and football (1958).",
   },
   {
@@ -81,7 +81,7 @@ export const ciekawostki: T[] = [
     en: "Before the 1953 final tournament, coach Kulesza’s team got into shape at a training camp in the mountains — on skis.",
   },
   {
-    pl: "W mistrzostwach Łodzi w 1929 roku ŁKS wygrał wszystkie mecze, a i tak skończył z tyloma punktami co IKP. Powód? **5 zwycięstw walkowerem**, za które dostawało się tylko 1 punkt. O tytule zdecydował dodatkowy mecz.",
+    pl: "W mistrzostwach Łodzi w 1929 roku ŁKS wygrał wszystkie mecze, a i tak skończył z tyloma punktami co IKP. Powód? **5 zwycięstw walkowerem**, za które dostawało się tylko 1 punkt. O tytule zdecydował dodatkowy mecz.",
     en: "In the 1929 Łódź championship ŁKS won every game yet still finished level on points with IKP. Why? **5 wins by walkover**, worth just 1 point each. A play-off decided the title.",
   },
   {
@@ -89,11 +89,11 @@ export const ciekawostki: T[] = [
     en: "Józef “Ziuna” Żyliński — a 1953 Polish champion — coached the ŁKS women’s team for 30 years. Sport Arena Łódź, our home arena, is named after him.",
   },
   {
-    pl: "Marcin Gortat w 2002 roku przyszedł na trening juniorów ŁKS, a w 2007 roku podpisał kontrakt z Orlando Magic. W NBA zadebiutował **1 marca 2008 roku**.",
-    en: "Marcin Gortat turned up at an ŁKS junior training session in 2002 and signed for the Orlando Magic in 2007. He made his NBA debut on **1 March 2008**.",
+    pl: "Marcin Gortat w 2002 roku przyszedł na trening juniorów ŁKS, a w 2007 roku podpisał kontrakt z Orlando Magic. W NBA zadebiutował **1 marca 2008 roku**.",
+    en: "Marcin Gortat turned up at an ŁKS junior training session in 2002 and signed for the Orlando Magic in 2007. He made his NBA debut on **1 March 2008**.",
   },
   {
-    pl: "29 października 2011 roku ŁKS próbował w Atlas Arenie pobić rekord frekwencji na meczu ligowym koszykówki w Polsce. Mecz ze Śląskiem Wrocław obejrzało **9128 kibiców**. Do rekordu Ergo Areny (10 015 widzów) zabrakło tylko **888 osób**.",
+    pl: "29 października 2011 roku ŁKS próbował w Atlas Arenie pobić rekord frekwencji na meczu ligowym koszykówki w Polsce. Mecz ze Śląskiem Wrocław obejrzało **9128 kibiców**. Do rekordu Ergo Areny (10 015 widzów) zabrakło tylko **888 osób**.",
     en: "On 29 October 2011 ŁKS tried to set a Polish attendance record for a league basketball game at Atlas Arena. The game against Śląsk Wrocław drew **9,128 fans** — just **888 short** of beating the Ergo Arena record of 10,015.",
   },
 ];
