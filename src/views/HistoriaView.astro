@@ -3,7 +3,7 @@
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import { type Lang, ROUTES, t } from "../i18n/ui";
-import { ciekawostki, kalendarium, sukcesy, wstep, zrodlo } from "../data/historia";
+import { ciekawostki, kalendarium, sukcesy, wstep, zrodla } from "../data/historia";
 // **tekst** w ciekawostkach = wyróżniona liczba (pogrubiona, czerwona)
 const pogrub = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/\*\*(.+?)\*\*/g, '<strong class="facts__num">$1</strong>');
@@ -59,7 +59,12 @@ const { lang } = Astro.props;
       </ul>
       <p class="src">
         {t(lang, "history.source")}{" "}
-        <a href={zrodlo.link} target="_blank" rel="noopener">{zrodlo.nazwa}</a>
+        {zrodla.map((z, i) => (
+          <>
+            {i > 0 && " · "}
+            <a href={z.link} target="_blank" rel="noopener">{z.nazwa}</a>
+          </>
+        ))}
       </p>
     </div>
   </section>
