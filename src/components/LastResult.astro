@@ -5,6 +5,7 @@
 */
 import { type Lang, route, t } from "../i18n/ui";
 import { miejsceLks, ostatni } from "../lib/terminarz";
+import logo1lm from "../assets/liga/1lm.svg?url";
 
 interface Props {
   lang: Lang;
@@ -46,6 +47,7 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
       </div>
       {miejsceLks && (
         <a class="last__table" href={`${route("terminarz", lang)}#tabela`}>
+          <img class="last__liga" src={logo1lm} alt="PZKosz 1 Liga Mężczyzn" width="203" height="40" loading="lazy" />
           <span class="last__place">
             {miejsceLks.miejsce}
             <small>.</small>
@@ -176,6 +178,12 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
     align-items: flex-start;
     justify-content: center;
     min-width: 200px;
+  }
+  .last__liga {
+    display: block;
+    height: 40px;
+    width: auto;
+    margin-bottom: 14px;
   }
   .last__place {
     font-family: var(--font-cond);

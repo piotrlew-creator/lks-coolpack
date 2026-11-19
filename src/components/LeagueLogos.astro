@@ -1,30 +1,36 @@
 ---
 /*
-  Oficjalne logotypy rozgrywek: Polski Związek Koszykówki i 1 Liga Mężczyzn.
-  Pliki pobrane z pzkosz.pl / 1lm.pzkosz.pl (src/assets/liga/).
+  Oficjalne logotypy rozgrywek: Polski Związek Koszykówki i 1 Liga Mężczyzn (wektory SVG).
+  1 Liga: oficjalny plik ligi 2026 (wersja pozioma) — src/assets/liga/1lm*.svg.
+  dark = na ciemnym tle (biały PZKosz, 1 Liga w białej obwódce).
+  tylko = "1lm" pokazuje sam logotyp ligi (np. przy tabeli).
 */
-import { Image } from "astro:assets";
-import logoPzkosz from "../assets/liga/pzkosz.png";
-import logo1lm from "../assets/liga/1lm.png";
+import logoPzkosz from "../assets/liga/pzkosz.svg?url";
+import logoPzkoszBialy from "../assets/liga/pzkosz-white.svg?url";
+import logo1lm from "../assets/liga/1lm.svg?url";
+import logo1lmDark from "../assets/liga/1lm-dark.svg?url";
 
 interface Props {
-  /** wysokość logotypów w px */
+  /** wysokość logotypu 1 Ligi w px (PZKosz jest proporcjonalnie wyższy, bo to znak pionowy) */
   height?: number;
+  dark?: boolean;
+  tylko?: "1lm";
   class?: string;
 }
-const { height = 36, class: cls } = Astro.props;
+const { height = 48, dark = false, tylko, class: cls } = Astro.props;
+const hPz = Math.round(height * 1.5);
 const loga = [
-  { src: logoPzkosz, alt: "Polski Związek Koszykówki", href: "https://pzkosz.pl/" },
-  { src: logo1lm, alt: "PZKosz 1 Liga Mężczyzn", href: "https://1lm.pzkosz.pl/" },
-];
+  { src: dark ? logoPzkoszBialy : logoPzkosz, w: Math.round(hPz * (689 / 948)), h: hPz, alt: "Polski Związek Koszykówki", href: "https://pzkosz.pl/", id: "pz" },
+  { src: dark ? logo1lmDark : logo1lm, w: Math.round(height * 5.074), h: height, alt: "PZKosz 1 Liga Mężczyzn", href: "https://1lm.pzkosz.pl/", id: "1lm" },
+].filter((l) => !tylko || l.id === tylko);
 ---
 
-<ul class:list={["liga", cls]} role="list" style={`--liga-h:${height}px`}>
+<ul class:list={["liga", cls]} role="list">
   {
     loga.map((l) => (
       <li>
         <a href={l.href} target="_blank" rel="noopener" aria-label={l.alt}>
-          <Image src={l.src} alt={l.alt} height={height * 2} loading="lazy" />
+          <img src={l.src} alt={l.alt} width={l.w} height={l.h} style={`height:${l.h}px`} loading="lazy" decoding="async" />
         </a>
       </li>
     ))
@@ -39,16 +45,16 @@ const loga = [
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 12px 24px;
+    gap: 14px 32px;
   }
   .liga a {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
   }
-  .liga :global(img) {
+  .liga img {
     display: block;
-    height: var(--liga-h);
     width: auto;
+    max-width: 100%;
   }
 </style>

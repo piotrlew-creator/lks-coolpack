@@ -62,7 +62,7 @@ const filtry = [
   active="terminarz"
 >
   <PageHero kicker={`${t(lang, "sched.kicker")} ${sezon}`} title={t(lang, "sched.title")} lead={t(lang, "sched.lead")}>
-    <LeagueLogos height={34} class="sched-liga" />
+    <div class="sched-liga"><LeagueLogos height={52} /></div>
   </PageHero>
 
   <section class="section sched">
@@ -218,7 +218,7 @@ const filtry = [
 </Base>
 
 <style>
-  :global(.sched-liga) {
+  .sched-liga {
     margin-top: clamp(16px, 2.4vw, 24px);
   }
   .league,
