@@ -4,6 +4,9 @@ import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import { type Lang, ROUTES, t } from "../i18n/ui";
 import { ciekawostki, kalendarium, sukcesy, wstep, zrodlo } from "../data/historia";
+// **tekst** w ciekawostkach = wyróżniona liczba (pogrubiona, czerwona)
+const pogrub = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/\*\*(.+?)\*\*/g, '<strong class="facts__num">$1</strong>');
 import { u } from "../lib/url";
 
 interface Props {
@@ -52,7 +55,7 @@ const { lang } = Astro.props;
     <div class="wrap">
       <h2 id="fun-h" class="h-lg">{t(lang, "history.facts")}</h2>
       <ul class="facts" role="list">
-        {ciekawostki.map((c) => <li class="facts__item reveal">{c[lang]}</li>)}
+        {ciekawostki.map((c) => <li class="facts__item reveal" set:html={pogrub(c[lang])} />)}
       </ul>
       <p class="src">
         {t(lang, "history.source")}{" "}
@@ -154,6 +157,11 @@ const { lang } = Astro.props;
     display: grid;
     gap: 12px;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  }
+  .facts__item :global(.facts__num) {
+    color: var(--red);
+    font-weight: 800;
+    white-space: nowrap;
   }
   .facts__item {
     padding: 20px;

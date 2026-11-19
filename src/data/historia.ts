@@ -30,8 +30,8 @@ export const sukcesy: { rok: string; tytul: T; opis: T }[] = [
     rok: "2011",
     tytul: { pl: "Awans do ekstraklasy", en: "Promotion to the top flight" },
     opis: {
-      pl: "Drużyna trenera Piotra Zycha wróciła do najwyższej klasy rozgrywek. Mecz ze Śląskiem Wrocław w Atlas Arenie obejrzało około 9 tysięcy kibiców.",
-      en: "Coach Piotr Zych’s team returned to the top division. Around 9,000 fans watched the game against Śląsk Wrocław at Atlas Arena.",
+      pl: "Drużyna trenera Piotra Zycha wróciła do najwyższej klasy rozgrywek. Mecz ze Śląskiem Wrocław w Atlas Arenie obejrzało 9128 kibiców.",
+      en: "Coach Piotr Zych’s team returned to the top division. A crowd of 9,128 watched the game against Śląsk Wrocław at Atlas Arena.",
     },
   },
   {
@@ -70,8 +70,8 @@ export const ciekawostki: T[] = [
     en: "Józef “Ziuna” Żyliński — a 1953 Polish champion — coached the ŁKS women’s team for 30 years. Sport Arena Łódź, our home arena, is named after him.",
   },
   {
-    pl: "W 2011 roku w Atlas Arenie ŁKS próbował pobić rekord frekwencji na halowym meczu ligowym w Polsce. Zabrakło niecałych 900 osób.",
-    en: "In 2011 ŁKS tried to set a Polish attendance record for an indoor league game at Atlas Arena — and fell short by fewer than 900 people.",
+    pl: "29 października 2011 roku ŁKS próbował w Atlas Arenie pobić rekord frekwencji na meczu ligowym koszykówki w Polsce. Mecz ze Śląskiem Wrocław obejrzało **9128 kibiców**. Do rekordu Ergo Areny (10 015 widzów) zabrakło tylko **888 osób**.",
+    en: "On 29 October 2011 ŁKS tried to set a Polish attendance record for a league basketball game at Atlas Arena. The game against Śląsk Wrocław drew **9,128 fans** — just **888 short** of beating the Ergo Arena record of 10,015.",
   },
 ];
 
