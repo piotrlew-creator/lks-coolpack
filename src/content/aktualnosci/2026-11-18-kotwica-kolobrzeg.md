@@ -3,6 +3,7 @@ tytul: "19 listopada gramy w Kołobrzegu z Kotwicą"
 tytulEn: "19 November: away to Kotwica Kołobrzeg"
 data: 2026-11-18
 lead: "W czwartek 19 listopada o 18:00 ŁKS CoolPack Łódź zagra na wyjeździe z Kotwicą Kołobrzeg."
+zdjecie: ../../assets/aktualnosci/2026-11-19-kotwica-gameday.jpg
 leadEn: "On Thursday 19 November at 6 pm, ŁKS CoolPack Łódź play Kotwica Kołobrzeg away."
 tresc: |
   To kolejny mecz 1. ligi w tym sezonie. Relację podamy na Facebooku i Instagramie, a wynik ze statystykami — w zakładce Terminarz i wyniki.

@@ -17,7 +17,9 @@ interface Props {
 const { lang } = Astro.props;
 const mecz = najblizszyMecz;
 // Zapowiedź najbliższego meczu zastępuje karta meczu (z biletami, gdy jest link w src/data/klub.ts)
-const wpisy = (await aktualnosci()).filter((w) => !(mecz && w.data.mecz?.data === mecz.data));
+const wszystkie = await aktualnosci();
+const plakat = (d?: string) => (d ? wszystkie.find((w) => w.data.mecz?.data === d)?.data.zdjecie : undefined);
+const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data));
 ---
 
 <Base lang={lang} title={t(lang, "news.title")} description={t(lang, "news.lead")} alt={{ pl: u(ROUTES.aktualnosci.pl), en: u(ROUTES.aktualnosci.en) }} active="aktualnosci">
@@ -31,12 +33,12 @@ const wpisy = (await aktualnosci()).filter((w) => !(mecz && w.data.mecz?.data ==
           <h2 id="ogl-h" class="h-md social-h">{t(lang, "news.notices")}</h2>
           {mecz && (
             <div class="news-home__match ogl-match">
-              <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} ics={mecz.ics} mapa={mecz.mapa} />
+              <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} ics={mecz.ics} mapa={mecz.mapa} plakat={plakat(mecz.data)} />
             </div>
           )}
           {mecz && kolejnyMecz && (
             <div class="news-home__match ogl-match" data-zapas hidden>
-              <MatchCard lang={lang} data={kolejnyMecz.data} rywal={kolejnyMecz.rywal} dom={kolejnyMecz.dom} miejsce={kolejnyMecz.hala} bilety={kolejnyMecz.bilety} transmisja={kolejnyMecz.transmisja} ics={kolejnyMecz.ics} mapa={kolejnyMecz.mapa} />
+              <MatchCard lang={lang} data={kolejnyMecz.data} rywal={kolejnyMecz.rywal} dom={kolejnyMecz.dom} miejsce={kolejnyMecz.hala} bilety={kolejnyMecz.bilety} transmisja={kolejnyMecz.transmisja} ics={kolejnyMecz.ics} mapa={kolejnyMecz.mapa} plakat={plakat(kolejnyMecz.data)} />
             </div>
           )}
           {wpisy.length > 0 && (

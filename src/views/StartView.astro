@@ -37,6 +37,8 @@ const mecz = najblizszyMecz;
 // Wpis o najbliższym meczu nie dubluje karty meczu — karta prowadzi do niego przyciskiem
 const wszystkie = await aktualnosci();
 // Zapowiedź najbliższego meczu nie dubluje karty meczu powyżej
+// Grafika meczowa = zdjęcie we wpisie o danym meczu
+const plakat = (d?: string) => (d ? wszystkie.find((w) => w.data.mecz?.data === d)?.data.zdjecie : undefined);
 const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)).slice(0, 3);
 ---
 
@@ -83,7 +85,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
       {
         mecz && (
           <div class="news-home__match reveal">
-            <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} ics={mecz.ics} mapa={mecz.mapa} />
+            <MatchCard lang={lang} data={mecz.data} rywal={mecz.rywal} dom={mecz.dom} miejsce={mecz.hala} bilety={mecz.bilety} transmisja={mecz.transmisja} ics={mecz.ics} mapa={mecz.mapa} plakat={plakat(mecz.data)} />
           </div>
         )
       }
@@ -91,7 +93,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
         /* Zapas: gdy najbliższy mecz już się skończył, a terminarz nie jest jeszcze zaktualizowany */
         mecz && kolejnyMecz && (
           <div class="news-home__match" data-zapas hidden>
-            <MatchCard lang={lang} data={kolejnyMecz.data} rywal={kolejnyMecz.rywal} dom={kolejnyMecz.dom} miejsce={kolejnyMecz.hala} bilety={kolejnyMecz.bilety} transmisja={kolejnyMecz.transmisja} ics={kolejnyMecz.ics} mapa={kolejnyMecz.mapa} />
+            <MatchCard lang={lang} data={kolejnyMecz.data} rywal={kolejnyMecz.rywal} dom={kolejnyMecz.dom} miejsce={kolejnyMecz.hala} bilety={kolejnyMecz.bilety} transmisja={kolejnyMecz.transmisja} ics={kolejnyMecz.ics} mapa={kolejnyMecz.mapa} plakat={plakat(kolejnyMecz.data)} />
           </div>
         )
       }

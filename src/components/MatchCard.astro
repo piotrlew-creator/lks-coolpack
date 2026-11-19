@@ -4,6 +4,7 @@
   data-koniec: 3 godziny po rozpoczęciu karta sama się chowa
   (skrypt w src/scripts/site.ts), a pojawia się element z data-po-meczu.
 */
+import { Image } from "astro:assets";
 import { klub } from "../data/klub";
 import { type Lang, t } from "../i18n/ui";
 import { u } from "../lib/url";
@@ -21,8 +22,9 @@ interface Props {
   kicker?: string;
   zapowiedz?: string; // link do wpisu o tym meczu (na stronie startowej)
   terminarz?: string; // link do strony Terminarz i wyniki (na stronie startowej)
+  plakat?: ImageMetadata; // grafika meczowa (pole „zdjecie” we wpisie o tym meczu)
 }
-const { lang, data, rywal, dom, miejsce, bilety, transmisja, ics, mapa, kicker, zapowiedz, terminarz } = Astro.props;
+const { lang, data, rywal, dom, miejsce, bilety, transmisja, ics, mapa, kicker, zapowiedz, terminarz, plakat } = Astro.props;
 const icsUrl = ics ? u(lang === "pl" ? `kalendarz/${ics}.ics` : `en/calendar/${ics}.ics`) : undefined;
 
 // Czas polski → UTC (zimą +1, latem +2) liczony w czasie budowania
@@ -43,7 +45,13 @@ const gospodarz = dom ? klub.nazwaKrotka : rywal;
 const gosc = dom ? rywal : klub.nazwaKrotka;
 ---
 
-<div class="mcard" data-koniec={koniec} data-start={start.getTime()}>
+<div class:list={["mcard", { "mcard--plakat": plakat }]} data-koniec={koniec} data-start={start.getTime()}>
+  {plakat && (
+    <figure class="mcard__plakat">
+      <Image src={plakat} alt={`${t(lang, "match.poster")}: ${gospodarz} – ${gosc}`} widths={[400, 640, 900]} sizes="(min-width: 760px) 320px, 92vw" />
+    </figure>
+  )}
+  <div class="mcard__body">
   <p class="kicker mcard__kicker">{kicker ?? t(lang, "match.kicker")}</p>
   <p class="mcard__when">
     <span class="mcard__day">{dzien}</span>
@@ -76,9 +84,42 @@ const gosc = dom ? rywal : klub.nazwaKrotka;
     )
   }
   {transmisja && <p class="mcard__tv">{t(lang, "match.streamNote")}</p>}
+  </div>
 </div>
 
 <style>
+  /* Grafika meczowa: na telefonie nad treścią, na większym ekranie po prawej */
+  .mcard--plakat {
+    display: grid;
+    gap: 18px;
+  }
+  .mcard__plakat {
+    margin: 0;
+  }
+  .mcard__plakat img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--radius) - 4px);
+  }
+  .mcard__body {
+    min-width: 0;
+  }
+  @media (min-width: 760px) {
+    .mcard--plakat {
+      grid-template-columns: minmax(0, 1fr) clamp(240px, 30%, 340px);
+      align-items: center;
+      column-gap: clamp(20px, 3vw, 40px);
+    }
+    .mcard__plakat {
+      grid-column: 2;
+      grid-row: 1;
+    }
+    .mcard__body {
+      grid-column: 1;
+      grid-row: 1;
+    }
+  }
   .mcard__map {
     color: inherit;
     text-decoration: underline;
