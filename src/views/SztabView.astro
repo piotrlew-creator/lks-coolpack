@@ -15,7 +15,7 @@ const { lang } = Astro.props;
 const staff = await sztab();
 ---
 
-<Base lang={lang} title={t(lang, "staff.title")} description={t(lang, "staff.lead")} alt={{ pl: u(ROUTES.sztab.pl), en: u(ROUTES.sztab.en) }} active="sztab">
+<Base lang={lang} title={t(lang, "staff.title")} description={t(lang, "staff.meta")} alt={{ pl: u(ROUTES.sztab.pl), en: u(ROUTES.sztab.en) }} active="sztab">
   <PageHero kicker={t(lang, "staff.kicker")} title={t(lang, "staff.title")} lead={t(lang, "staff.lead")} />
 
   <section class="section">

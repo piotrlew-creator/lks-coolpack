@@ -518,6 +518,23 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
     gap: 12px;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
   }
+  @media (max-width: 640px) {
+    .feats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .feat {
+      padding: 14px !important;
+    }
+    .feat__h {
+      font-size: 18px !important;
+      margin-top: 8px !important;
+    }
+    .feat__t {
+      font-size: 13.5px !important;
+      line-height: 1.45 !important;
+    }
+  }
   .feat {
     padding: 20px;
     border-radius: var(--radius);
@@ -569,7 +586,8 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(200px, calc(50% - 6px)), 1fr));
+    /* auto-fit: wszystkie logotypy w jednym równym rzędzie na monitorze, 2 kolumny na telefonie */
+    grid-template-columns: repeat(auto-fit, minmax(min(150px, calc(50% - 6px)), 1fr));
     gap: 12px;
   }
   .logos__tile {

@@ -209,6 +209,17 @@ import LeagueLogos from "./LeagueLogos.astro";
     gap: 28px 40px;
     align-items: center;
   }
+  /* monitor: wszystkie logotypy w jednym rzędzie, równo rozłożone */
+  @media (min-width: 1024px) {
+    .ftr__sponsors ul {
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .ftr__sponsors :global(img) {
+      max-width: 100%;
+    }
+  }
   .ftr__sponsors :global(img) {
     height: 32px;
     width: auto;

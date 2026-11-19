@@ -303,9 +303,41 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
     font-size: 15px;
     color: var(--muted);
   }
+  @media (min-width: 1024px) {
+    .last__game {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      column-gap: 40px;
+      align-content: start;
+    }
+    .last__game > * {
+      grid-column: 1;
+    }
+    .last__top {
+      grid-column: 2 !important;
+      grid-row: 1 / span 5;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      border-top: 0 !important;
+      padding-left: 40px;
+      border-left: 1px solid var(--border);
+      align-self: start;
+    }
+    .last__game .last__sched {
+      grid-column: 1 / -1;
+      justify-self: start;
+      min-width: 260px;
+    }
+    .last__table {
+      min-width: 240px;
+    }
+  }
   @media (max-width: 640px) {
     .last {
       grid-template-columns: 1fr;
+    }
+    .last__liga {
+      grid-column: 1 / -1;
     }
     .last__table {
       display: grid !important;

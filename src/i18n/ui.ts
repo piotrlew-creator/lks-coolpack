@@ -192,6 +192,8 @@ export const ui = {
     "staff.title": "Sztab",
     "staff.lead": "Trenerzy i specjaliści, którzy na co dzień pracują z drużyną.",
     "staff.cta": "Poznaj sztab",
+    "staff.meta": "Sztab szkoleniowy ŁKS CoolPack Łódź w sezonie 2026/2027: trenerzy, trener przygotowania motorycznego, fizjoterapeuci i kierownik drużyny.",
+    "privacy.meta": "Prywatność na stronie ŁKS CoolPack Łódź: bez plików cookies, bez formularzy i bez zbierania danych osobowych. Zasady linków do serwisów zewnętrznych.",
 
     "sponsors.kicker": "Partnerzy Klubu",
     "sponsors.title": "Sponsorzy",
@@ -404,6 +406,8 @@ export const ui = {
     "staff.title": "Staff",
     "staff.lead": "The coaches and specialists who work with the team every day.",
     "staff.cta": "Meet the staff",
+    "staff.meta": "ŁKS CoolPack Łódź coaching staff for the 2026/27 season: coaches, strength and conditioning coach, physiotherapists and team manager.",
+    "privacy.meta": "Privacy on the ŁKS CoolPack Łódź website: no cookies, no forms and no personal data collected. How links to external services work.",
 
     "sponsors.kicker": "Club partners",
     "sponsors.title": "Sponsors",
