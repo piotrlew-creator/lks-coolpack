@@ -50,7 +50,7 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
         </div>
         <p class="last__foot">
           <span class:list={["last__wl", { "is-w": m.wygrana }]}>{t(lang, m.wygrana ? "sched.winLong" : "sched.lossLong")}</span>
-          <a class="last__link" href={m.link} target="_blank" rel="noopener">{t(lang, "sched.stats")} ↗</a>
+          <a class="last__link" href={m.link} target="_blank" rel="noopener">{t(lang, "sched.stats")}</a>
         </p>
         {pods && <p class="last__sum">{pods.podsumowanie[lang]}</p>}
         {najlepsi.length > 0 && (
@@ -71,7 +71,7 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
             </ol>
           </div>
         )}
-        <a class="btn btn--ghost last__sched" href={route("terminarz", lang)}>{t(lang, "match.none.cta")} →</a>
+        <a class="btn btn--ghost last__sched" href={route("terminarz", lang)}>{t(lang, "match.none.cta")}</a>
       </div>
       {miejsceLks && (
         <a class="last__table" href={`${route("terminarz", lang)}#tabela`}>
@@ -84,7 +84,7 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
           <span class="last__rec">
             {miejsceLks.bilans[0]}–{miejsceLks.bilans[1]} · {miejsceLks.pkt} {t(lang, "table.pts").toLowerCase()}
           </span>
-          <span class="last__link">{t(lang, "last.table")} →</span>
+          <span class="last__link">{t(lang, "last.table")}</span>
         </a>
       )}
     </div>

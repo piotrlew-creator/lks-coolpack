@@ -220,11 +220,15 @@ p {
   justify-content: center;
   gap: 10px;
   min-height: 52px;
-  padding: 0 26px;
+  max-width: 100%;
+  /* długi napis łamie się do kolejnej linii zamiast uciekać poza przycisk */
+  padding: 8px 26px;
   font-family: var(--font-cond);
   font-weight: 800;
   font-size: 18px;
-  white-space: nowrap;
+  line-height: 1.15;
+  white-space: normal;
+  overflow-wrap: break-word;
   text-align: center;
   letter-spacing: 0.06em;
   text-transform: uppercase;

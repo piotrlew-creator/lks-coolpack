@@ -56,7 +56,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
           ))
         }
       </ul>
-      <a class="btn why__cta" href="#dla-firm">{sponsorom.cta[lang]} ↓</a>
+      <a class="btn why__cta" href="#dla-firm">{sponsorom.cta[lang]}</a>
     </div>
   </section>
 
@@ -106,7 +106,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
         <div class="btn-row">
           {sp.telefon && <a class="btn" href={telHref(sp.telefon)}>{t(lang, "contact.tel")} {sp.telefon}</a>}
           {sp.email && <a class="btn btn--ghost" href={`mailto:${sp.email}`}>{sp.email}</a>}
-          {!sp.telefon && !sp.email && <a class="btn" href={route("kontakt", lang)}>{t(lang, "sponsors.join.cta")} →</a>}
+          {!sp.telefon && !sp.email && <a class="btn" href={route("kontakt", lang)}>{t(lang, "sponsors.join.cta")}</a>}
         </div>
       </div>
     </div>

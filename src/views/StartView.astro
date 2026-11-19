@@ -101,7 +101,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
           <p class="kicker">{t(lang, "match.none.title")}</p>
           <p class="news-home__text">{t(lang, "match.none.text")}</p>
         </div>
-        <a class="btn" href={route("terminarz", lang)}>{t(lang, "match.none.cta")} →</a>
+        <a class="btn" href={route("terminarz", lang)}>{t(lang, "match.none.cta")}</a>
       </div>
       {
         wpisy.length > 0 && (
@@ -122,7 +122,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
           <h2 id="sklad-title" class="h-lg">{t(lang, "team.title")}</h2>
           <p class="lead">{t(lang, "team.lead")}</p>
         </div>
-        <a class="btn btn--ghost" href={route("sklad", lang)}>{t(lang, "team.all")} →</a>
+        <a class="btn btn--ghost" href={route("sklad", lang)}>{t(lang, "team.all")}</a>
       </div>
     </div>
     <ul class="rail" role="list">
@@ -136,7 +136,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
           <h2 id="sztab-title" class="h-lg">{t(lang, "staff.title")}</h2>
           <p class="lead">{t(lang, "staff.lead")}</p>
         </div>
-        <a class="btn btn--ghost" href={route("sztab", lang)}>{t(lang, "staff.cta")} →</a>
+        <a class="btn btn--ghost" href={route("sztab", lang)}>{t(lang, "staff.cta")}</a>
       </div>
     </div>
     <ul class="rail rail--staff" role="list" aria-labelledby="sztab-title">
@@ -173,8 +173,8 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
           <p class="venue__note">{kibice.bilety[lang]}</p>
         </div>
         <div class="btn-row venue__btns">
-          <a class="btn" href={klub.kontakt.hala.mapa} target="_blank" rel="noopener">{t(lang, "venue.map")} ↗</a>
-          <a class="btn btn--ghost" href={route("terminarz", lang)}>{t(lang, "venue.fixtures")} →</a>
+          <a class="btn" href={klub.kontakt.hala.mapa} target="_blank" rel="noopener">{t(lang, "venue.map")}</a>
+          <a class="btn btn--ghost" href={route("terminarz", lang)}>{t(lang, "venue.fixtures")}</a>
         </div>
       </div>
     </div>
@@ -204,7 +204,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
               <p class="kicker">{t(lang, "sponsors.kicker")}</p>
               <h2 id="sp-title" class="h-lg">{t(lang, "sponsors.title")}</h2>
             </div>
-            <a class="btn btn--ghost" href={route("sponsorzy", lang)}>{t(lang, "sponsors.join.title")} →</a>
+            <a class="btn btn--ghost" href={route("sponsorzy", lang)}>{t(lang, "sponsors.join.title")}</a>
           </div>
           <ul class="logos" role="list">
             {sponsors.map((s) => {
@@ -310,18 +310,22 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
       display: contents;
     }
     .hero__crest {
-      width: 92px;
+      width: 84px;
     }
+    /* tytuł rozkładamy na siatkę: „ŁKS” obok herbu, „CoolPack Łódź” w jednej linii pod spodem */
     .hero__title {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
+      display: contents;
     }
     .hero__t1 {
-      font-size: 60px;
+      font-size: 64px;
+      line-height: 0.9;
     }
     .hero__t2 {
-      font-size: 34px;
+      grid-column: 1 / -1;
+      margin-top: 10px;
+      font-size: clamp(28px, 10.5vw, 44px);
+      line-height: 0.95;
+      white-space: nowrap;
     }
     .hero__sub {
       grid-column: 1 / -1;

@@ -63,7 +63,7 @@ const filtry = [
   active="terminarz"
 >
   <PageHero kicker={`${t(lang, "sched.kicker")} ${sezon}`} title={t(lang, "sched.title")} lead={t(lang, "sched.lead")}>
-    <div class="sched-liga"><LeagueLogos height={52} /></div>
+    <div class="sched-liga"><LeagueLogos height={56} tylko="1lm" /></div>
   </PageHero>
 
   {
@@ -75,7 +75,7 @@ const filtry = [
               <p class="kicker">{t(lang, "sched.tvTitle")}</p>
               <p class="sched-tv__text">{t(lang, "sched.tvText")}</p>
             </div>
-            <a class="btn" href={klub.transmisja.link} target="_blank" rel="noopener">{t(lang, "sched.tvCta")} ↗</a>
+            <a class="btn" href={klub.transmisja.link} target="_blank" rel="noopener">{t(lang, "sched.tvCta")}</a>
           </div>
         </div>
       </section>
@@ -104,8 +104,8 @@ const filtry = [
       </dl>
 
       <div class="jumps">
-        {nastepny && <a class="jump" href="#najblizszy">{t(lang, "sched.jump")} ↓</a>}
-        <a class="jump" href="#tabela">{t(lang, "sched.toTable")} ↓</a>
+        {nastepny && <a class="jump" href="#najblizszy">{t(lang, "sched.jump")}</a>}
+        <a class="jump" href="#tabela">{t(lang, "sched.toTable")}</a>
       </div>
 
       <div class="sfilter" role="group" aria-label={t(lang, "sched.filter")} data-sched-filter>
@@ -178,7 +178,6 @@ const filtry = [
                           <span class="game__pts">
                             {m.lks}:{m.rywalPkt}
                           </span>
-                          <span class="game__ext" aria-hidden="true">↗</span>
                         </a>
                       )}
                     </div>
@@ -198,7 +197,7 @@ const filtry = [
       </script>
 
       <p class="source">
-        {t(lang, "sched.source")} {aktualizacja}. <a href={zrodloTerminarza} target="_blank" rel="noopener">1lm.pzkosz.pl ↗</a>
+        {t(lang, "sched.source")} {aktualizacja}. <a href={zrodloTerminarza} target="_blank" rel="noopener">1lm.pzkosz.pl</a>
       </p>
 
       <!-- Tabela ligowa -->
@@ -241,7 +240,7 @@ const filtry = [
           <li><span class="lg lg--sp" aria-hidden="true"></span>{t(lang, "table.releg")}</li>
         </ul>
         <p class="source">
-          {t(lang, "table.source")} {aktualizacjaT}. <a href={zrodloTabeli} target="_blank" rel="noopener">1lm.pzkosz.pl ↗</a>
+          {t(lang, "table.source")} {aktualizacjaT}. <a href={zrodloTabeli} target="_blank" rel="noopener">1lm.pzkosz.pl</a>
         </p>
       </section>
     </div>

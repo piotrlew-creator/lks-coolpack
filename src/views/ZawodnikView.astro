@@ -67,7 +67,7 @@ const desc =
     </div>
 
     <div class="pp__info wrap">
-      <a class="pp__back" href={route("sklad", lang)}>← {t(lang, "team.back")}</a>
+      <a class="pp__back" href={route("sklad", lang)}>{t(lang, "team.back")}</a>
       <p class="pp__swipe" aria-hidden="true">
         <span>‹</span> {t(lang, "swipe.hint")} <span>›</span>
       </p>
@@ -123,11 +123,11 @@ const desc =
 
   <nav class="pp__nav wrap" aria-label={t(lang, "team.title")}>
     <a href={playerUrl(prev.id, lang)} data-bolt class="pp__nav-a">
-      <span class="pp__nav-k">← {t(lang, "team.prev")}</span>
+      <span class="pp__nav-k">{t(lang, "team.prev")}</span>
       <span class="pp__nav-n">#{prev.data.numer} {prev.data.imie} {prev.data.nazwisko}</span>
     </a>
     <a href={playerUrl(next.id, lang)} data-bolt class="pp__nav-a pp__nav-a--next">
-      <span class="pp__nav-k">{t(lang, "team.next")} →</span>
+      <span class="pp__nav-k">{t(lang, "team.next")}</span>
       <span class="pp__nav-n">#{next.data.numer} {next.data.imie} {next.data.nazwisko}</span>
     </a>
   </nav>
