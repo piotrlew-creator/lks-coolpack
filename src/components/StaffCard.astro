@@ -1,11 +1,11 @@
 ---
 /*
   Kafel członka sztabu na stronie startowej — wygląd jak kafel zawodnika,
-  ale bez linku, bez efektu pioruna i bez numeru.
+  bez efektu pioruna i bez numeru. Kliknięcie prowadzi na podstronę Sztab (do tej osoby).
 */
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import type { Lang } from "../i18n/ui";
+import { type Lang, route } from "../i18n/ui";
 import { pick } from "../lib/data";
 import Silhouette from "./Silhouette.astro";
 
@@ -19,7 +19,7 @@ const d = s.data;
 const funkcja = pick(d.funkcja, d.funkcjaEn, lang);
 ---
 
-<div class="stcard reveal" style={`--d:${Math.min(index, 8) * 60}ms`}>
+<a class="stcard reveal" href={`${route("sztab", lang)}#${s.id}`} style={`--d:${Math.min(index, 8) * 60}ms`}>
   <span class="stcard__photo">
     {
       d.zdjecie ? (
@@ -34,7 +34,7 @@ const funkcja = pick(d.funkcja, d.funkcjaEn, lang);
     <span class="stcard__first">{d.imie}</span>
     <span class="stcard__last">{d.nazwisko}</span>
   </span>
-</div>
+</a>
 
 <style>
   .stcard {
@@ -46,9 +46,18 @@ const funkcja = pick(d.funkcja, d.funkcjaEn, lang);
     overflow: hidden;
     isolation: isolate;
     color: #fff;
+    text-decoration: none;
+    transition: box-shadow 250ms var(--ease);
     background:
       radial-gradient(120% 80% at 50% 0%, #3a2f28 0%, transparent 60%),
       linear-gradient(160deg, #2a231e 0%, #120f0c 100%);
+  }
+  .stcard:hover,
+  .stcard:focus-visible {
+    box-shadow: 0 0 0 2px var(--red);
+  }
+  .stcard:focus-visible {
+    outline-offset: 4px;
   }
   .stcard__photo {
     position: absolute;

@@ -129,21 +129,18 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
     <ul class="rail" role="list">
       {players.map((p, i) => <li><PlayerCard p={p} lang={lang} index={i} /></li>)}
     </ul>
-  </section>
 
-  <!-- ══════════════ SZTAB (zdjęcia jak w składzie, bez kliknięcia) ══════════════ -->
-  <section class="section" aria-labelledby="sztab-title">
-    <div class="wrap">
+    <!-- Sztab w tej samej sekcji „Sezon 2026/2027” (zdjęcia jak w składzie, bez pioruna; klik → podstrona Sztab) -->
+    <div class="wrap staff-head">
       <div class="section-head">
         <div>
-          <p class="kicker">{t(lang, "staff.kicker")}</p>
           <h2 id="sztab-title" class="h-lg">{t(lang, "staff.title")}</h2>
           <p class="lead">{t(lang, "staff.lead")}</p>
         </div>
         <a class="btn btn--ghost" href={route("sztab", lang)}>{t(lang, "staff.cta")} →</a>
       </div>
     </div>
-    <ul class="rail rail--staff" role="list">
+    <ul class="rail rail--staff" role="list" aria-labelledby="sztab-title">
       {staff.map((s, i) => <li><StaffCard s={s} lang={lang} index={i} /></li>)}
     </ul>
   </section>
@@ -151,14 +148,14 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
   <!-- ══════════════ AKTUALNOŚCI / SOCIAL ══════════════ -->
   <section class="section social-band" aria-labelledby="news-title">
     <div class="wrap">
-      <div class="card social-band__in reveal">
+      <div class="section-head">
         <div>
           <p class="kicker">{t(lang, "news.social")}</p>
           <h2 id="news-title" class="h-lg">{t(lang, "news.follow")}</h2>
-          <p class="social-band__lead">{t(lang, "news.lead")}</p>
+          <p class="lead">{t(lang, "news.lead")}</p>
         </div>
-        <Social lang={lang} size="lg" />
       </div>
+      <Social lang={lang} size="lg" />
     </div>
   </section>
 
@@ -463,29 +460,14 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
     }
   }
 
+  .staff-head {
+    margin-top: clamp(28px, 4vw, 48px);
+  }
   /* Sztab: 6 osób = 2 równe rzędy po 3 na monitorze */
   @media (min-width: 1024px) {
     .rail--staff {
       grid-template-columns: repeat(3, 1fr);
     }
-  }
-
-  /* -- Karta social media ---------------------------------------- */
-  .social-band__in {
-    display: grid;
-    gap: 20px;
-    align-items: center;
-    border-left: 5px solid var(--red);
-  }
-  @media (min-width: 900px) {
-    .social-band__in {
-      grid-template-columns: 1.4fr auto;
-    }
-  }
-  .social-band__lead {
-    margin: 0;
-    max-width: 52ch;
-    color: var(--muted);
   }
 
   /* -- Logotypy sponsorów -------------------------------------- */
