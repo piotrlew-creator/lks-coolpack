@@ -65,6 +65,7 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
                   </a>
                   <span class="last__line">
                     {n.pkt} {t(lang, "last.pts")} · {n.zb} {t(lang, "last.reb")} · {n.as} {t(lang, "last.ast")}
+                    {n.eval != null && <> · <strong class="last__eval">EVAL {n.eval}</strong></>}
                   </span>
                 </li>
               ))}
@@ -189,6 +190,11 @@ const prawa = m ? (m.dom ? { n: m.rywal, p: m.rywalPkt, lks: false } : { n: "ŁK
   .last__num {
     color: var(--red);
     font-weight: 800;
+  }
+  .last__eval {
+    color: var(--red);
+    font-weight: 800;
+    white-space: nowrap;
   }
   .last__line {
     font-size: 14px;
