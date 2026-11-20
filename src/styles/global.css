@@ -459,19 +459,17 @@ html.vt-zawodnik::view-transition-new(player-photo) {
   mix-blend-mode: normal;
 }
 html.vt-zawodnik::view-transition-old(player-photo) {
-  animation: vt-photo-old 520ms linear both;
+  /* zostaje pod spodem do końca — widać je tylko, gdy duże zdjęcie jeszcze się wczytuje */
+  animation: none;
+  opacity: 1;
 }
 html.vt-zawodnik::view-transition-new(player-photo) {
-  animation: vt-fade-in 260ms ease-out both;
+  /* szybko przykrywa zdjęcie z kafla: bez „podwójnej ekspozycji” dwóch kadrów */
+  animation: vt-fade-in 120ms ease-out both;
 }
-@keyframes vt-photo-old {
-  0%,
-  70% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+/* duży numer na stronie zawodnika: łagodnie się pojawia, gdy zdjęcie dolatuje */
+html.vt-zawodnik::view-transition-new(player-number):only-child {
+  animation: vt-fade-in 260ms ease-out 200ms both;
 }
 @keyframes vt-dim-out {
   to {

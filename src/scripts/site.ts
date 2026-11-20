@@ -176,7 +176,8 @@ function strike(card: HTMLAnchorElement, href: string) {
   }
   // Nazwy przejścia — tylko dla klikniętego kafla
   card.querySelector<HTMLElement>("[data-vt=photo]")?.style.setProperty("view-transition-name", "player-photo");
-  card.querySelector<HTMLElement>("[data-vt=number]")?.style.setProperty("view-transition-name", "player-number");
+  // Numer z kafla (cienki kontur) nie leci — duży numer na stronie zawodnika
+  // po prostu łagodnie się pojawia, bez czerwonej plamy wychodzącej poza kafel.
 
   layer.replaceChildren(boltSvg(card.getBoundingClientRect()));
   layer.classList.remove("is-on");
