@@ -32,7 +32,7 @@ export const klub = {
   kontakt: {
     biuro: {
       // te same dane co na lkskmjunior.pl (biuro Stowarzyszenia ŁKS Koszykówka Męska)
-      adres: "Al. Unii Lubelskiej 2, 94-020 Łódź, II\u00a0piętro",
+      adres: "al. Unii Lubelskiej 2, 94-020 Łódź, II\u00a0piętro",
       telefon: "733 34 1908",
       email: "biuro@lkskm.pl",
     },

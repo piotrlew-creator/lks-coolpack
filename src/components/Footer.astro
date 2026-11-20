@@ -289,6 +289,16 @@ import LeagueLogos from "./LeagueLogos.astro";
   }
 
   /* -- Telefon: zwarta stopka ---------------------------------- */
+  /* wąski telefon: ikony Facebook / Instagram / X w osobnym wierszu pod nazwą klubu */
+  @media (max-width: 479px) {
+    .ftr .ftr__brand {
+      grid-template-columns: auto 1fr;
+    }
+    .ftr .ftr__social {
+      grid-column: 1 / -1;
+      margin-top: 14px;
+    }
+  }
   @media (max-width: 759px) {
     .ftr {
       padding-top: 28px;
@@ -349,6 +359,7 @@ import LeagueLogos from "./LeagueLogos.astro";
     .ftr__sponsors li {
       display: flex;
       align-items: center;
+      justify-content: center;
       min-height: 44px;
     }
     .ftr__sponsors :global(img) {

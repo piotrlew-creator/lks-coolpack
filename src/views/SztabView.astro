@@ -25,7 +25,7 @@ const staff = await sztab();
           const d = s.data;
           const funkcja = pick(d.funkcja, d.funkcjaEn, lang);
           return (
-            <li id={s.id} class:list={["member reveal", { "member--lead": i === 0 }]} style={`--d:${Math.min(i, 6) * 70}ms`}>
+            <li id={s.id.replace(/^\d+-/, "")} class:list={["member reveal", { "member--lead": i === 0 }]} style={`--d:${Math.min(i, 6) * 70}ms`}>
               <div class="member__photo">
                 {d.zdjecie ? (
                   <Image src={d.zdjecie} alt={`${d.imie} ${d.nazwisko}`} widths={[320, 480, 640]} sizes="(min-width: 900px) 30vw, 90vw" loading="lazy" />

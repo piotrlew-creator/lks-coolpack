@@ -97,6 +97,24 @@ const jsonLd = {
 
     <!-- Strona ma tylko jasny motyw; klasa „js” włącza animacje pojawiania się. -->
     <script is:inline>document.documentElement.classList.add("js");</script>
+    <!-- Przejście skład ↔ strona zawodnika: zamiast przenikania jasnej strony z ciemną
+         strona „przygasa”, a nowa wyłania się z ciemności (efekt w global.css). -->
+    <script is:inline>
+      (function () {
+        var re = /\/(sklad|en\/roster)\/[^/]+\/$/;
+        function profil(u) { try { return re.test(new URL(u, location.href).pathname); } catch (e) { return false; } }
+        addEventListener("pagereveal", function (e) {
+          if (!e.viewTransition) return;
+          var a = window.navigation && navigation.activation;
+          var from = (a && a.from && a.from.url) || document.referrer;
+          var tu = profil(location.href), tam = !!from && profil(from);
+          if (tu === tam) return;
+          var h = document.documentElement;
+          h.classList.add("vt-zawodnik");
+          e.viewTransition.finished.finally(function () { h.classList.remove("vt-zawodnik"); });
+        });
+      })();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#tresc">{t(lang, "skip")}</a>

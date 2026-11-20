@@ -19,7 +19,7 @@ const d = s.data;
 const funkcja = pick(d.funkcja, d.funkcjaEn, lang);
 ---
 
-<a class="stcard reveal" href={`${route("sztab", lang)}#${s.id}`} style={`--d:${Math.min(index, 8) * 60}ms`}>
+<a class="stcard reveal" href={`${route("sztab", lang)}#${s.id.replace(/^\d+-/, "")}`} style={`--d:${Math.min(index, 8) * 60}ms`}>
   <span class="stcard__photo">
     {
       d.zdjecie ? (

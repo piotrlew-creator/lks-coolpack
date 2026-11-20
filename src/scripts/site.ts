@@ -147,7 +147,28 @@ function boltSvg(target: DOMRect): SVGSVGElement {
   return svg;
 }
 
-function strike(card: HTMLElement, href: string) {
+/** Wczytuje z wyprzedzeniem stronę zawodnika i jego duże zdjęcie (raz na kafel). */
+function preloadPlayer(card: HTMLAnchorElement) {
+  if (card.dataset.preloaded) return;
+  card.dataset.preloaded = "1";
+  const doc = document.createElement("link");
+  doc.rel = "prefetch";
+  doc.href = card.href;
+  document.head.append(doc);
+  const ss = card.dataset.heroSrcset;
+  if (ss) {
+    const img = document.createElement("link");
+    img.rel = "preload";
+    img.as = "image";
+    img.setAttribute("imagesrcset", ss);
+    img.setAttribute("imagesizes", card.dataset.heroSizes ?? "100vw");
+    img.setAttribute("fetchpriority", "high");
+    document.head.append(img);
+  }
+}
+
+function strike(card: HTMLAnchorElement, href: string) {
+  preloadPlayer(card);
   const layer = document.querySelector<HTMLElement>(".bolt-layer");
   if (!layer) {
     location.href = href;
@@ -174,6 +195,15 @@ function strike(card: HTMLElement, href: string) {
 }
 
 function initBolt() {
+  // Najechanie myszą, dotknięcie lub fokus na kaflu: strona i zdjęcie zawodnika wczytują się w tle
+  const wczesnie = (e: Event) => {
+    const card = (e.target as Element | null)?.closest?.<HTMLAnchorElement>("a[data-bolt]");
+    if (card) preloadPlayer(card);
+  };
+  document.addEventListener("pointerover", wczesnie, { passive: true });
+  document.addEventListener("pointerdown", wczesnie, { passive: true });
+  document.addEventListener("focusin", wczesnie);
+
   document.addEventListener("click", (e) => {
     const card = (e.target as Element | null)?.closest<HTMLAnchorElement>("a[data-bolt]");
     if (!card) return;
@@ -201,9 +231,11 @@ function initBolt() {
     const info = card.querySelector<HTMLElement>(".pcard__info");
     photo?.style.setProperty("view-transition-name", "player-photo");
     info?.style.setProperty("view-transition-name", "player-info");
+    card.classList.add("is-vt"); // miękkie krawędzie zdjęcia na czas lotu
     e.viewTransition.finished.finally(() => {
       photo?.style.removeProperty("view-transition-name");
       info?.style.removeProperty("view-transition-name");
+      card.classList.remove("is-vt");
     });
   });
 

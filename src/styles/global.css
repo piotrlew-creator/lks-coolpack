@@ -442,6 +442,49 @@ p {
   80% { transform: translate(2px, -1px); }
 }
 
+/* Skład ↔ strona zawodnika: jasna strona przygasa (jak po błysku pioruna),
+   a ciemna strona zawodnika wyłania się z mroku — bez szarego „prześwitu”
+   zwykłego przenikania. Przy powrocie odwrotnie: skład rozjaśnia się z ciemności. */
+html.vt-zawodnik::view-transition-old(root) {
+  animation: vt-dim-out 200ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+html.vt-zawodnik::view-transition-new(root) {
+  animation: vt-dim-in 360ms ease-out 90ms both;
+}
+/* Lecące zdjęcie: duże zdjęcie ze strony zawodnika płynnie przykrywa zdjęcie z kafla.
+   Zdjęcie z kafla zostaje widoczne prawie do końca lotu — gdyby duże zdjęcie
+   jeszcze się nie wczytało (wolny internet), zawodnik nie znika w połowie drogi. */
+html.vt-zawodnik::view-transition-old(player-photo),
+html.vt-zawodnik::view-transition-new(player-photo) {
+  mix-blend-mode: normal;
+}
+html.vt-zawodnik::view-transition-old(player-photo) {
+  animation: vt-photo-old 520ms linear both;
+}
+html.vt-zawodnik::view-transition-new(player-photo) {
+  animation: vt-fade-in 260ms ease-out both;
+}
+@keyframes vt-photo-old {
+  0%,
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes vt-dim-out {
+  to {
+    filter: brightness(0.1);
+  }
+}
+@keyframes vt-dim-in {
+  from {
+    opacity: 0;
+    filter: brightness(0.1);
+  }
+}
+
 /* Zdjęcie i numer zawodnika „przelatują” na jego stronę */
 ::view-transition-group(player-photo),
 ::view-transition-group(player-number) {

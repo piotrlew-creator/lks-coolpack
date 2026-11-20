@@ -4,7 +4,7 @@
   (skrypt w src/scripts/site.ts), a zdjęcie i numer „przelatują”
   na stronę zawodnika.
 */
-import { Image } from "astro:assets";
+import { getImage, Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { type Lang, playerUrl, pozycje, t } from "../i18n/ui";
 import Silhouette from "./Silhouette.astro";
@@ -17,6 +17,9 @@ interface Props {
 const { p, lang, index = 0 } = Astro.props;
 const d = p.data;
 const foto = d.kafel ?? d.zdjecie;
+// To samo zdjęcie i te same rozmiary co na stronie zawodnika — przeglądarka może je
+// wczytać już przy najechaniu/dotknięciu kafla, więc po przejściu jest od razu gotowe.
+const duze = d.zdjecie ? await getImage({ src: d.zdjecie, widths: [480, 720, 960, 1280] }) : undefined;
 ---
 
 <a
@@ -25,6 +28,8 @@ const foto = d.kafel ?? d.zdjecie;
   data-bolt
   data-slug={p.id}
   data-pos={d.pozycje.join("|")}
+  data-hero-srcset={duze?.srcSet.attribute}
+  data-hero-sizes="(min-width: 900px) 640px, 92vw"
   style={`--d:${Math.min(index, 8) * 60}ms`}
 >
   <span class="pcard__num" aria-hidden="true" data-vt="number">{d.numer}</span>
@@ -232,6 +237,17 @@ const foto = d.kafel ?? d.zdjecie;
   /* Kliknięty kafel — chwila „uderzenia” przed przejściem */
   :global(.pcard.is-struck) {
     animation: struck 380ms steps(1, end) both;
+  }
+  /* Tuż przed przejściem na stronę zawodnika: miękkie krawędzie zdjęcia, takie jak
+     na jego stronie — „lecące” zdjęcie nie ma wtedy ciemnego prostokąta wokół. */
+  :global(.pcard.is-struck) .pcard__photo :global(img),
+  :global(.pcard.is-vt) .pcard__photo :global(img) {
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 74%, transparent 100%),
+      linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 74%, transparent 100%),
+      linear-gradient(to right, transparent 0%, #000 18%, #000 82%, transparent 100%);
+    mask-composite: intersect;
   }
   :global(.pcard.is-struck) .pcard__num {
     color: #fff;

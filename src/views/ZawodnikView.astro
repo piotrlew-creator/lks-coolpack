@@ -163,7 +163,9 @@ const desc =
     inset: 0;
     z-index: 5;
     pointer-events: none;
-    background: #fff;
+    /* miękka czerwona poświata za zawodnikiem (bez białego błysku na cały ekran) */
+    background: radial-gradient(ellipse 60% 55% at 50% 42%, rgba(255, 40, 40, 0.45), transparent 70%);
+    mix-blend-mode: screen;
     opacity: 0;
   }
 
@@ -532,13 +534,12 @@ const desc =
   /* Wejście na stronę: uderzenie pioruna za zawodnikiem */
   @media (prefers-reduced-motion: no-preference) {
     .pp__flash {
-      animation: pp-flash 520ms ease-out both;
+      /* startuje, gdy zdjęcie już „doleciało” — jedno płynne rozbłyśnięcie */
+      animation: pp-flash 900ms ease-in-out 380ms both;
     }
     @keyframes pp-flash {
-    0% { opacity: 0.0; }
-    8% { opacity: 0.7; }
-    18% { opacity: 0; }
-    28% { opacity: 0.35; }
+    0% { opacity: 0; }
+    35% { opacity: 1; }
     100% { opacity: 0; }
   }
   @keyframes pp-num {
