@@ -135,7 +135,7 @@ const filtry = [
                 const next = m === nastepny;
                 return (
                   <li
-                    class:list={["game", { "game--next": next, "game--w": m.wygrana === true, "game--l": m.wygrana === false }]}
+                    class:list={["game", { "game--next": next, "game--w": m.wygrana === true, "game--l": m.wygrana === false, "game--tix": m.wygrana === null && m.dom && !!m.bilety }]}
                     id={next ? "najblizszy" : undefined}
                     data-miejsce={m.dom ? "dom" : "wyjazd"}
                     data-status={m.wygrana === null ? "nadchodzace" : "rozegrane"}
@@ -457,6 +457,7 @@ const filtry = [
     color: var(--muted);
   }
   .game__tag {
+    white-space: nowrap;
     padding: 2px 8px;
     border-radius: 999px;
     border: 1px solid var(--border);
@@ -586,6 +587,18 @@ const filtry = [
     .game {
       grid-template-columns: 44px minmax(0, 1fr) auto;
       gap: 10px;
+    }
+    /* mecz z biletami: przyciski w osobnym wierszu pod nazwą rywala, żeby nie ściskały tekstu */
+    .game--tix .game__res {
+      grid-column: 2 / -1;
+      justify-self: stretch;
+      text-align: left;
+    }
+    .game--tix .game__acts {
+      display: flex;
+    }
+    .game--tix .game__tix {
+      flex: 1 1 auto;
     }
     .game__day {
       font-size: 26px;
