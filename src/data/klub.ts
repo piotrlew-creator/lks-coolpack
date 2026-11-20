@@ -22,6 +22,7 @@ export const klub = {
   // Gdy administrator profilu to zmieni — ustaw true.
   facebookWtyczka: false,
   instagram: "https://www.instagram.com/lks_coolpack/",
+  x: "https://x.com/LKSCoolPackLodz",
 
   // Oficjalna strona drużyny w serwisie ligi (terminarz, wyniki, statystyki)
   stronaLigi: "https://1lm.pzkosz.pl/druzyny/d/14303/lks-coolpack-lodz.html",

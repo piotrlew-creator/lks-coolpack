@@ -177,7 +177,8 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
           <p class="venue__note">{kibice.bilety[lang]}</p>
         </div>
         <div class="btn-row venue__btns">
-          <a class="btn" href={klub.kontakt.hala.mapa} target="_blank" rel="noopener">{t(lang, "venue.map")}</a>
+          {mecz?.dom && mecz.bilety && <a class="btn" href={mecz.bilety} target="_blank" rel="noopener">{t(lang, "match.buyShort")}</a>}
+          <a class:list={["btn", { "btn--ghost": mecz?.dom && mecz.bilety }]} href={klub.kontakt.hala.mapa} target="_blank" rel="noopener">{t(lang, "venue.map")}</a>
           <a class="btn btn--ghost" href={route("terminarz", lang)}>{t(lang, "venue.fixtures")}</a>
         </div>
       </div>

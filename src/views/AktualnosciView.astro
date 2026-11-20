@@ -1,5 +1,5 @@
 ---
-/* Aktualności — Facebook i Instagram, ogłoszenia Klubu (gdy są), terminarz i tabela 1. ligi. */
+/* Aktualności — Facebook, Instagram i X, ogłoszenia Klubu (gdy są), terminarz i tabela 1. ligi. */
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import NewsCard from "../components/NewsCard.astro";
@@ -88,6 +88,15 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
                 <span class="scard__cta">{t(lang, "news.ig.open")}</span>
               </a>
             )}
+            {klub.x && (
+              <a class="scard scard--x" href={klub.x} target="_blank" rel="noopener">
+                <svg class="scard__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.63 7.58H.48l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.48 3.24H4.3l13.31 17.41Z"></path></svg>
+                <span class="scard__name">X</span>
+                <span class="scard__handle">@LKSCoolPackLodz</span>
+                <span class="scard__text">{t(lang, "news.x.card")}</span>
+                <span class="scard__cta">{t(lang, "news.x.open")}</span>
+              </a>
+            )}
           </div>
         )
       }
@@ -165,6 +174,9 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
   }
   .scard--ig .scard__icon {
     fill: #d62976;
+  }
+  .scard--x .scard__icon {
+    fill: #0f1419;
   }
   .scard__name {
     font-family: var(--font-cond);

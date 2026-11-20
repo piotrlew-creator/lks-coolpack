@@ -56,7 +56,7 @@ const jsonLd = {
   foundingDate: String(klub.rokZalozenia),
   url: new URL(u(), site).href,
   logo: new URL(u("icon-512.png"), site).href,
-  sameAs: [klub.facebook, klub.instagram].filter(Boolean),
+  sameAs: [klub.facebook, klub.instagram, klub.x].filter(Boolean),
   location: { "@type": "Place", address: { "@type": "PostalAddress", addressLocality: "Łódź", addressCountry: "PL" } },
 };
 ---
