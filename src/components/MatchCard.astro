@@ -126,6 +126,16 @@ const gosc = dom ? rywal : klub.nazwaKrotka;
   @media (max-width: 640px) {
     .mcard__tixbtn {
       width: 100%;
+      gap: 10px;
+      min-height: 56px;
+      padding-inline: 16px;
+      /* napis w jednym wierszu na typowym telefonie; na bardzo wąskim i tak się zawinie */
+      font-size: min(19px, 5vw);
+      letter-spacing: 0.04em;
+    }
+    .mcard__tixbtn svg {
+      width: 22px;
+      height: 22px;
     }
   }
   /* Grafika meczowa: na telefonie nad treścią, na większym ekranie po prawej */
