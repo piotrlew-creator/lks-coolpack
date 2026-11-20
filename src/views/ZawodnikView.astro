@@ -138,7 +138,7 @@ const desc =
     position: relative;
     display: grid;
     background:
-      radial-gradient(80% 70% at 70% 20%, #4a0b10 0%, transparent 60%),
+      radial-gradient(80% 70% at 70% 20%, #24201c 0%, transparent 60%),
       linear-gradient(180deg, #120f0c 0%, #0b0907 100%);
     color: #fff;
     overflow: hidden;
@@ -163,10 +163,8 @@ const desc =
     inset: 0;
     z-index: 5;
     pointer-events: none;
-    /* miękka czerwona poświata za zawodnikiem (bez białego błysku na cały ekran) */
-    background: radial-gradient(ellipse 60% 55% at 50% 42%, rgba(255, 40, 40, 0.45), transparent 70%);
-    mix-blend-mode: screen;
-    opacity: 0;
+    /* nieużywane — bez błysku ani poświaty po wejściu na stronę */
+    display: none;
   }
 
   .pp__stage {
@@ -195,7 +193,7 @@ const desc =
     letter-spacing: -0.03em;
     color: var(--red);
     view-transition-name: player-number;
-    text-shadow: 0 0 40px rgba(212, 4, 20, 0.55), 0 6px 18px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
     pointer-events: none;
   }
   .pp__photo {
@@ -533,15 +531,6 @@ const desc =
 
   /* Wejście na stronę: uderzenie pioruna za zawodnikiem */
   @media (prefers-reduced-motion: no-preference) {
-    .pp__flash {
-      /* startuje, gdy zdjęcie już „doleciało” — jedno płynne rozbłyśnięcie */
-      animation: pp-flash 900ms ease-in-out 380ms both;
-    }
-    @keyframes pp-flash {
-    0% { opacity: 0; }
-    35% { opacity: 1; }
-    100% { opacity: 0; }
-  }
   @keyframes pp-num {
     from { opacity: 0; transform: translateX(-30px) scale(1.4); }
   }

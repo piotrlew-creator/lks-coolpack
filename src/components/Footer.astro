@@ -264,6 +264,20 @@ import LeagueLogos from "./LeagueLogos.astro";
     padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
+  /* telefon: oba logotypy rozgrywek w jednym wierszu — zmniejszają się do szerokości ekranu */
+  @media (max-width: 759px) {
+    .ftr__league :global(.liga) {
+      --h: min(48px, calc((100vw - 56px) / 6.2));
+      flex-wrap: nowrap;
+      gap: 18px;
+    }
+    .ftr__league :global(.liga li:first-child img) {
+      height: calc(var(--h) * 1.5) !important;
+    }
+    .ftr__league :global(.liga li:last-child img) {
+      height: var(--h) !important;
+    }
+  }
   .ftr__bottom {
     margin-top: 40px;
     padding-block: 20px calc(20px + env(safe-area-inset-bottom));
