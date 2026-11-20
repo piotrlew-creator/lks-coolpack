@@ -43,3 +43,10 @@ export function dataWpisu(d: Date, lang: Lang): string {
     timeZone: "UTC",
   }).format(d);
 }
+
+/** Logotypy bardziej „kwadratowe” niż podłużne wyglądają przy tej samej wysokości na mniejsze —
+    ta skala (1–1,6) wyrównuje ich wizualną wielkość względem szerokich logotypów. */
+export function skalaLogo(img: { width: number; height: number }): number {
+  const proporcje = img.width / img.height;
+  return Math.min(1.6, Math.max(1, Math.sqrt(4 / proporcje)));
+}

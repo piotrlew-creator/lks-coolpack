@@ -5,6 +5,7 @@ import herbBialy from "../assets/logo/herb-bialy.png";
 import { klub } from "../data/klub";
 import { type Lang, NAV, route, t } from "../i18n/ui";
 import { telHref } from "../lib/url";
+import { skalaLogo } from "../lib/data";
 import Social from "./Social.astro";
 
 interface Props {
@@ -57,13 +58,13 @@ import LeagueLogos from "./LeagueLogos.astro";
               {s.data.link ? (
                 <a href={s.data.link} target="_blank" rel="noopener" aria-label={s.data.nazwa}>
                   {s.data.logoMono || s.data.logo ? (
-                    <Image src={(s.data.logoMono ?? s.data.logo)!} alt={s.data.nazwa} height={36} />
+                    <Image src={(s.data.logoMono ?? s.data.logo)!} alt={s.data.nazwa} height={Math.round(36 * skalaLogo((s.data.logoMono ?? s.data.logo)!))} style={`--k:${skalaLogo((s.data.logoMono ?? s.data.logo)!)}`} />
                   ) : (
                     <span class="ftr__spname">{s.data.nazwa}</span>
                   )}
                 </a>
               ) : s.data.logoMono || s.data.logo ? (
-                <Image src={(s.data.logoMono ?? s.data.logo)!} alt={s.data.nazwa} height={36} />
+                <Image src={(s.data.logoMono ?? s.data.logo)!} alt={s.data.nazwa} height={Math.round(36 * skalaLogo((s.data.logoMono ?? s.data.logo)!))} style={`--k:${skalaLogo((s.data.logoMono ?? s.data.logo)!)}`} />
               ) : (
                 <span class="ftr__spname">{s.data.nazwa}</span>
               )}
@@ -236,7 +237,7 @@ import LeagueLogos from "./LeagueLogos.astro";
     }
   }
   .ftr__sponsors :global(img) {
-    height: 32px;
+    height: calc(32px * var(--k, 1));
     width: auto;
     opacity: 0.85;
     transition: opacity 160ms;
@@ -352,7 +353,7 @@ import LeagueLogos from "./LeagueLogos.astro";
     }
     .ftr__sponsors :global(img) {
       height: auto;
-      max-height: 24px;
+      max-height: calc(24px * var(--k, 1));
       max-width: 100%;
     }
     .ftr__spname {

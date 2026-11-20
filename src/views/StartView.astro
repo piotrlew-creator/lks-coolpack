@@ -14,7 +14,7 @@ import herbCzerwony from "../assets/logo/herb-czerwony.png";
 import { klub } from "../data/klub";
 import { kolejnyMecz, najblizszyMecz } from "../lib/terminarz";
 import { type Lang, ROUTES, route, t } from "../i18n/ui";
-import { aktualnosci, sponsorzy as getSponsorzy, sztab as getSztab, zawodnicy as getZawodnicy } from "../lib/data";
+import { aktualnosci, skalaLogo, sponsorzy as getSponsorzy, sztab as getSztab, zawodnicy as getZawodnicy } from "../lib/data";
 import { u } from "../lib/url";
 
 interface Props {
@@ -220,7 +220,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
                   <Tag class="logos__tile" {...linkProps}>
                     {s.data.logo ? (
                       <>
-                        <Image src={s.data.logo} alt={s.data.nazwa} height={56} />
+                        <Image src={s.data.logo} alt={s.data.nazwa} height={Math.round(56 * skalaLogo(s.data.logo))} style={`--k:${skalaLogo(s.data.logo)}`} />
                       </>
                     ) : (
                       <span class="logos__name">{s.data.nazwa}</span>
@@ -611,7 +611,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
     transform: translateY(-3px);
   }
   .logos :global(img) {
-    max-height: 48px;
+    max-height: calc(48px * var(--k, 1));
     max-width: 100%;
     width: auto;
   }

@@ -8,7 +8,7 @@ import { sponsorom } from "../data/marketing";
 import { klub } from "../data/klub";
 import { type Lang, ROUTES, poziomGrupa, route, t } from "../i18n/ui";
 import { POZIOMY_SPONSORA } from "../lib/consts";
-import { sponsorzy } from "../lib/data";
+import { skalaLogo, sponsorzy } from "../lib/data";
 import { telHref, u } from "../lib/url";
 
 interface Props {
@@ -43,7 +43,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
                     <Tag class:list={["sp", { "sp--nolink": !s.data.link }]} {...linkProps}>
                       {s.data.logo ? (
                         <>
-                          <Image src={s.data.logo} alt={s.data.nazwa} height={g.lvl === "Sponsor tytularny" ? 96 : g.lvl === "Sponsor strategiczny" ? 80 : 64} />
+                          <Image src={s.data.logo} alt={s.data.nazwa} height={Math.round((g.lvl === "Sponsor tytularny" ? 96 : g.lvl === "Sponsor strategiczny" ? 80 : 64) * skalaLogo(s.data.logo))} style={`--k:${skalaLogo(s.data.logo)}`} />
                         </>
                       ) : (
                         <span class="sp__name">{s.data.nazwa}</span>
@@ -230,7 +230,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
     min-height: clamp(120px, 24vw, 180px);
   }
   .tier__list--mid .sp :global(img) {
-    max-height: 80px;
+    max-height: calc(80px * var(--k, 1));
   }
   .tier__list--top .sp {
     min-height: clamp(130px, 30vw, 240px);
@@ -247,10 +247,10 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
   .sp :global(img) {
     width: auto;
     max-width: 100%;
-    max-height: 64px;
+    max-height: calc(64px * var(--k, 1));
   }
   .tier__list--top .sp :global(img) {
-    max-height: 96px;
+    max-height: calc(96px * var(--k, 1));
   }
   .sp__name {
     text-align: center;
