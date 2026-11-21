@@ -1,7 +1,7 @@
 {
   "sezon": "2026/2027",
   "zrodlo": "https://1lm.pzkosz.pl/tabele.html",
-  "aktualizacja": "2026-11-20",
+  "aktualizacja": "2026-11-21",
   "druzyny": [
     {
       "miejsce": 1,
@@ -30,6 +30,31 @@
     },
     {
       "miejsce": 2,
+      "druzyna": "PGE Spójnia Stargard",
+      "pkt": 18,
+      "mecze": 10,
+      "bilans": [
+        8,
+        2
+      ],
+      "dom": [
+        4,
+        0
+      ],
+      "wyjazd": [
+        4,
+        2
+      ],
+      "kosze": [
+        910,
+        857
+      ],
+      "roznica": 53,
+      "strefa": "playoff",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/3022/pge-spojnia-stargard.html"
+    },
+    {
+      "miejsce": 3,
       "druzyna": "ŁKS Coolpack Łódź",
       "pkt": 17,
       "mecze": 10,
@@ -54,32 +79,32 @@
       "link": "https://1lm.pzkosz.pl/druzyny/d/14303/lks-coolpack-lodz.html"
     },
     {
-      "miejsce": 3,
-      "druzyna": "PGE Spójnia Stargard",
+      "miejsce": 4,
+      "druzyna": "KSK Qemetica Noteć Inowrocław",
       "pkt": 16,
-      "mecze": 9,
+      "mecze": 10,
       "bilans": [
-        7,
-        2
+        6,
+        4
       ],
       "dom": [
         4,
-        0
+        1
       ],
       "wyjazd": [
-        3,
-        2
+        2,
+        3
       ],
       "kosze": [
-        816,
-        776
+        803,
+        799
       ],
-      "roznica": 40,
+      "roznica": 4,
       "strefa": "playoff",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/3022/pge-spojnia-stargard.html"
+      "link": "https://1lm.pzkosz.pl/druzyny/d/11297/ksk-qemetica-notec-inowroclaw.html"
     },
     {
-      "miejsce": 4,
+      "miejsce": 5,
       "druzyna": "Enea Basket Poznań",
       "pkt": 15,
       "mecze": 9,
@@ -102,31 +127,6 @@
       "roznica": 60,
       "strefa": "playoff",
       "link": "https://1lm.pzkosz.pl/druzyny/d/7641/enea-basket-poznan.html"
-    },
-    {
-      "miejsce": 5,
-      "druzyna": "KSK Qemetica Noteć Inowrocław",
-      "pkt": 15,
-      "mecze": 9,
-      "bilans": [
-        6,
-        3
-      ],
-      "dom": [
-        4,
-        0
-      ],
-      "wyjazd": [
-        2,
-        3
-      ],
-      "kosze": [
-        722,
-        705
-      ],
-      "roznica": 17,
-      "strefa": "playoff",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/11297/ksk-qemetica-notec-inowroclaw.html"
     },
     {
       "miejsce": 6,
