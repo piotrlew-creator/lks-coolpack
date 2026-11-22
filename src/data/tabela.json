@@ -80,7 +80,32 @@
     },
     {
       "miejsce": 4,
-      "druzyna": "Decka Pelplin",
+      "druzyna": "OPTeam Resovia Rzeszów",
+      "pkt": 16,
+      "mecze": 11,
+      "bilans": [
+        5,
+        6
+      ],
+      "dom": [
+        3,
+        4
+      ],
+      "wyjazd": [
+        2,
+        2
+      ],
+      "kosze": [
+        933,
+        977
+      ],
+      "roznica": -44,
+      "strefa": "playoff",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/14302/opteam-resovia-rzeszow.html"
+    },
+    {
+      "miejsce": 5,
+      "druzyna": "Enea Basket Poznań",
       "pkt": 16,
       "mecze": 10,
       "bilans": [
@@ -96,15 +121,15 @@
         3
       ],
       "kosze": [
-        931,
-        927
+        927,
+        870
       ],
-      "roznica": 4,
+      "roznica": 57,
       "strefa": "playoff",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/7625/decka-pelplin.html"
+      "link": "https://1lm.pzkosz.pl/druzyny/d/7641/enea-basket-poznan.html"
     },
     {
-      "miejsce": 5,
+      "miejsce": 6,
       "druzyna": "KSK Qemetica Noteć Inowrocław",
       "pkt": 16,
       "mecze": 10,
@@ -129,13 +154,13 @@
       "link": "https://1lm.pzkosz.pl/druzyny/d/11297/ksk-qemetica-notec-inowroclaw.html"
     },
     {
-      "miejsce": 6,
-      "druzyna": "Enea Basket Poznań",
-      "pkt": 15,
-      "mecze": 9,
+      "miejsce": 7,
+      "druzyna": "Decka Pelplin",
+      "pkt": 16,
+      "mecze": 10,
       "bilans": [
         6,
-        3
+        4
       ],
       "dom": [
         4,
@@ -143,18 +168,18 @@
       ],
       "wyjazd": [
         2,
-        2
+        3
       ],
       "kosze": [
-        827,
-        767
+        931,
+        927
       ],
-      "roznica": 60,
+      "roznica": 4,
       "strefa": "playoff",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/7641/enea-basket-poznan.html"
+      "link": "https://1lm.pzkosz.pl/druzyny/d/7625/decka-pelplin.html"
     },
     {
-      "miejsce": 7,
+      "miejsce": 8,
       "druzyna": "Solvera Sokół Łańcut",
       "pkt": 15,
       "mecze": 10,
@@ -179,7 +204,57 @@
       "link": "https://1lm.pzkosz.pl/druzyny/d/12772/solvera-sokol-lancut.html"
     },
     {
-      "miejsce": 8,
+      "miejsce": 9,
+      "druzyna": "WKK Active Hotel Wrocław",
+      "pkt": 15,
+      "mecze": 10,
+      "bilans": [
+        5,
+        5
+      ],
+      "dom": [
+        4,
+        2
+      ],
+      "wyjazd": [
+        1,
+        3
+      ],
+      "kosze": [
+        828,
+        845
+      ],
+      "roznica": -17,
+      "strefa": "",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/3009/wkk-active-hotel-wroclaw.html"
+    },
+    {
+      "miejsce": 10,
+      "druzyna": "GKS Tychy",
+      "pkt": 14,
+      "mecze": 10,
+      "bilans": [
+        4,
+        6
+      ],
+      "dom": [
+        3,
+        2
+      ],
+      "wyjazd": [
+        1,
+        4
+      ],
+      "kosze": [
+        776,
+        792
+      ],
+      "roznica": -16,
+      "strefa": "",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/785/gks-tychy.html"
+    },
+    {
+      "miejsce": 11,
       "druzyna": "KKS Polonia Warszawa",
       "pkt": 14,
       "mecze": 9,
@@ -200,36 +275,11 @@
         833
       ],
       "roznica": -39,
-      "strefa": "playoff",
+      "strefa": "",
       "link": "https://1lm.pzkosz.pl/druzyny/d/9523/kks-polonia-warszawa.html"
     },
     {
-      "miejsce": 9,
-      "druzyna": "WKK Active Hotel Wrocław",
-      "pkt": 14,
-      "mecze": 9,
-      "bilans": [
-        5,
-        4
-      ],
-      "dom": [
-        4,
-        1
-      ],
-      "wyjazd": [
-        1,
-        3
-      ],
-      "kosze": [
-        740,
-        751
-      ],
-      "roznica": -11,
-      "strefa": "",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/3009/wkk-active-hotel-wroclaw.html"
-    },
-    {
-      "miejsce": 10,
+      "miejsce": 12,
       "druzyna": "Datzzy Kotwica Port Kołobrzeg",
       "pkt": 14,
       "mecze": 10,
@@ -254,82 +304,57 @@
       "link": "https://1lm.pzkosz.pl/druzyny/d/14306/datzzy-kotwica-port-kolobrzeg.html"
     },
     {
-      "miejsce": 11,
-      "druzyna": "OPTeam Resovia Rzeszów",
-      "pkt": 14,
+      "miejsce": 13,
+      "druzyna": "SKS Fulimpex Starogard Gdański",
+      "pkt": 13,
       "mecze": 10,
       "bilans": [
-        4,
-        6
-      ],
-      "dom": [
-        2,
-        4
-      ],
-      "wyjazd": [
-        2,
-        2
-      ],
-      "kosze": [
-        830,
-        877
-      ],
-      "roznica": -47,
-      "strefa": "",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/14302/opteam-resovia-rzeszow.html"
-    },
-    {
-      "miejsce": 12,
-      "druzyna": "GKS Tychy",
-      "pkt": 13,
-      "mecze": 9,
-      "bilans": [
-        4,
-        5
-      ],
-      "dom": [
         3,
-        2
-      ],
-      "wyjazd": [
-        1,
-        3
-      ],
-      "kosze": [
-        716,
-        712
-      ],
-      "roznica": 4,
-      "strefa": "",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/785/gks-tychy.html"
-    },
-    {
-      "miejsce": 13,
-      "druzyna": "Miasto Szkła Krosno",
-      "pkt": 11,
-      "mecze": 9,
-      "bilans": [
-        2,
         7
       ],
       "dom": [
+        2,
+        4
+      ],
+      "wyjazd": [
         1,
         3
+      ],
+      "kosze": [
+        869,
+        904
+      ],
+      "roznica": -35,
+      "strefa": "",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/10435/sks-fulimpex-starogard-gdanski.html"
+    },
+    {
+      "miejsce": 14,
+      "druzyna": "Weegree AZS Politechnika Opolska",
+      "pkt": 13,
+      "mecze": 11,
+      "bilans": [
+        2,
+        9
+      ],
+      "dom": [
+        1,
+        5
       ],
       "wyjazd": [
         1,
         4
       ],
       "kosze": [
-        753,
-        789
+        890,
+        988
       ],
-      "roznica": -36,
+      "roznica": -98,
       "strefa": "",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/4132/miasto-szkla-krosno.html"
+      "link": "https://1lm.pzkosz.pl/druzyny/d/14301/weegree-azs-politechnika-opolska.html"
     },
     {
-      "miejsce": 14,
+      "miejsce": 15,
       "druzyna": "BS Polonia Bytom",
       "pkt": 11,
       "mecze": 9,
@@ -350,37 +375,12 @@
         801
       ],
       "roznica": -57,
-      "strefa": "",
+      "strefa": "spadek",
       "link": "https://1lm.pzkosz.pl/druzyny/d/10413/bs-polonia-bytom.html"
     },
     {
-      "miejsce": 15,
-      "druzyna": "Weegree AZS Politechnika Opolska",
-      "pkt": 11,
-      "mecze": 10,
-      "bilans": [
-        1,
-        9
-      ],
-      "dom": [
-        1,
-        5
-      ],
-      "wyjazd": [
-        0,
-        4
-      ],
-      "kosze": [
-        796,
-        900
-      ],
-      "roznica": -104,
-      "strefa": "spadek",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/14301/weegree-azs-politechnika-opolska.html"
-    },
-    {
       "miejsce": 16,
-      "druzyna": "SKS Fulimpex Starogard Gdański",
+      "druzyna": "Miasto Szkła Krosno",
       "pkt": 11,
       "mecze": 9,
       "bilans": [
@@ -389,19 +389,19 @@
       ],
       "dom": [
         1,
-        4
+        3
       ],
       "wyjazd": [
         1,
-        3
+        4
       ],
       "kosze": [
-        789,
-        844
+        753,
+        789
       ],
-      "roznica": -55,
+      "roznica": -36,
       "strefa": "spadek",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/10435/sks-fulimpex-starogard-gdanski.html"
+      "link": "https://1lm.pzkosz.pl/druzyny/d/4132/miasto-szkla-krosno.html"
     }
   ]
 }
