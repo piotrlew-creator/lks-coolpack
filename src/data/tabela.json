@@ -6,14 +6,14 @@
     {
       "miejsce": 1,
       "druzyna": "Zdrovo Polonia 1912 Leszno",
-      "pkt": 18,
-      "mecze": 9,
+      "pkt": 20,
+      "mecze": 10,
       "bilans": [
-        9,
+        10,
         0
       ],
       "dom": [
-        5,
+        6,
         0
       ],
       "wyjazd": [
@@ -21,10 +21,10 @@
         0
       ],
       "kosze": [
-        803,
-        669
+        880,
+        728
       ],
-      "roznica": 134,
+      "roznica": 152,
       "strefa": "playoff",
       "link": "https://1lm.pzkosz.pl/druzyny/d/14460/zdrovo-polonia-1912-leszno.html"
     },
@@ -355,6 +355,31 @@
     },
     {
       "miejsce": 15,
+      "druzyna": "Miasto Szkła Krosno",
+      "pkt": 12,
+      "mecze": 10,
+      "bilans": [
+        2,
+        8
+      ],
+      "dom": [
+        1,
+        3
+      ],
+      "wyjazd": [
+        1,
+        5
+      ],
+      "kosze": [
+        812,
+        866
+      ],
+      "roznica": -54,
+      "strefa": "spadek",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/4132/miasto-szkla-krosno.html"
+    },
+    {
+      "miejsce": 16,
       "druzyna": "BS Polonia Bytom",
       "pkt": 11,
       "mecze": 9,
@@ -377,31 +402,6 @@
       "roznica": -57,
       "strefa": "spadek",
       "link": "https://1lm.pzkosz.pl/druzyny/d/10413/bs-polonia-bytom.html"
-    },
-    {
-      "miejsce": 16,
-      "druzyna": "Miasto Szkła Krosno",
-      "pkt": 11,
-      "mecze": 9,
-      "bilans": [
-        2,
-        7
-      ],
-      "dom": [
-        1,
-        3
-      ],
-      "wyjazd": [
-        1,
-        4
-      ],
-      "kosze": [
-        753,
-        789
-      ],
-      "roznica": -36,
-      "strefa": "spadek",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/4132/miasto-szkla-krosno.html"
     }
   ]
 }
