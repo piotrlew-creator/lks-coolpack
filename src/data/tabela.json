@@ -1,7 +1,7 @@
 {
   "sezon": "2026/2027",
   "zrodlo": "https://1lm.pzkosz.pl/tabele.html",
-  "aktualizacja": "2026-11-21",
+  "aktualizacja": "2026-11-22",
   "druzyny": [
     {
       "miejsce": 1,
@@ -80,6 +80,31 @@
     },
     {
       "miejsce": 4,
+      "druzyna": "Decka Pelplin",
+      "pkt": 16,
+      "mecze": 10,
+      "bilans": [
+        6,
+        4
+      ],
+      "dom": [
+        4,
+        1
+      ],
+      "wyjazd": [
+        2,
+        3
+      ],
+      "kosze": [
+        931,
+        927
+      ],
+      "roznica": 4,
+      "strefa": "playoff",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/7625/decka-pelplin.html"
+    },
+    {
+      "miejsce": 5,
       "druzyna": "KSK Qemetica Noteć Inowrocław",
       "pkt": 16,
       "mecze": 10,
@@ -104,7 +129,7 @@
       "link": "https://1lm.pzkosz.pl/druzyny/d/11297/ksk-qemetica-notec-inowroclaw.html"
     },
     {
-      "miejsce": 5,
+      "miejsce": 6,
       "druzyna": "Enea Basket Poznań",
       "pkt": 15,
       "mecze": 9,
@@ -129,7 +154,32 @@
       "link": "https://1lm.pzkosz.pl/druzyny/d/7641/enea-basket-poznan.html"
     },
     {
-      "miejsce": 6,
+      "miejsce": 7,
+      "druzyna": "Solvera Sokół Łańcut",
+      "pkt": 15,
+      "mecze": 10,
+      "bilans": [
+        5,
+        5
+      ],
+      "dom": [
+        2,
+        1
+      ],
+      "wyjazd": [
+        3,
+        4
+      ],
+      "kosze": [
+        874,
+        861
+      ],
+      "roznica": 13,
+      "strefa": "playoff",
+      "link": "https://1lm.pzkosz.pl/druzyny/d/12772/solvera-sokol-lancut.html"
+    },
+    {
+      "miejsce": 8,
       "druzyna": "KKS Polonia Warszawa",
       "pkt": 14,
       "mecze": 9,
@@ -154,7 +204,7 @@
       "link": "https://1lm.pzkosz.pl/druzyny/d/9523/kks-polonia-warszawa.html"
     },
     {
-      "miejsce": 7,
+      "miejsce": 9,
       "druzyna": "WKK Active Hotel Wrocław",
       "pkt": 14,
       "mecze": 9,
@@ -175,58 +225,8 @@
         751
       ],
       "roznica": -11,
-      "strefa": "playoff",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/3009/wkk-active-hotel-wroclaw.html"
-    },
-    {
-      "miejsce": 8,
-      "druzyna": "Decka Pelplin",
-      "pkt": 14,
-      "mecze": 9,
-      "bilans": [
-        5,
-        4
-      ],
-      "dom": [
-        3,
-        1
-      ],
-      "wyjazd": [
-        2,
-        3
-      ],
-      "kosze": [
-        835,
-        841
-      ],
-      "roznica": -6,
-      "strefa": "playoff",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/7625/decka-pelplin.html"
-    },
-    {
-      "miejsce": 9,
-      "druzyna": "OPTeam Resovia Rzeszów",
-      "pkt": 14,
-      "mecze": 10,
-      "bilans": [
-        4,
-        6
-      ],
-      "dom": [
-        2,
-        4
-      ],
-      "wyjazd": [
-        2,
-        2
-      ],
-      "kosze": [
-        830,
-        877
-      ],
-      "roznica": -47,
       "strefa": "",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/14302/opteam-resovia-rzeszow.html"
+      "link": "https://1lm.pzkosz.pl/druzyny/d/3009/wkk-active-hotel-wroclaw.html"
     },
     {
       "miejsce": 10,
@@ -255,28 +255,28 @@
     },
     {
       "miejsce": 11,
-      "druzyna": "Solvera Sokół Łańcut",
+      "druzyna": "OPTeam Resovia Rzeszów",
       "pkt": 14,
-      "mecze": 9,
+      "mecze": 10,
       "bilans": [
-        5,
-        4
+        4,
+        6
       ],
       "dom": [
         2,
-        1
+        4
       ],
       "wyjazd": [
-        3,
-        3
+        2,
+        2
       ],
       "kosze": [
-        788,
-        765
+        830,
+        877
       ],
-      "roznica": 23,
+      "roznica": -47,
       "strefa": "",
-      "link": "https://1lm.pzkosz.pl/druzyny/d/12772/solvera-sokol-lancut.html"
+      "link": "https://1lm.pzkosz.pl/druzyny/d/14302/opteam-resovia-rzeszow.html"
     },
     {
       "miejsce": 12,
