@@ -40,10 +40,10 @@ const coords = [
                 {c.funkcja} — <strong>{c.k.imie}</strong>
               </p>
               <p class="join__line">
-                tel.: <a href={tel(c.k.telefon)}>{c.k.telefon}</a>
+                {t(lang, "contact.tel")} <a href={tel(c.k.telefon)}>{c.k.telefon}</a>
               </p>
               <p class="join__line">
-                e-mail: <a href={`mailto:${c.k.email}`}>{c.k.email}</a>
+                {t(lang, "contact.mail")} <a href={`mailto:${c.k.email}`}>{c.k.email}</a>
               </p>
             </div>
           ))

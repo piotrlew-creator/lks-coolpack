@@ -10,7 +10,7 @@ tresc: |
 
   Trzymajcie kciuki!
 trescEn: |
-  It's our next 1st League game of the season. We'll post updates on Facebook and Instagram, and the result with the box score under Fixtures and results.
+  It’s our next 1st League game of the season. We’ll post updates on Facebook and Instagram, and the result with the box score under Fixtures and results.
 
   Keep your fingers crossed!
 mecz:

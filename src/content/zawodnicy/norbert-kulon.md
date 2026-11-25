@@ -14,7 +14,7 @@ opis: |
 
   Seniorską karierę zaczynał w Śląsku Wrocław, z którym grał też w ekstraklasie. Występował również m.in. w Kingu Szczecin, GKS Tychy i Kotwicy Kołobrzeg.
 opisEn: |
-  Team captain. With ŁKS since 2021/2022, he won promotion with the team from the 2nd to the 1st League.
+  Team captain. He joined ŁKS in 2021/2022 and helped the team win promotion from the 2nd to the 1st League.
 
   He began his senior career at Śląsk Wrocław, also playing for them in the top flight. His other clubs include King Szczecin, GKS Tychy and Kotwica Kołobrzeg.
 # Kariera w Polsce (źródło: 1lm.pzkosz.pl). liga: EKS = ekstraklasa, 1L, 2L, 3L

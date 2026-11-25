@@ -43,6 +43,7 @@ export const klub = {
     hala: {
       nazwa: "Sport Arena Łódź im. Józefa „Ziuny” Żylińskiego",
       nazwaKrotka: "Sport Arena Łódź",
+      nazwaEn: "Sport Arena Łódź (named after Józef “Ziuna” Żyliński)",
       adres: "al. Unii Lubelskiej 2, 94-020 Łódź",
       mapa: "https://maps.app.goo.gl/MKyc4p7NLWHGsACMA",
     },

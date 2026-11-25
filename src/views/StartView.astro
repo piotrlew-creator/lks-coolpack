@@ -172,7 +172,7 @@ const wpisy = wszystkie.filter((w) => !(mecz && w.data.mecz?.data === mecz.data)
       <div class="card card--accent venue reveal">
         <div>
           <p class="kicker">{t(lang, "venue.kicker")}</p>
-          <p class="venue__name">{klub.kontakt.hala.nazwa}</p>
+          <p class="venue__name">{lang === "en" ? klub.kontakt.hala.nazwaEn : klub.kontakt.hala.nazwa}</p>
           <p class="venue__addr">{klub.kontakt.hala.adres}</p>
           <p class="venue__note">{kibice.bilety[lang]}</p>
         </div>

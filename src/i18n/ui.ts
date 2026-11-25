@@ -159,7 +159,7 @@ export const ui = {
     "stats.ppg": "Punkty na mecz",
     "stats.rpg": "Zbiórki na mecz",
     "stats.apg": "Asysty na mecz",
-    "stats.eff": "Eval na mecz",
+    "stats.eff": "Efektywność na mecz",
     "stats.games": "Rozegrane mecze",
     "stats.min": "Minuty na mecz",
     "stats.blk": "Bloki na mecz",
@@ -391,7 +391,7 @@ export const ui = {
     "stats.ft": "Free throws",
     "stats.pm": "+/− per game",
     "stats.source": "Source: Polish Basketball Federation (1lm.pzkosz.pl). Updated",
-    "stats.none": "Stats will appear after the player's first game of the season.",
+    "stats.none": "Stats will appear after the player’s first game of the season.",
     "swipe.hint": "Swipe for the next player",
 
     "history.kicker": "ŁKS since 1908",
@@ -425,7 +425,7 @@ export const ui = {
     "sponsors.join.kicker": "For businesses",
     "sponsors.join.title": "Become a sponsor",
     "sponsors.join.text":
-      "Would your company like to support ŁKS? Email or call us and we'll work out a partnership that suits both sides.",
+      "Would your company like to support ŁKS? Email or call us and we’ll work out a partnership that suits both sides.",
     "sponsors.join.cta": "Get in touch",
     "sponsors.strip": "Our sponsors",
     "sponsors.ours": "Our sponsors and partners",
@@ -441,7 +441,7 @@ export const ui = {
     "news.fb.desc": "Results, previews and match reports from ŁKS CoolPack.",
     "news.fb.btn": "Show posts",
     "news.fb.note":
-      "Clicking loads content from Meta's servers, which may set cookies. Until you click, this page doesn't connect to Facebook.",
+      "Clicking loads content from Meta’s servers, which may set cookies. Until you click, this page doesn’t connect to Facebook.",
     "news.fb.open": "Go to our Facebook page",
     "news.ig.open": "Go to our Instagram",
     "news.x.open": "Go to our X profile",
@@ -461,7 +461,7 @@ export const ui = {
 
     "contact.kicker": "ŁKS CoolPack Łódź",
     "contact.title": "Contact",
-    "contact.lead": "Call or email us and we'll get back to you as soon as we can.",
+    "contact.lead": "Call or email us and we’ll get back to you as soon as we can.",
     "contact.office": "Club office",
     "contact.sponsoring": "Sponsorship and partnerships",
     "contact.media": "Media and accreditation",

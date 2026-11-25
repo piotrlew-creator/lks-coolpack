@@ -50,7 +50,7 @@ const allBoxes: Box[] = [
   },
   {
     title: "contact.arena",
-    who: k.hala.nazwa,
+    who: lang === "en" ? k.hala.nazwaEn : k.hala.nazwa,
     lines: [
       k.hala.adres && { text: k.hala.adres },
       (k.hala.mapa || k.hala.adres) && {

@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import PageHero from "../components/PageHero.astro";
 import FeatureIcon from "../components/FeatureIcon.astro";
-import { sponsorom } from "../data/marketing";
+import { sponsorom, liczbaEn } from "../data/marketing";
 import { klub } from "../data/klub";
 import { type Lang, ROUTES, poziomGrupa, route, t } from "../i18n/ui";
 import { POZIOMY_SPONSORA } from "../lib/consts";
@@ -73,7 +73,7 @@ const sp = k.sponsoring.telefon || k.sponsoring.email ? k.sponsoring : { osoba: 
         {
           sponsorom.liczby.map((n) => (
             <div class="reveal">
-              <dt>{n.wartosc}</dt>
+              <dt>{lang === "en" ? liczbaEn(n.wartosc) : n.wartosc}</dt>
               <dd>{n.opis[lang]}</dd>
             </div>
           ))

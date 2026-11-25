@@ -9,6 +9,8 @@ export const liczby = {
   rokZalozenia: "1908",
   mlodziez: "~250",
 };
+/* Zapis liczb po angielsku: 9000 → 9,000 */
+export const liczbaEn = (v: string) => v.replace(/(\d)(\d{3})(?!\d)/g, "$1,$2");
 
 type Tekst = { pl: string; en: string };
 type Kafel = { tytul: Tekst; tekst: Tekst; ikona: "fans" | "prize" | "kids" | "trophy" | "tv" | "youth" | "history" };
@@ -24,10 +26,10 @@ export const kibice = {
   kafle: [
     {
       ikona: "fans",
-      tytul: { pl: `${liczby.kibice} kibiców`, en: `${liczby.kibice} fans` },
+      tytul: { pl: `${liczby.kibice} kibiców`, en: `${liczbaEn(liczby.kibice)} fans` },
       tekst: {
-        pl: "Tylu kibiców średnio dopinguje ŁKS na meczach w Łodzi. Głośno, czerwono-biało-czerwono, z tradycją od 1908 roku.",
-        en: "That's the average crowd backing ŁKS at home games in Łódź. Loud, red, white and red, with a tradition going back to 1908.",
+        pl: "Tylu kibiców zwykle dopinguje ŁKS na meczach w Łodzi. Głośno, czerwono-biało-czerwono, z tradycją od 1908 roku.",
+        en: "That’s how many fans typically back ŁKS at home games in Łódź. Loud, decked out in red, white and red, with a tradition going back to 1908.",
       },
     },
     {
@@ -71,7 +73,7 @@ export const sponsorom = {
   },
   liczby: [
     { wartosc: liczby.facebook, opis: { pl: "obserwujących na Facebooku", en: "Facebook followers" } },
-    { wartosc: liczby.kibice, opis: { pl: "kibiców średnio na meczu w Łodzi", en: "average home crowd" } },
+    { wartosc: liczby.kibice, opis: { pl: "kibiców na meczu w Łodzi", en: "fans at a typical home game" } },
     { wartosc: "100%", opis: { pl: "meczów na żywo w Emocje.TV", en: "of games live on Emocje.TV" } },
     { wartosc: liczby.mlodziez, opis: { pl: "młodych zawodników w grupach ŁKS", en: "young players in ŁKS youth teams" } },
   ],
@@ -88,8 +90,8 @@ export const sponsorom = {
       ikona: "fans",
       tytul: { pl: "Pełne trybuny i rodzinne wydarzenie", en: "Packed stands, family events" },
       tekst: {
-        pl: `Na każdy mecz w Sport Arenie przychodzi średnio ${liczby.kibice} kibiców. Konkursy z nagrodami od sponsorów i atrakcje dla dzieci sprawiają, że Twoja marka jest częścią wydarzenia dla całych rodzin.`,
-        en: `Every game at Sport Arena draws ${liczby.kibice} fans on average. Competitions with sponsor prizes and activities for kids put your brand at the heart of a family event.`,
+        pl: `Na każdy mecz w Sport Arenie przychodzi zwykle ${liczby.kibice} kibiców. Konkursy z nagrodami od sponsorów i atrakcje dla dzieci sprawiają, że Twoja marka jest częścią wydarzenia dla całych rodzin.`,
+        en: `Every game at Sport Arena typically draws ${liczbaEn(liczby.kibice)} fans. Competitions with sponsor prizes and activities for kids put your brand at the heart of a family event.`,
       },
     },
     {
@@ -97,7 +99,7 @@ export const sponsorom = {
       tytul: { pl: "Zasięg w sieci i na żywo", en: "Reach online and live" },
       tekst: {
         pl: `Ponad ${liczby.facebook.replace("+", "")} osób aktywnie obserwuje nasz profil na Facebooku, a każdy mecz 1. ligi transmituje na żywo Emocje.TV.`,
-        en: `More than ${liczby.facebook.replace("+", "")} people actively follow our Facebook page, and every 1st League game is streamed live on Emocje.TV.`,
+        en: `More than ${liczbaEn(liczby.facebook.replace("+", ""))} people actively follow our Facebook page, and every 1st League game is streamed live on Emocje.TV.`,
       },
     },
     {
