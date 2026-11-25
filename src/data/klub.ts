@@ -57,7 +57,7 @@ export const klub = {
 
   // Statystyki bez cookies (Cloudflare Web Analytics) — token z panelu
   // Cloudflare. Pusty = skrypt statystyk nie jest dołączany.
-  cfAnalyticsToken: "",
+  cfAnalyticsToken: "39265100a27c4b01bb337c10934266c7",
 };
 
 /*
