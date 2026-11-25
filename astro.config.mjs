@@ -2,14 +2,12 @@
 import { defineConfig } from "astro/config";
 
 /*
-  Adres strony.
-  Na razie strona działa jako wersja robocza pod adresem GitHub Pages:
-  https://piotrlew-creator.github.io/lks-coolpack/
-  Gdy podłączymy własną domenę (np. https://lkscoolpack.pl), wystarczy
-  zmienić SITE na adres domeny i BASE na "/".
+  Adres strony: własna domena lkscoolpacklodz.pl (od 25.11.2026).
+  DNS w Cloudflare, strona na GitHub Pages (repozytorium piotrlew-creator/lks-coolpack).
+  Stary adres piotrlew-creator.github.io/lks-coolpack/ przekierowuje tutaj automatycznie.
 */
-const SITE = "https://piotrlew-creator.github.io";
-const BASE = "/lks-coolpack";
+const SITE = "https://lkscoolpacklodz.pl";
+const BASE = "/";
 
 export default defineConfig({
   site: SITE,

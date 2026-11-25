@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://piotrlew-creator.github.io/lks-coolpack/sitemap.xml
+Sitemap: https://lkscoolpacklodz.pl/sitemap.xml

@@ -1,7 +1,7 @@
 /*
-  Adresy wewnętrzne niezależne od tego, czy strona stoi pod
-  piotrlew-creator.github.io/lks-coolpack/, czy pod własną domeną.
-  Użycie: u("sklad/") → "/lks-coolpack/sklad/"
+  Adresy wewnętrzne niezależne od tego, pod jakim adresem stoi strona
+  (dziś: lkscoolpacklodz.pl, BASE = "/").
+  Użycie: u("sklad/") → "/sklad/"
 */
 const BASE = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
