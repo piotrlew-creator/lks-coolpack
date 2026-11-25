@@ -28,8 +28,8 @@ export const kibice = {
       ikona: "fans",
       tytul: { pl: `${liczby.kibice} kibiców`, en: `${liczbaEn(liczby.kibice)} fans` },
       tekst: {
-        pl: "Tylu kibiców zwykle dopinguje ŁKS na meczach w Łodzi. Głośno, czerwono-biało-czerwono, z tradycją od 1908 roku.",
-        en: "That’s how many fans typically back ŁKS at home games in Łódź. Loud, decked out in red, white and red, with a tradition going back to 1908.",
+        pl: "Tylu kibiców zwykle dopinguje ŁKS na meczach w Łodzi. Głośno, biało-czerwono-biało, z tradycją od 1908 roku.",
+        en: "That’s how many fans typically back ŁKS at home games in Łódź. Loud, decked out in white, red and white, with a tradition going back to 1908.",
       },
     },
     {
