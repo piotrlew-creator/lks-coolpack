@@ -4,6 +4,14 @@
   stopka, motyw jasny/ciemny i zabezpieczenia (CSP).
 */
 import "../styles/global.css";
+// Najważniejsze czcionki ładowane od razu z HTML (nagłówki i tekst na pierwszym ekranie):
+// tekst nie „przeskakuje”, gdy czcionka dociera po wyświetleniu strony.
+import fCond800 from "../assets/fonts/barlow-condensed-latin-800-normal.woff2?url";
+import fCond800ext from "../assets/fonts/barlow-condensed-latin-ext-800-normal.woff2?url";
+import fCond700 from "../assets/fonts/barlow-condensed-latin-700-normal.woff2?url";
+import fBody400 from "../assets/fonts/barlow-latin-400-normal.woff2?url";
+import fBody400ext from "../assets/fonts/barlow-latin-ext-400-normal.woff2?url";
+const preloadFonts = [fCond800, fCond800ext, fCond700, fBody400, fBody400ext];
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { klub } from "../data/klub";
@@ -65,6 +73,7 @@ const jsonLd = {
 <html lang={lang} data-theme="light">
   <head>
     <meta charset="utf-8" />
+    {preloadFonts.map((f) => <link rel="preload" href={f} as="font" type="font/woff2" crossorigin />)}
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta http-equiv="Content-Security-Policy" content={csp} />
     <meta name="referrer" content="strict-origin-when-cross-origin" />

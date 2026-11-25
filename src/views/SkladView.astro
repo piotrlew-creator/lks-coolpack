@@ -77,6 +77,21 @@ const used = POZYCJE.filter((p) => players.some((pl) => pl.data.pozycje.includes
     border-color: var(--red);
     color: #fff;
   }
+  /* telefon i tablet: wszystkie pozycje widoczne od razu (bez ukrytego przewijania w bok) */
+  @media (max-width: 899px) {
+    .filter {
+      flex-wrap: wrap;
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+    .filter button {
+      min-height: 40px;
+      padding: 0 14px;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+    }
+  }
   .grid {
     list-style: none;
     margin: 0;
